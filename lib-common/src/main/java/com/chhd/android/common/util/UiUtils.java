@@ -7,7 +7,7 @@ import com.chhd.android.common.global.BaseApplication;
 
 
 /**
- * Created by congh on 2017/11/30.
+ * Created by 葱花滑蛋 on 2017/11/30.
  */
 
 public class UiUtils {
@@ -15,11 +15,11 @@ public class UiUtils {
     private UiUtils() {
     }
 
-    public static Context getContext() {
-        return BaseApplication.getApplication();
+    private static Context getContext() {
+        return CommonUtils.getApplication();
     }
 
-    public static Resources getResources() {
+    private static Resources getResources() {
         return getContext().getResources();
     }
 
@@ -33,5 +33,10 @@ public class UiUtils {
 
     public static int getColor(int id) {
         return getResources().getColor(id);
+    }
+
+    public static int dp2px(float dp) {
+        float density = getResources().getDisplayMetrics().density;
+        return (int) (dp * density + 0.5f);
     }
 }

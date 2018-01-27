@@ -23,7 +23,7 @@ public class LauncherUtils {
     }
 
     private static Context getContext() {
-        return BaseApplication.getApplication();
+        return CommonUtils.getApplication();
     }
 
     public static void changeLauncherInfo(String activeName, String inactiveName) {

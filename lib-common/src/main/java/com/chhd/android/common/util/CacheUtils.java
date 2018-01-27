@@ -19,13 +19,11 @@ import java.lang.reflect.Method;
 
 public class CacheUtils {
 
-    private static final String TAG = "CacheUtils";
-
     private CacheUtils() {
     }
 
     private static Context getContext() {
-        return BaseApplication.getApplication();
+        return CommonUtils.getApplication();
     }
 
     public static void getPackageSizeInfo(final IPackageStatsObserver observer) {
@@ -38,7 +36,6 @@ public class CacheUtils {
                         @Override
                         public void onGetStatsCompleted(PackageStats pStats, boolean succeeded)
                                 throws RemoteException {
-                            Log.i(TAG, "onGetStatsCompleted: ");
                             observer.onGetStatsCompleted(pStats, succeeded);
                         }
                     });

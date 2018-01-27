@@ -6,7 +6,7 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 
 /**
- * 振动器
+ * 左右抖动动画
  *
  * Created by 葱花滑蛋 on 2017/11/30.
  */
