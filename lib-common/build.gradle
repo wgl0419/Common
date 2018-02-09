@@ -42,7 +42,7 @@ publish {
     userOrg = 'conghuahuadan'
     groupId = 'com.conghuahuadan.android'
     artifactId = 'common'
-    publishVersion = '0.1.3'
+    publishVersion = '0.1.4'
     desc = 'common'
     website = 'https://github.com/conghuahuadan/Lib-Common'
 }
