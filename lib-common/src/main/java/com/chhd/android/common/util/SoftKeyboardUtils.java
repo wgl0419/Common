@@ -8,14 +8,20 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 
 /**
- * Created by 葱花滑蛋 on 2018/1/8.
+ * author : 葱花滑蛋
+ * time   : 2018/01/08
+ * desc   : 软键盘工具类
  */
-
 public class SoftKeyboardUtils {
 
     private SoftKeyboardUtils() {
     }
 
+    /**
+     * 弹出软键盘
+     *
+     * @param view
+     */
     public static void showSoftInput(final View view) {
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -33,6 +39,11 @@ public class SoftKeyboardUtils {
         });
     }
 
+    /**
+     * 隐藏软键盘
+     *
+     * @param activity
+     */
     public static void hideSoftInput(final Activity activity) {
         InputMethodManager imm =
                 (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);

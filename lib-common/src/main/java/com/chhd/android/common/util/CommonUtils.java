@@ -3,9 +3,10 @@ package com.chhd.android.common.util;
 import android.app.Application;
 
 /**
- * Created by 葱花滑蛋 on 2018/1/27.
+ * author : 葱花滑蛋
+ * time   : 2018/01/27
+ * desc   : 使用Util包下工具类，必须先初始化
  */
-
 public class CommonUtils {
 
     private static Application instance;

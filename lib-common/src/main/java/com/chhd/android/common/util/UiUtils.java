@@ -7,7 +7,9 @@ import com.chhd.android.common.global.BaseApplication;
 
 
 /**
- * Created by 葱花滑蛋 on 2017/11/30.
+ * author : 葱花滑蛋
+ * time   : 2018/11/30
+ * desc   :
  */
 
 public class UiUtils {

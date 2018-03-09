@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <dimen name="dp_4">4dp</dimen>
     <dimen name="dp_8">8dp</dimen>
     <dimen name="dp_16">16dp</dimen>
@@ -21,6 +22,10 @@
     <dimen name="sp_18">18sp</dimen>
     <dimen name="sp_20">20sp</dimen>
 
+    <!-- 安卓4.4以下，标题栏高度 -->
     <dimen name="status_bar_height">0dp</dimen>
+    <!-- AppBarLayout默认阴影大小 -->
     <dimen name="app_bar_layout_elevation">4dp</dimen>
+    <!-- 分界线宽度 -->
+    <dimen name="dividing_line_height">0.5dp</dimen>
 </resources>

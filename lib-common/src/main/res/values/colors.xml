@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color_text_333333">#333333</color>
-    <color name="color_text_666666">#666666</color>
-    <color name="color_text_999999">#999999</color>
+    <color name="color_material_white">#fafafa</color>
+    <color name="color_material_black">#303030</color>
+
+    <color name="color_text_first">#303030</color>
+    <color name="color_text_second">#666666</color>
+    <color name="color_text_third">#888888</color>
+
+    <color name="color_dividing_line">#e6e6e6</color>
+
+    <!-- 分割线 以下与 color-night 同步-->
+    <color name="color_bg_touch">@color/ripple_material_light</color>
 </resources>

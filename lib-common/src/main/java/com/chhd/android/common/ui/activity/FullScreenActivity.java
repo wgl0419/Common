@@ -3,8 +3,10 @@ package com.chhd.android.common.ui.activity;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,10 +14,11 @@ import android.view.Window;
 import android.view.WindowManager;
 
 /**
- * Created by 葱花滑蛋 on 2018/1/14.
+ * author : 葱花滑蛋
+ * time   : 2018/01/14
+ * desc   : 全屏Activity
  */
-
-public class FullScreenActivity extends AppCompatActivity {
+public class FullScreenActivity extends BaseActivity {
 
     private final int MESSAGE_HIDE_BARS = 0x001;
 
@@ -59,7 +62,7 @@ public class FullScreenActivity extends AppCompatActivity {
     private void showBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             isShowBar = true;
-            findViewById(android.R.id.content).setSystemUiVisibility(View.VISIBLE);
+//            findViewById(android.R.id.content).setSystemUiVisibility(View.VISIBLE);
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
                     | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -82,13 +85,12 @@ public class FullScreenActivity extends AppCompatActivity {
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
                     | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            findViewById(android.R.id.content).setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+//            findViewById(android.R.id.content)
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                     | View.SYSTEM_UI_FLAG_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
     }
-
-
 }

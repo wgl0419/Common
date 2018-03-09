@@ -8,6 +8,20 @@
     <!-- 黑色背景 -->
     <style name="PopupOverlay.Dark" parent="ThemeOverlay.AppCompat.Dark" />
 
-    <style name="FullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- 全屏主题 -->
+    <style name="FullscreenTheme" parent="Theme.AppCompat.DayNight.NoActionBar" />
+
+    <!-- 水平分割线 -->
+    <style name="dividing_line_horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dividing_line_height</item>
+        <item name="android:background">@color/color_dividing_line</item>
+    </style>
+
+    <!-- 垂直分割线 -->
+    <style name="dividing_line_vertical">
+        <item name="android:layout_width">@dimen/dividing_line_height</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/color_dividing_line</item>
     </style>
 </resources>

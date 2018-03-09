@@ -12,11 +12,11 @@ import com.chhd.android.common.global.BaseApplication;
 
 import java.lang.reflect.Method;
 
-
 /**
- * Created by 葱花滑蛋 on 2018/1/5.
+ * author : 葱花滑蛋
+ * time   : 2018/01/05
+ * desc   : 应用缓存工具类
  */
-
 public class CacheUtils {
 
     private CacheUtils() {
@@ -26,6 +26,11 @@ public class CacheUtils {
         return CommonUtils.getApplication();
     }
 
+    /**
+     * 安卓原生方法获取应用大小信息
+     *
+     * @param observer
+     */
     public static void getPackageSizeInfo(final IPackageStatsObserver observer) {
         try {
             Class<?> clazz = Class.forName("android.content.pm.PackageManager");
@@ -48,6 +53,9 @@ public class CacheUtils {
         void onGetStatsCompleted(PackageStats pStats, boolean succeeded);
     }
 
+    /**
+     * 安卓原生方法清空应用缓存，仅在安卓6.0以下有效
+     */
     public static void freeStorageAndNotify() {
         try {
             PackageManager packageManager = getContext().getPackageManager();

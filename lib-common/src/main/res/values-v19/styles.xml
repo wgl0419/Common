@@ -1,5 +1,6 @@
 <resources>
-    <style name="FullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- 全屏主题 -->
+    <style name="FullscreenTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- true：布局延伸至状态栏，状态栏半透明 -->
         <item name="android:windowTranslucentStatus">false</item>
         <!-- true：布局延伸至状态栏和导航栏 -->

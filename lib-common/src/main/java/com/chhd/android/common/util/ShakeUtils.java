@@ -6,13 +6,13 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 
 /**
- * 左右抖动动画
- *
- * Created by 葱花滑蛋 on 2017/11/30.
+ * author : 葱花滑蛋
+ * time   : 2018/11/30
+ * desc   : 抖动工具类，产生一个左右抖动动画，与StringUtils产生联动效果
  */
-public class ShakeUitls {
+public class ShakeUtils {
 
-    private ShakeUitls() {
+    private ShakeUtils() {
     }
 
     public static void on(View view) {
@@ -24,7 +24,7 @@ public class ShakeUitls {
         view.startAnimation(animation);
     }
 
-    public static int dp2px(Context context, float dp) {
+    private static int dp2px(Context context, float dp) {
         float density = context.getResources().getDisplayMetrics().density;
         return (int) (dp * density + 0.5f);
     }

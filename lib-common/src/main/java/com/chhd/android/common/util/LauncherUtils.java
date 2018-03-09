@@ -12,11 +12,11 @@ import com.chhd.android.common.global.BaseApplication;
 
 import java.util.List;
 
-
 /**
- * Created by 葱花滑蛋 on 2018/1/6.
+ * author : 葱花滑蛋
+ * time   : 2018/01/06
+ * desc   :
  */
-
 public class LauncherUtils {
 
     private LauncherUtils() {
