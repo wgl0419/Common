@@ -20,8 +20,12 @@ public class MainActivity extends ToolbarActivity {
             }
         });
 
-//        View view = View.inflate(this, R.layout.header, null);
-//        setToolbarContainer(view, true);
+        findViewById(R.id.tv2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(instance, DemoList2Activity.class));
+            }
+        });
     }
 
     @Override

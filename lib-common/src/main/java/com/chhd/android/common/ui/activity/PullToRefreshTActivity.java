@@ -23,7 +23,7 @@ import java.util.List;
  * desc   : PullToRefreshTActivity
  */
 public abstract class PullToRefreshTActivity<Adapter extends BaseQuickAdapter, Entity> extends ProgressTActivity
-        implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
+        implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     protected SwipeRefreshLayout swipeRefreshLayout;
     protected RecyclerView recyclerView;
@@ -66,12 +66,7 @@ public abstract class PullToRefreshTActivity<Adapter extends BaseQuickAdapter, E
         }
 
         swipeRefreshLayout.setColorSchemeResources(setColorSchemeResources());
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onLoad();
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         adapter = getAdapter();
         adapter.openLoadAnimation();
@@ -88,6 +83,20 @@ public abstract class PullToRefreshTActivity<Adapter extends BaseQuickAdapter, E
         layoutManager = setLayoutManager();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        if (isAutoPullToRefresh()) {
+            refresh();
+        }
+    }
+
+    protected void refresh() {
+        swipeRefreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+                onRefresh();
+            }
+        },100);
     }
 
     @Override
@@ -112,6 +121,15 @@ public abstract class PullToRefreshTActivity<Adapter extends BaseQuickAdapter, E
     }
 
     @Override
+    protected final boolean isAutoLoad() {
+        return false;
+    }
+
+    protected boolean isAutoPullToRefresh() {
+        return true;
+    }
+
+    @Override
     public void onLoad() {
         onLoad(false);
     }
@@ -121,6 +139,11 @@ public abstract class PullToRefreshTActivity<Adapter extends BaseQuickAdapter, E
     }
 
     public abstract void onLoad(boolean isLoadMore);
+
+    @Override
+    public void onRefresh() {
+        onLoad();
+    }
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

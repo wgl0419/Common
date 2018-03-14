@@ -60,6 +60,14 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
 
         btnRetry.setOnClickListener(this);
         btnRefresh.setOnClickListener(this);
+
+        if (isAutoLoad()) {
+            onLoad();
+        }
+    }
+
+    protected boolean isAutoLoad() {
+        return true;
     }
 
     public abstract int getContentResId();

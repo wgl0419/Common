@@ -62,11 +62,19 @@ public abstract class ProgressTActivity extends ToolbarActivity implements IPage
 
         btnRetry.setOnClickListener(this);
         btnRefresh.setOnClickListener(this);
+
+        if (isAutoLoad()) {
+            onLoad();
+        }
     }
 
     @Override
     public int getContainerResId() {
         return R.layout.activity_progress;
+    }
+
+    protected boolean isAutoLoad() {
+        return true;
     }
 
     public abstract int getContentResId();

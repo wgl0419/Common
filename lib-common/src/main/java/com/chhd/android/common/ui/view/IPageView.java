@@ -5,7 +5,8 @@ package com.chhd.android.common.ui.view;
  * time   : 2018/03/12
  * desc   : IPageView
  */
-public interface IPageView {
+
+public interface IPageView extends IBaseView {
 
     /**
      * 页面加载中

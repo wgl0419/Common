@@ -8,6 +8,7 @@ import com.chhd.android.common.http.HttpObserver;
 import com.chhd.android.common.http.ResponseTransformer;
 import com.chhd.android.common.http.RxHelper;
 import com.chhd.android.common.ui.activity.PullToRefreshTActivity;
+import com.chhd.android.common.ui.view.IPageView;
 
 public class DemoList1Activity extends PullToRefreshTActivity<Adapter, Object> {
 
@@ -38,6 +39,11 @@ public class DemoList1Activity extends PullToRefreshTActivity<Adapter, Object> {
                     @Override
                     public void onSucceed(ListData<Object> listData) {
                         onLoadSuccess(listData);
+                    }
+
+                    @Override
+                    protected IPageView showPageView() {
+                        return (IPageView) instance;
                     }
                 });
     }

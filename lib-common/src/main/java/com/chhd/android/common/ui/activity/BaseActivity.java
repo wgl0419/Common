@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.chhd.android.common.ui.view.IBaseView;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ import java.util.List;
  * time   : 2018/03/09
  * desc   : 基类Activity
  */
-public class BaseActivity extends RxAppCompatActivity {
+public class BaseActivity extends RxAppCompatActivity implements IBaseView {
 
     public static List<Activity> activities = new ArrayList<>();
 
@@ -91,5 +94,10 @@ public class BaseActivity extends RxAppCompatActivity {
      */
     protected boolean isAutoHideKeyboard() {
         return true;
+    }
+
+    @Override
+    public <T> LifecycleTransformer<T> _bindToLifecycle() {
+        return bindToLifecycle();
     }
 }
