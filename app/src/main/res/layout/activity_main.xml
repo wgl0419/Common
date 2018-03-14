@@ -7,22 +7,23 @@
     tools:context="com.chhd.android.demo.MainActivity">
 
     <TextView
+        android:id="@+id/tv1"
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:background="@drawable/bg_white_touch"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center"
         android:text="text"
-        android:textColor="@android:color/white"
         android:textSize="@dimen/sp_14" />
 
     <TextView
+        android:id="@+id/tv2"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center"
         android:text="text"
-        android:textColor="@android:color/white"
         android:textSize="@dimen/sp_14" />
 </LinearLayout>

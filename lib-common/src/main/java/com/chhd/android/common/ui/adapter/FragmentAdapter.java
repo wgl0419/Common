@@ -6,12 +6,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.text.TextUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by 葱花滑蛋 on 2017/11/26.
+ * author : 葱花滑蛋
+ * time   : 2017/11/26
+ * desc   : FragmentAdapter
  */
-
 public class FragmentAdapter extends FragmentStatePagerAdapter {
 
     public static final String KEY_TITLE = "title";
@@ -22,6 +24,18 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
     public FragmentAdapter(FragmentManager fm, List<Fragment> fragmentList) {
         super(fm);
         this.fragmentList = fragmentList;
+    }
+
+    public FragmentAdapter(FragmentManager fm, Fragment[] fragments) {
+        super(fm);
+        this.fragmentList = Arrays.asList(fragments);
+    }
+
+
+    public FragmentAdapter(FragmentManager fm, Fragment[] fragments, String[] titles) {
+        super(fm);
+        this.fragmentList = Arrays.asList(fragments);
+        this.titleList = Arrays.asList(titles);
     }
 
     public FragmentAdapter(FragmentManager fm, List<Fragment> fragmentList, List<String> titleList) {

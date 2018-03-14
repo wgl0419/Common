@@ -1,13 +1,13 @@
 package com.chhd.android.demo;
 
 import com.chhd.android.common.global.BaseApplication;
-
-/**
- * @author : chenweiqiang / chenweiqiang@zhimadi.cn
- * @data : 2018/1/25.
- */
+import com.facebook.stetho.Stetho;
 
 public class App extends BaseApplication {
 
-
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Stetho.initializeWithDefaults(this);
+    }
 }

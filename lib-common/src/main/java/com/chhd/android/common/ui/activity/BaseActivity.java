@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +20,11 @@ import java.util.List;
  * time   : 2018/03/09
  * desc   : 基类Activity
  */
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends RxAppCompatActivity {
 
     public static List<Activity> activities = new ArrayList<>();
+
+    protected final int MENU_ITEM_DEFAULT_ID = 10;
 
     protected Activity instance;
 
@@ -37,16 +41,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         activities.remove(this);
         super.onDestroy();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     /**

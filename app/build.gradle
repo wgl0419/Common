@@ -20,6 +20,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':lib-common-http')
-//    compile 'com.conghuahuadan.android:common:0.1.3'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile project(':lib-common')
 }
