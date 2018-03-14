@@ -85,9 +85,6 @@ public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, En
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        if (isAutoPullToRefresh()) {
-            refresh();
-        }
     }
 
     protected void refresh() {
@@ -97,7 +94,7 @@ public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, En
                 swipeRefreshLayout.setRefreshing(true);
                 onRefresh();
             }
-        },100);
+        }, 100);
     }
 
     @Override
@@ -128,6 +125,13 @@ public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, En
 
     protected boolean isAutoPullToRefresh() {
         return true;
+    }
+
+    @Override
+    protected void onLazyLoad() {
+        if (isAutoPullToRefresh()) {
+            refresh();
+        }
     }
 
     @Override
@@ -234,5 +238,11 @@ public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, En
         } else {
             adapter.loadMoreFail();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        list.clear();
+        super.onDestroy();
     }
 }

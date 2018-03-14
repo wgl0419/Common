@@ -1,6 +1,6 @@
 ## 依赖
 ```java
 dependencies {
-    compile 'com.conghuahuadan.android:common:0.1.8'
+    compile 'com.conghuahuadan.android:common:0.1.9'
 }
 ```

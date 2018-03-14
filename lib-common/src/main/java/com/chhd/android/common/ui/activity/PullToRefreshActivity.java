@@ -236,4 +236,10 @@ public abstract class PullToRefreshActivity<Adapter extends BaseQuickAdapter, En
             adapter.loadMoreFail();
         }
     }
+
+    @Override
+    public void onDestroy() {
+        list.clear();
+        super.onDestroy();
+    }
 }
