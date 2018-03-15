@@ -39,6 +39,27 @@ public abstract class ProgressTActivity extends ToolbarActivity implements IPage
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        onPrepare();
+
+        onInit();
+
+        if (isAutoLoad()) {
+            onLoad();
+        }
+    }
+
+    @Override
+    public int getContainerResId() {
+        return R.layout.activity_progress;
+    }
+
+    protected boolean isAutoLoad() {
+        return true;
+    }
+
+    public abstract int getContentResId();
+
+    public void onPrepare() {
         loadingView = findViewById(R.id.loading);
         errorView = findViewById(R.id.error);
         emptyView = findViewById(R.id.empty);
@@ -62,22 +83,9 @@ public abstract class ProgressTActivity extends ToolbarActivity implements IPage
 
         btnRetry.setOnClickListener(this);
         btnRefresh.setOnClickListener(this);
-
-        if (isAutoLoad()) {
-            onLoad();
-        }
     }
 
-    @Override
-    public int getContainerResId() {
-        return R.layout.activity_progress;
-    }
-
-    protected boolean isAutoLoad() {
-        return true;
-    }
-
-    public abstract int getContentResId();
+    public abstract void onInit();
 
     public abstract void onLoad();
 

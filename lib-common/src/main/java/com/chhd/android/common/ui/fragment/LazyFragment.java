@@ -2,6 +2,8 @@ package com.chhd.android.common.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.View;
 
 /**
  * author : 葱花滑蛋
@@ -11,21 +13,24 @@ import android.support.annotation.Nullable;
 
 public abstract class LazyFragment extends ProgressFragment {
 
-    protected Boolean isVisibleToUser = false;
     protected Boolean hasViewCreate = false;
     protected Boolean hasLazyLoad = false;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        this.isVisibleToUser = isVisibleToUser;
         onPreLazyLoad();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        hasViewCreate = true;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        hasViewCreate = true;
         onPreLazyLoad();
     }
 
@@ -37,11 +42,18 @@ public abstract class LazyFragment extends ProgressFragment {
     }
 
     private void onPreLazyLoad() {
-        if (isVisibleToUser && hasViewCreate && !hasLazyLoad) {
+        if (hasViewCreate && !hasLazyLoad) {
             hasLazyLoad = true;
-            onLazyLoad();
+
+            if (isAutoLoad())
+                onLazyLoad();
         }
     }
 
-    protected abstract void onLazyLoad();
+    @Override
+    public void onLoad() {
+
+    }
+
+    public abstract void onLazyLoad();
 }

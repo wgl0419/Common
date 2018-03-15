@@ -13,25 +13,14 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * author : 葱花滑蛋
  * time   : 2018/03/14
- * desc   : RxSchedulersHelper
+ * desc   : RxHelper
  */
 public class RxHelper {
 
-    public static <T> ObservableTransformer<T, T> observableIoMainThread() {
+    public static <T> ObservableTransformer<T, T> ioMainThread() {
         return new ObservableTransformer<T, T>() {
             @Override
             public ObservableSource<T> apply(Observable<T> upstream) {
-                return upstream
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread());
-            }
-        };
-    }
-
-    public static <T> FlowableTransformer<T, T> flowableIoMainThread() {
-        return new FlowableTransformer<T, T>() {
-            @Override
-            public Publisher<T> apply(Flowable<T> upstream) {
                 return upstream
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());

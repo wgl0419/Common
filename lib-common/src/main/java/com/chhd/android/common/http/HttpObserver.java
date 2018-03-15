@@ -16,7 +16,7 @@ import io.reactivex.observers.DisposableObserver;
 /**
  * author : 葱花滑蛋
  * time   : 2018/03/12
- * desc   : HttpSubscriber
+ * desc   : HttpObserver
  */
 public abstract class HttpObserver<T> extends DisposableObserver<T> {
 
@@ -97,7 +97,7 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
 
     }
 
-    public abstract void onSucceed(T t);
+    protected abstract void onSucceed(T t);
 
     protected void onFailed(Throwable e) {
 

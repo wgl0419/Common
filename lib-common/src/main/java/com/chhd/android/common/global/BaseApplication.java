@@ -3,9 +3,12 @@ package com.chhd.android.common.global;
 import android.app.Application;
 
 import com.chhd.android.common.util.CommonUtils;
+import com.facebook.stetho.Stetho;
 
 /**
- * Created by 葱花滑蛋 on 2017/11/24.
+ * author : 葱花滑蛋
+ * time   : 2017/11/24
+ * desc   : BaseApplication
  */
 
 public class BaseApplication extends Application {
@@ -17,6 +20,8 @@ public class BaseApplication extends Application {
         super.onCreate();
 
         CommonUtils.init(this);
+
+        Stetho.initializeWithDefaults(this);
     }
 
     public static BaseApplication getApplication() {

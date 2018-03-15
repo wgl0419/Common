@@ -40,6 +40,22 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress);
 
+        onPrepare();
+
+        onInit();
+
+        if (isAutoLoad()) {
+            onLoad();
+        }
+    }
+
+    protected boolean isAutoLoad() {
+        return true;
+    }
+
+    public abstract int getContentResId();
+
+    public void onPrepare() {
         loadingView = findViewById(R.id.loading);
         errorView = findViewById(R.id.error);
         emptyView = findViewById(R.id.empty);
@@ -56,22 +72,16 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
         viewList.add(emptyView);
         viewList.add(contentView);
 
+        showContentView();
+
         if (getContentResId() != 0)
             LayoutInflater.from(this).inflate(getContentResId(), contentView, true);
 
         btnRetry.setOnClickListener(this);
         btnRefresh.setOnClickListener(this);
-
-        if (isAutoLoad()) {
-            onLoad();
-        }
     }
 
-    protected boolean isAutoLoad() {
-        return true;
-    }
-
-    public abstract int getContentResId();
+    public abstract void onInit();
 
     public abstract void onLoad();
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -35,10 +36,32 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
     protected Button btnRetry;
     protected Button btnRefresh;
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_progress, container, false);
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        onPrepare(view);
+
+        onInit(view);
+
+        if (isAutoLoad()) {
+            onLoad();
+        }
+    }
+
+    protected boolean isAutoLoad() {
+        return true;
+    }
+
+    public abstract int getContentResId();
+
+    public void onPrepare(View view) {
         loadingView = view.findViewById(R.id.loading);
         errorView = view.findViewById(R.id.error);
         emptyView = view.findViewById(R.id.empty);
@@ -55,22 +78,16 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
         viewList.add(emptyView);
         viewList.add(contentView);
 
+        showContentView();
+
         if (getContentResId() != 0)
             LayoutInflater.from(getActivity()).inflate(getContentResId(), contentView, true);
 
         btnRetry.setOnClickListener(this);
         btnRefresh.setOnClickListener(this);
-
-        if (isAutoLoad()) {
-            onLoad();
-        }
     }
 
-    protected boolean isAutoLoad() {
-        return true;
-    }
-
-    public abstract int getContentResId();
+    public abstract void onInit(View view);
 
     public abstract void onLoad();
 

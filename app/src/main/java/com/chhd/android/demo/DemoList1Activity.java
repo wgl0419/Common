@@ -1,9 +1,7 @@
 package com.chhd.android.demo;
 
 import android.os.Bundle;
-import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chhd.android.common.http.HttpObserver;
 import com.chhd.android.common.http.ResponseTransformer;
 import com.chhd.android.common.http.RxHelper;
@@ -13,13 +11,13 @@ import com.chhd.android.common.ui.view.IPageView;
 public class DemoList1Activity extends PullToRefreshTActivity<Adapter, Object> {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public int getContentResId() {
+        return R.layout.layout_pull_to_refresh;
     }
 
     @Override
-    public int getContentResId() {
-        return R.layout.layout_pull_to_refresh;
+    public void onInit() {
+
     }
 
     @Override
@@ -33,8 +31,8 @@ public class DemoList1Activity extends PullToRefreshTActivity<Adapter, Object> {
                 .retrofit("http://test.hulubao.com")
                 .create(ApiService.class)
                 .getRentList(listData.getStart(isLoadMore) + "")
-                .compose(RxHelper.<ResponseData<ListData<Object>>>observableIoMainThread())
-                .compose(ResponseTransformer.<ListData<Object>>observableTransform())
+                .compose(RxHelper.<ResponseData<ListData<Object>>>ioMainThread())
+                .compose(ResponseTransformer.<ListData<Object>>transform())
                 .subscribe(new HttpObserver<ListData<Object>>() {
                     @Override
                     public void onSucceed(ListData<Object> listData) {

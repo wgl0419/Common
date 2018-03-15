@@ -98,7 +98,7 @@ public abstract class HttpSubscriber<T> extends ResourceSubscriber<T> {
 
     }
 
-    public abstract void onSucceed(T t);
+    protected abstract void onSucceed(T t);
 
     protected void onFailed(Throwable e) {
 

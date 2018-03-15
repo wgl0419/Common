@@ -23,7 +23,7 @@ import io.reactivex.functions.Function;
  */
 public class ResponseTransformer {
 
-    public static <T> ObservableTransformer<BaseResponseData<T>, T> observableTransform() {
+    public static <T> ObservableTransformer<BaseResponseData<T>, T> transform() {
         return new ObservableTransformer<BaseResponseData<T>, T>() {
             @Override
             public ObservableSource<T> apply(Observable<BaseResponseData<T>> upstream) {
@@ -42,33 +42,6 @@ public class ResponseTransformer {
                             });
                         } else {
                             return Observable.error(new ApiException(responseData.getStatus(),
-                                    responseData.getMessage()));
-                        }
-                    }
-                });
-            }
-        };
-    }
-
-    public static <T> FlowableTransformer<BaseResponseData<T>, T> flowableTransform() {
-        return new FlowableTransformer<BaseResponseData<T>, T>() {
-            @Override
-            public Publisher<T> apply(Flowable<BaseResponseData<T>> upstream) {
-                return upstream.flatMap(new Function<BaseResponseData<T>, Publisher<T>>() {
-                    @Override
-                    public Publisher<T> apply(final BaseResponseData<T> responseData) throws Exception {
-                        if (responseData.isSuccess()) {
-                            return Flowable.create(new FlowableOnSubscribe<T>() {
-                                @Override
-                                public void subscribe(FlowableEmitter<T> e) throws Exception {
-                                    if (responseData.getData() != null) {
-                                        e.onNext(responseData.getData());
-                                    }
-                                    e.onComplete();
-                                }
-                            }, BackpressureStrategy.LATEST);
-                        } else {
-                            return Flowable.error(new ApiException(responseData.getStatus(),
                                     responseData.getMessage()));
                         }
                     }
