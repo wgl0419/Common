@@ -8,7 +8,7 @@ import com.chhd.android.common.http.RxHelper;
 import com.chhd.android.common.ui.activity.PullToRefreshTActivity;
 import com.chhd.android.common.ui.view.IPageView;
 
-public class DemoList1Activity extends PullToRefreshTActivity<Adapter, Object> {
+public class Demo1Activity extends PullToRefreshTActivity<Adapter, Object> {
 
     @Override
     public int getContentResId() {

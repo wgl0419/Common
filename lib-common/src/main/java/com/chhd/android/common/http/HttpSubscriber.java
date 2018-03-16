@@ -74,10 +74,13 @@ public abstract class HttpSubscriber<T> extends ResourceSubscriber<T> {
             iPageView.onPageError(errMsg);
             iPageView.onPageComplete();
         } else {
-            ToastUtils.show(errMsg);
             if (dialog != null && dialog.isShowing()) {
                 dialog.dismiss();
             }
+        }
+
+        if (showToast()) {
+            ToastUtils.show(errMsg);
         }
 
         onFailed(e);
@@ -114,5 +117,9 @@ public abstract class HttpSubscriber<T> extends ResourceSubscriber<T> {
 
     protected IPageView showPageView() {
         return null;
+    }
+
+    protected boolean showToast() {
+        return true;
     }
 }

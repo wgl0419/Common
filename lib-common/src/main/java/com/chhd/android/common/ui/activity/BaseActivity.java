@@ -1,5 +1,7 @@
 package com.chhd.android.common.ui.activity;
 
+import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,10 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.chhd.android.common.ui.view.IBaseView;
+import com.chhd.android.common.util.UiUtils;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -21,9 +26,9 @@ import java.util.List;
 /**
  * author : 葱花滑蛋
  * time   : 2018/03/09
- * desc   : 基类Activity
+ * desc   : BaseActivity
  */
-public class BaseActivity extends RxAppCompatActivity implements IBaseView {
+public class BaseActivity extends RxAppCompatActivity implements IBaseView, View.OnTouchListener {
 
     public static List<Activity> activities = new ArrayList<>();
 
@@ -99,5 +104,41 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
     @Override
     public <T> LifecycleTransformer<T> _bindToLifecycle() {
         return bindToLifecycle();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                ObjectAnimator upAnim = ObjectAnimator.ofFloat(v, "translationZ", dp2px(4));
+                upAnim.setDuration(150);
+                upAnim.setInterpolator(new DecelerateInterpolator());
+                upAnim.start();
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                ObjectAnimator downAnim = ObjectAnimator.ofFloat(v, "translationZ", 0);
+                downAnim.setDuration(150);
+                downAnim.setInterpolator(new AccelerateInterpolator());
+                downAnim.start();
+                break;
+        }
+        return false;
+    }
+
+    protected int dp2px(float dp) {
+        float density = getResources().getDisplayMetrics().density;
+        return (int) (dp * density + 0.5f);
     }
 }

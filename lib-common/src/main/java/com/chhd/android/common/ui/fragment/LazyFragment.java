@@ -13,12 +13,14 @@ import android.view.View;
 
 public abstract class LazyFragment extends ProgressFragment {
 
-    protected Boolean hasViewCreate = false;
-    protected Boolean hasLazyLoad = false;
+    protected Boolean isVisibleToUser = null;
+    protected boolean hasViewCreate = false;
+    protected boolean hasLazyLoad = false;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        this.isVisibleToUser = isVisibleToUser;
         onPreLazyLoad();
     }
 
@@ -42,11 +44,16 @@ public abstract class LazyFragment extends ProgressFragment {
     }
 
     private void onPreLazyLoad() {
-        if (hasViewCreate && !hasLazyLoad) {
+        if (isVisibleToUser == null) {
             hasLazyLoad = true;
-
             if (isAutoLoad())
                 onLazyLoad();
+        } else {
+            if (isVisibleToUser && hasViewCreate && !hasLazyLoad) {
+                hasLazyLoad = true;
+                if (isAutoLoad())
+                    onLazyLoad();
+            }
         }
     }
 

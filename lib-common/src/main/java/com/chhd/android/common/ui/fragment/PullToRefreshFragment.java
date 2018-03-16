@@ -40,11 +40,6 @@ public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, En
         return Constant.SWIPE_REFRESH_LAYOUT_COLORS;
     }
 
-    @Override
-    protected final boolean isAutoLoad() {
-        return false;
-    }
-
     protected boolean isAutoPullToRefresh() {
         return true;
     }
