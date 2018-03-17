@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.activity;
+package com.chhd.android.common.ui.activity.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -45,7 +45,7 @@ public abstract class PullToRefreshTActivity<Adapter extends BaseQuickAdapter, E
 
     }
 
-    public int[] setColorSchemeResources() {
+    public int[] getColorSchemeResources() {
         return Constant.SWIPE_REFRESH_LAYOUT_COLORS;
     }
 
@@ -74,7 +74,7 @@ public abstract class PullToRefreshTActivity<Adapter extends BaseQuickAdapter, E
             throw new RuntimeException("Layout must have one SwipeRefreshLayout, and id must set swipe_refresh_layout.");
         }
 
-        swipeRefreshLayout.setColorSchemeResources(setColorSchemeResources());
+        swipeRefreshLayout.setColorSchemeResources(getColorSchemeResources());
         swipeRefreshLayout.setOnRefreshListener(this);
     }
 

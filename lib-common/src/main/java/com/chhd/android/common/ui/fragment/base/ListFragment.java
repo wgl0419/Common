@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.activity;
+package com.chhd.android.common.ui.fragment.base;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,10 +16,10 @@ import java.util.List;
 /**
  * author : 葱花滑蛋
  * time   : 2018/03/15
- * desc   : ListActivity
+ * desc   : ListFragment
  */
 
-public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> extends ProgressActivity
+public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> extends LazyFragment
         implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     protected RecyclerView recyclerView;
@@ -50,18 +50,18 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
         onLoadError(message);
     }
 
-    public abstract Adapter getAdapter();
+    protected abstract Adapter getAdapter();
 
-    protected RecyclerView.LayoutManager setLayoutManager() {
-        return new LinearLayoutManager(this);
+    protected RecyclerView.LayoutManager getLayoutManager() {
+        return new LinearLayoutManager(getActivity());
     }
 
     @Override
-    public void onPrepare() {
-        super.onPrepare();
+    public void onPrepare(View view) {
+        super.onPrepare(view);
 
         try {
-            recyclerView = findViewById(R.id.recycler_view);
+            recyclerView = view.findViewById(R.id.recycler_view);
         } catch (Exception e) {
             throw new RuntimeException("Layout must have one RecyclerView, and id must set recycler_view.");
         }
@@ -76,16 +76,16 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
             }
         }, recyclerView);
         adapter.setHeaderFooterEmpty(true, true);
-        adapter.setEmptyView(new View(this));
+        adapter.setEmptyView(new View(getActivity()));
         adapter.setOnItemClickListener(this);
         adapter.setOnItemChildClickListener(this);
-        layoutManager = setLayoutManager();
+        layoutManager = getLayoutManager();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void onLoad() {
+    public void onLazyLoad() {
         onLoad(false);
     }
 
@@ -104,6 +104,7 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 
     }
+
 
     protected void onLoadSuccess(BaseListData<Entity> listData) {
         this.listData = listData;
@@ -142,7 +143,7 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
     }
 
     protected void showListEmpty() {
-        View emptyView = View.inflate(this, R.layout.layout_empty, null);
+        View emptyView = View.inflate(getActivity(), R.layout.layout_empty, null);
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
                 RecyclerView.LayoutParams.WRAP_CONTENT);
         emptyView.setLayoutParams(params);
@@ -151,7 +152,7 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
     }
 
     protected void showListError(String message) {
-        View errorView = View.inflate(this, R.layout.layout_error, null);
+        View errorView = View.inflate(getActivity(), R.layout.layout_error, null);
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
                 RecyclerView.LayoutParams.WRAP_CONTENT);
         errorView.setLayoutParams(params);

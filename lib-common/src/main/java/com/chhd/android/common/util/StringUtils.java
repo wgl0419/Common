@@ -33,10 +33,16 @@ public class StringUtils {
     /* --------------------------扩展方法-------------------------- */
 
     public static boolean isEmpty(TextView textView, String errorMsg) {
+        return isEmpty(textView, errorMsg, false);
+    }
+
+    public static boolean isEmpty(TextView textView, String errorMsg, boolean anim) {
         boolean isEmpty = isEmpty(textView);
         if (isEmpty) {
+            if (anim) {
+                ShakeUtils.on(textView);
+            }
             textView.requestFocus();
-            ShakeUtils.on(textView);
             ToastUtils.show(errorMsg);
         }
         return isEmpty;

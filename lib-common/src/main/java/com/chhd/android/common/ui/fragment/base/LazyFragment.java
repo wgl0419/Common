@@ -1,8 +1,7 @@
-package com.chhd.android.common.ui.fragment;
+package com.chhd.android.common.ui.fragment.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 
 /**

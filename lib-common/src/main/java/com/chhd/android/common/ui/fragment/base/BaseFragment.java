@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.fragment;
+package com.chhd.android.common.ui.fragment.base;
 
 import com.chhd.android.common.ui.view.IBaseView;
 import com.trello.rxlifecycle2.LifecycleTransformer;

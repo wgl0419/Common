@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.activity;
+package com.chhd.android.common.ui.activity.base;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
@@ -33,6 +33,7 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
     public static List<Activity> activities = new ArrayList<>();
 
     protected final int MENU_ITEM_DEFAULT_ID = 10;
+    protected final String TAG = this.getClass().getSimpleName();
 
     protected Activity instance;
 
@@ -121,14 +122,16 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                ObjectAnimator upAnim = ObjectAnimator.ofFloat(v, "translationZ", dp2px(4));
+                ObjectAnimator upAnim = ObjectAnimator.ofFloat(v, "translationZ",
+                        UiUtils.dp2px(4));
                 upAnim.setDuration(150);
                 upAnim.setInterpolator(new DecelerateInterpolator());
                 upAnim.start();
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                ObjectAnimator downAnim = ObjectAnimator.ofFloat(v, "translationZ", 0);
+                ObjectAnimator downAnim = ObjectAnimator.ofFloat(v, "translationZ",
+                        0);
                 downAnim.setDuration(150);
                 downAnim.setInterpolator(new AccelerateInterpolator());
                 downAnim.start();
@@ -137,8 +140,4 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
         return false;
     }
 
-    protected int dp2px(float dp) {
-        float density = getResources().getDisplayMetrics().density;
-        return (int) (dp * density + 0.5f);
-    }
 }

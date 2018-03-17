@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.activity;
+package com.chhd.android.common.ui.activity.base;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

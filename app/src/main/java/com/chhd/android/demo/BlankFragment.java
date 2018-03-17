@@ -1,13 +1,9 @@
 package com.chhd.android.demo;
 
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.chhd.android.common.ui.fragment.PullToRefreshFragment;
+import com.chhd.android.common.ui.fragment.base.PullToRefreshFragment;
 
 
 public class BlankFragment extends PullToRefreshFragment<Adapter,Object> {

@@ -1,16 +1,12 @@
 package com.chhd.android.demo;
 
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 
-import com.chhd.android.common.ui.activity.ToolbarActivity;
-import com.chhd.android.common.util.UiUtils;
+import com.chhd.android.common.ui.activity.H5Activity;
+import com.chhd.android.common.ui.activity.base.ToolbarActivity;
 
 public class MainActivity extends ToolbarActivity {
 
@@ -36,6 +32,10 @@ public class MainActivity extends ToolbarActivity {
             @Override
             public void onClick(View v) {
 //                startActivity(new Intent(instance, Demo3Activity.class));
+
+                H5Activity.start(instance, R.style.AppTheme, "", null);
+
+//                setToolbarTitle("abc");
             }
         });
 
@@ -55,4 +55,8 @@ public class MainActivity extends ToolbarActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    protected String getToolbarTitle() {
+        return "hello";
+    }
 }

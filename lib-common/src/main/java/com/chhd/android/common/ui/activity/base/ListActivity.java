@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.activity;
+package com.chhd.android.common.ui.activity.base;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,10 +16,10 @@ import java.util.List;
 /**
  * author : 葱花滑蛋
  * time   : 2018/03/15
- * desc   : ListTActivity
+ * desc   : ListActivity
  */
 
-public abstract class ListTActivity <Adapter extends BaseQuickAdapter, Entity> extends ProgressTActivity
+public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> extends ProgressActivity
         implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     protected RecyclerView recyclerView;
@@ -52,7 +52,7 @@ public abstract class ListTActivity <Adapter extends BaseQuickAdapter, Entity> e
 
     public abstract Adapter getAdapter();
 
-    protected RecyclerView.LayoutManager setLayoutManager() {
+    protected RecyclerView.LayoutManager getLayoutManager() {
         return new LinearLayoutManager(this);
     }
 
@@ -79,7 +79,7 @@ public abstract class ListTActivity <Adapter extends BaseQuickAdapter, Entity> e
         adapter.setEmptyView(new View(this));
         adapter.setOnItemClickListener(this);
         adapter.setOnItemChildClickListener(this);
-        layoutManager = setLayoutManager();
+        layoutManager = getLayoutManager();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }

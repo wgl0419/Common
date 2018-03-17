@@ -1,9 +1,10 @@
-package com.chhd.android.common.ui.activity;
+package com.chhd.android.common.ui.fragment.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -16,11 +17,11 @@ import java.util.List;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/13
- * desc   : ProgressActivity
+ * time   : 2018/03/14
+ * desc   : ProgressFragment
  */
 
-public abstract class ProgressActivity extends BaseActivity implements IPageView, View.OnClickListener {
+public abstract class ProgressFragment extends BaseFragment implements IPageView, View.OnClickListener {
 
     protected List<View> viewList = new ArrayList<>();
 
@@ -35,14 +36,19 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
     protected Button btnRetry;
     protected Button btnRefresh;
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_progress);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_progress, container, false);
+    }
 
-        onPrepare();
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        onInit();
+        onPrepare(view);
+
+        onInit(view);
 
         if (isAutoLoad()) {
             onLoad();
@@ -55,17 +61,17 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
 
     public abstract int getContentResId();
 
-    public void onPrepare() {
-        loadingView = findViewById(R.id.loading);
-        errorView = findViewById(R.id.error);
-        emptyView = findViewById(R.id.empty);
-        contentView = findViewById(R.id.content);
+    public void onPrepare(View view) {
+        loadingView = view.findViewById(R.id.loading);
+        errorView = view.findViewById(R.id.error);
+        emptyView = view.findViewById(R.id.empty);
+        contentView = view.findViewById(R.id.content);
 
-        tvError = findViewById(R.id.tv_error);
-        tvEmpty = findViewById(R.id.tv_empty);
+        tvError = view.findViewById(R.id.tv_error);
+        tvEmpty = view.findViewById(R.id.tv_empty);
 
-        btnRetry = findViewById(R.id.btn_retry);
-        btnRefresh = findViewById(R.id.btn_refresh);
+        btnRetry = view.findViewById(R.id.btn_retry);
+        btnRefresh = view.findViewById(R.id.btn_refresh);
 
         viewList.add(loadingView);
         viewList.add(errorView);
@@ -75,13 +81,13 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
         showContentView();
 
         if (getContentResId() != 0)
-            LayoutInflater.from(this).inflate(getContentResId(), contentView, true);
+            LayoutInflater.from(getActivity()).inflate(getContentResId(), contentView, true);
 
         btnRetry.setOnClickListener(this);
         btnRefresh.setOnClickListener(this);
     }
 
-    public abstract void onInit();
+    public abstract void onInit(View view);
 
     public abstract void onLoad();
 

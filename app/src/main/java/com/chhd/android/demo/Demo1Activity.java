@@ -1,11 +1,9 @@
 package com.chhd.android.demo;
 
-import android.os.Bundle;
-
 import com.chhd.android.common.http.HttpObserver;
 import com.chhd.android.common.http.ResponseTransformer;
 import com.chhd.android.common.http.RxHelper;
-import com.chhd.android.common.ui.activity.PullToRefreshTActivity;
+import com.chhd.android.common.ui.activity.base.PullToRefreshTActivity;
 import com.chhd.android.common.ui.view.IPageView;
 
 public class Demo1Activity extends PullToRefreshTActivity<Adapter, Object> {

@@ -17,7 +17,7 @@
             <solid android:color="@android:color/transparent" />
             <stroke
                 android:width="0.5dp"
-                android:color="@color/color_dividing_line" />
+                android:color="@color/color_line" />
         </shape>
     </item>
 </ripple>

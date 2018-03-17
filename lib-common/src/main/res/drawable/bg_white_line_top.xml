@@ -2,18 +2,18 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@android:color/transparent" />
+            <solid android:color="@android:color/white" />
         </shape>
     </item>
     <item
+        android:bottom="-2dp"
         android:left="-2dp"
-        android:right="-2dp"
-        android:top="-2dp">
+        android:right="-2dp">
         <shape>
             <solid android:color="@android:color/transparent" />
             <stroke
-                android:width="@dimen/dividing_line_height"
-                android:color="@color/color_dividing_line" />
+                android:width="@dimen/line_height"
+                android:color="@color/color_line" />
         </shape>
     </item>
 </layer-list>
