@@ -9,9 +9,10 @@ import android.view.inputmethod.InputMethodManager;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/01/08
+ * date   : 2018/01/08
  * desc   : 软键盘工具类
  */
+
 public class SoftKeyboardUtils {
 
     private SoftKeyboardUtils() {

@@ -14,8 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 应用于有CompoundButton子类的ViewGroup，点击ViewGroup控制CompoundButton开关
+ * author : 葱花滑蛋
+ * date   : 2018/03/12
+ * desc   : 应用于有CompoundButton子类的ViewGroup，点击ViewGroup控制CompoundButton开关
  */
+
 public class CompoundRelativeLayout extends RelativeLayout implements ViewTreeObserver.OnGlobalLayoutListener
         , View.OnClickListener {
 

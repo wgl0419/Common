@@ -6,8 +6,8 @@ import android.view.View;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/14
- * desc   : LazyFragment
+ * date   : 2018/03/14
+ * desc   :
  */
 
 public abstract class LazyFragment extends ProgressFragment {

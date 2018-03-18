@@ -8,7 +8,7 @@ import com.chhd.android.common.global.BaseApplication;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/11/30
+ * date   : 2018/11/30
  * desc   :
  */
 

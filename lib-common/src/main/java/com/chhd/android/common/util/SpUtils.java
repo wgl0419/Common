@@ -3,6 +3,12 @@ package com.chhd.android.common.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * author : 葱花滑蛋
+ * date   : 2018/03/18
+ * desc   :
+ */
+
 public class SpUtils {
 
     private static final String NAME = "config";

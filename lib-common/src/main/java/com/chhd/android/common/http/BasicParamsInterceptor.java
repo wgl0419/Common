@@ -10,9 +10,10 @@ import okhttp3.Response;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/12
- * desc   : BasicParamsInterceptor
+ * date   : 2018/03/12
+ * desc   :
  */
+
 public class BasicParamsInterceptor implements Interceptor {
 
     private Map<String, String> headers = new HashMap<>();

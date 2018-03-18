@@ -14,9 +14,10 @@ import java.lang.reflect.Method;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/01/05
+ * date   : 2018/01/05
  * desc   : 应用缓存工具类
  */
+
 public class CacheUtils {
 
     private CacheUtils() {

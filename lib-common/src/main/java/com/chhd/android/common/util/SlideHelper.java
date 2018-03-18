@@ -5,9 +5,10 @@ import android.view.View;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/12/24
+ * date   : 2018/12/24
  * desc   : 滑动工具类
  */
+
 public class SlideHelper {
 
     private SlideHelper() {

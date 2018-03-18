@@ -26,14 +26,16 @@ import java.lang.reflect.Field;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/13
- * desc   : ToolbarActivity
+ * date   : 2018/03/13
+ * desc   :
  */
+
 public abstract class ToolbarActivity extends BaseActivity {
 
     protected AppBarLayout appBarLayout;
     protected Toolbar toolbar;
     protected RelativeLayout toolbarContainer;
+    protected TextView toolbarTitle;
     protected FrameLayout container;
 
     @SuppressLint("ResourceType")
@@ -45,6 +47,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         appBarLayout = findViewById(R.id.app_bar_layout);
         toolbar = findViewById(R.id.toolbar);
         toolbarContainer = findViewById(R.id.toolbar_container);
+        toolbarTitle = findViewById(R.id.toolbar_title);
         container = findViewById(R.id.container);
 
         setSupportActionBar(toolbar);
@@ -88,12 +91,20 @@ public abstract class ToolbarActivity extends BaseActivity {
                 outValue, true);
         if (Gravity.CENTER != outValue.data) {
             if (title != null)
-                toolbar.setTitle(title);
+                if (getSupportActionBar() != null) {
+                    getSupportActionBar().setTitle(title);
+                }
         } else {
-            TextView tvToolbarTitle = (TextView) View.inflate(this, R.layout.toolbar_title, null);
+            toolbar.setTitle("");
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setTitle("");
+                getSupportActionBar().setDisplayShowTitleEnabled(false);
+            }
+
             title = title == null ? getString(R.string.app_name) : title;
-            tvToolbarTitle.setText(title);
-            setToolbarContainer(tvToolbarTitle, true);
+            toolbarTitle.setText(title);
+
             outValue = new TypedValue();
             getTheme().resolveAttribute(R.attr.titleTextColor,
                     outValue, true);
@@ -101,7 +112,7 @@ public abstract class ToolbarActivity extends BaseActivity {
                 Field field = Toolbar.class.getDeclaredField("mTitleTextView");
                 field.setAccessible(true);
                 TextView mTitleTextView = (TextView) field.get(toolbar);
-                tvToolbarTitle.setTextColor(mTitleTextView.getCurrentTextColor());
+                toolbarTitle.setTextColor(mTitleTextView.getCurrentTextColor());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -120,6 +131,12 @@ public abstract class ToolbarActivity extends BaseActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        if (view.getLayoutParams() == null) {
+            RelativeLayout.LayoutParams layoutParams =
+                    new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                            RelativeLayout.LayoutParams.MATCH_PARENT);
+            view.setLayoutParams(layoutParams);
+        }
         toolbarContainer.removeAllViews();
         toolbarContainer.addView(view);
 

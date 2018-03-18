@@ -11,9 +11,10 @@ import java.util.List;
 
 /**
  * author : 葱花滑蛋
- * time   : 2017/11/26
- * desc   : FragmentAdapter
+ * date   : 2017/11/26
+ * desc   :
  */
+
 public class FragmentAdapter extends FragmentStatePagerAdapter {
 
     public static final String KEY_TITLE = "title";

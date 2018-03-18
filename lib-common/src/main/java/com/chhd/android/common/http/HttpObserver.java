@@ -15,9 +15,10 @@ import io.reactivex.observers.DisposableObserver;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/12
- * desc   : HttpObserver
+ * date   : 2018/03/12
+ * desc   :
  */
+
 public abstract class HttpObserver<T> extends DisposableObserver<T> {
 
     private IPageView iPageView;

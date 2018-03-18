@@ -25,9 +25,10 @@ import java.util.List;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/09
- * desc   : BaseActivity
+ * date   : 2018/03/09
+ * desc   :
  */
+
 public class BaseActivity extends RxAppCompatActivity implements IBaseView, View.OnTouchListener {
 
     public static List<Activity> activities = new ArrayList<>();

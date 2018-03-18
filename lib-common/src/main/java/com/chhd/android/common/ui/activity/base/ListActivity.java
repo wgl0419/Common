@@ -15,8 +15,8 @@ import java.util.List;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/15
- * desc   : ListActivity
+ * date   : 2018/03/15
+ * desc   :
  */
 
 public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> extends ProgressActivity

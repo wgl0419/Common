@@ -12,9 +12,10 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/14
- * desc   : RxHelper
+ * date   : 2018/03/14
+ * desc   :
  */
+
 public class RxHelper {
 
     public static <T> ObservableTransformer<T, T> ioMainThread() {

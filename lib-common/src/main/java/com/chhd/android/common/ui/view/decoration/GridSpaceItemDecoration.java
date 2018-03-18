@@ -6,9 +6,10 @@ import android.view.View;
 
 /**
  * author : 葱花滑蛋
- * time   : 2017/11/16
- * desc   : GridSpaceItemDecoration
+ * date   : 2017/11/16
+ * desc   :
  */
+
 public class GridSpaceItemDecoration extends RecyclerView.ItemDecoration {
 
     private int spanCount; // 多少列

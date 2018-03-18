@@ -14,6 +14,11 @@ import android.view.View;
 
 import com.chhd.android.common.R;
 
+/**
+ * author : 葱花滑蛋
+ * date   : 2018/03/12
+ * desc   :
+ */
 
 public class HorizontalProgressBar extends View {
 

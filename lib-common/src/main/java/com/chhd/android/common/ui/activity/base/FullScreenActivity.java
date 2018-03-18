@@ -12,9 +12,10 @@ import android.view.WindowManager;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/01/14
- * desc   : 全屏Activity
+ * date   : 2018/01/14
+ * desc   :
  */
+
 public class FullScreenActivity extends BaseActivity {
 
     private final int MESSAGE_HIDE_BARS = 0x001;

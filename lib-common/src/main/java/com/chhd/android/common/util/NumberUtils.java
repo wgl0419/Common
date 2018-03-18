@@ -7,9 +7,10 @@ import java.math.BigDecimal;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/09
+ * date   : 2018/03/09
  * desc   :
  */
+
 public class NumberUtils {
 
     private NumberUtils() {

@@ -7,8 +7,8 @@ import com.facebook.stetho.Stetho;
 
 /**
  * author : 葱花滑蛋
- * time   : 2017/11/24
- * desc   : BaseApplication
+ * date   : 2017/11/24
+ * desc   :
  */
 
 public class BaseApplication extends Application {

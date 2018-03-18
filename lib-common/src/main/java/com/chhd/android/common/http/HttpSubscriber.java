@@ -15,8 +15,8 @@ import io.reactivex.subscribers.ResourceSubscriber;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/13
- * desc   : HttpSubscriber
+ * date   : 2018/03/13
+ * desc   :
  */
 
 public abstract class HttpSubscriber<T> extends ResourceSubscriber<T> {

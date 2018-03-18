@@ -1,12 +1,17 @@
 package com.chhd.android.demo;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.chhd.android.common.ui.activity.H5Activity;
 import com.chhd.android.common.ui.activity.base.ToolbarActivity;
+import com.chhd.android.common.ui.view.Toolbar;
 
 public class MainActivity extends ToolbarActivity {
 
@@ -41,6 +46,21 @@ public class MainActivity extends ToolbarActivity {
 
 //        findViewById(R.id.tv3).setOnTouchListener(this);
 //        findViewById(R.id.card1).setOnTouchListener(this);
+
+        TypedValue outValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.actionBarSize,
+                outValue, true);
+        Log.i(TAG, "onCreate: " + outValue.getDimension(getResources().getDisplayMetrics()));
+
+        RelativeLayout relativeLayout = new RelativeLayout(this);
+        relativeLayout.setBackgroundColor(Color.GREEN);
+//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(50, RelativeLayout.LayoutParams.MATCH_PARENT);
+//        relativeLayout.setLayoutParams(layoutParams);
+//        setToolbarContainer(relativeLayout);
+
+        Toolbar toolbar = findViewById(R.id.custom_toolbar);
+//        toolbar.setToolbarContainer(relativeLayout);
+        toolbar.setTitle("hello");
     }
 
     @Override

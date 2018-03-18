@@ -53,6 +53,9 @@ dependencies {
     compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
     // BaseRecyclerViewAdapterHelper (https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+    // Glide (https://github.com/bumptech/glide)
+    compile 'com.github.bumptech.glide:glide:4.1.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
 }
 
 publish {

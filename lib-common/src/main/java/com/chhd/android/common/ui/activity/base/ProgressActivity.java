@@ -16,8 +16,8 @@ import java.util.List;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/13
- * desc   : ProgressActivity
+ * date   : 2018/03/13
+ * desc   :
  */
 
 public abstract class ProgressActivity extends BaseActivity implements IPageView, View.OnClickListener {

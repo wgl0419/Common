@@ -7,9 +7,10 @@ import android.view.animation.TranslateAnimation;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/11/30
- * desc   : 抖动工具类，产生一个左右抖动动画，与StringUtils产生联动效果
+ * date   : 2018/11/30
+ * desc   : 抖动工具类，产生一个左右抖动动画
  */
+
 public class ShakeUtils {
 
     private ShakeUtils() {

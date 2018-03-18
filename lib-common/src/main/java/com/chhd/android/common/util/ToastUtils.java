@@ -11,9 +11,10 @@ import com.chhd.android.common.global.BaseApplication;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/11/30
+ * date   : 2018/11/30
  * desc   : 吐司工具类
  */
+
 public class ToastUtils {
 
     private static final Handler HANDLER = new Handler(Looper.getMainLooper());

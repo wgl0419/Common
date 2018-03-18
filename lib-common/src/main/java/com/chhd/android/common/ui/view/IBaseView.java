@@ -5,8 +5,8 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/14
- * desc   : IBaseView
+ * date   : 2018/03/14
+ * desc   :
  */
 
 public interface IBaseView {

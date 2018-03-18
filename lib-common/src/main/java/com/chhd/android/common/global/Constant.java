@@ -1,5 +1,11 @@
 package com.chhd.android.common.global;
 
+/**
+ * author : 葱花滑蛋
+ * date   : 2018/03/18
+ * desc   :
+ */
+
 public class Constant {
 
     public static final int[] SWIPE_REFRESH_LAYOUT_COLORS = new int[]{

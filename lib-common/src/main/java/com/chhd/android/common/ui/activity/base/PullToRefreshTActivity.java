@@ -13,9 +13,10 @@ import java.util.List;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/13
- * desc   : PullToRefreshTActivity
+ * date   : 2018/03/13
+ * desc   :
  */
+
 public abstract class PullToRefreshTActivity<Adapter extends BaseQuickAdapter, Entity>
         extends ListTActivity<Adapter,Entity> implements SwipeRefreshLayout.OnRefreshListener {
 

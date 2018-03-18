@@ -6,9 +6,10 @@ import android.widget.TextView;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/09
+ * date   : 2018/03/09
  * desc   : 字符串工具类
  */
+
 public class StringUtils {
 
     private StringUtils() {

@@ -4,29 +4,23 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.TextView;
 
 import com.chhd.android.common.R;
 import com.chhd.android.common.ui.activity.base.ToolbarActivity;
 import com.chhd.android.common.ui.view.HorizontalProgressBar;
 
-import org.w3c.dom.ProcessingInstruction;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
-import java.util.TreeMap;
+/**
+ * author : 葱花滑蛋
+ * date   : 2018/03/18
+ * desc   :
+ */
 
 @SuppressLint("SetJavaScriptEnabled")
 public class H5Activity extends ToolbarActivity {

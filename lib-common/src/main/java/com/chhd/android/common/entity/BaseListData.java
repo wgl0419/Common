@@ -4,9 +4,10 @@ import java.util.List;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/13
- * desc   : BaseListData
+ * date   : 2018/03/13
+ * desc   :
  */
+
 public abstract class BaseListData<T> {
 
     public abstract int getStart();

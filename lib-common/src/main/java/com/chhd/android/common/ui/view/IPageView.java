@@ -2,8 +2,8 @@ package com.chhd.android.common.ui.view;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/12
- * desc   : IPageView
+ * date   : 2018/03/12
+ * desc   :
  */
 
 public interface IPageView extends IBaseView {

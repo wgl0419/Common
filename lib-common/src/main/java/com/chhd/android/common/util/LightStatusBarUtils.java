@@ -21,9 +21,10 @@ import static android.content.ContentValues.TAG;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/09
+ * date   : 2018/03/09
  * desc   : 参考：https://www.jianshu.com/p/abd021c22728
  */
+
 public class LightStatusBarUtils {
 
     private LightStatusBarUtils() {

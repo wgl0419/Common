@@ -2,9 +2,10 @@ package com.chhd.android.common.http;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/12
- * desc   : ApiException
+ * date   : 2018/03/12
+ * desc   :
  */
+
 public class ApiException extends Throwable{
 
     private int code;

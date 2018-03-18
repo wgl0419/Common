@@ -14,9 +14,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/12
- * desc   : RetrofitProvider
+ * date   : 2018/03/12
+ * desc   :
  */
+
 public class RetrofitProvider {
 
     private static final HttpLoggingInterceptor HTTP_LOGGING_INTERCEPTOR = new HttpLoggingInterceptor()

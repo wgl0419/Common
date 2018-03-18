@@ -18,9 +18,10 @@ import io.reactivex.functions.Function;
 
 /**
  * author : 葱花滑蛋
- * time   : 2018/03/13
- * desc   : HttpResponse
+ * date   : 2018/03/13
+ * desc   :
  */
+
 public class ResponseTransformer {
 
     public static <T> ObservableTransformer<BaseResponseData<T>, T> transform() {
