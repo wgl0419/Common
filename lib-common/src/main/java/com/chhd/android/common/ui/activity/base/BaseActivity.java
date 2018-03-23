@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,7 +13,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.chhd.android.common.ui.view.IBaseView;
+import com.chhd.android.common.mvp.IBaseView;
 import com.chhd.android.common.util.UiUtils;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -104,10 +103,13 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
     }
 
     @Override
-    public <T> LifecycleTransformer<T> _bindToLifecycle() {
-        return bindToLifecycle();
+    public <T> LifecycleTransformer<T> bindUntilDestroy() {
+        return bindUntilEvent(ActivityEvent.DESTROY);
     }
 
+    /**
+     * 默认实现Home键功能
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -118,6 +120,9 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * view.setOnTouchListener(this)，实现按压效果
+     */
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -140,5 +145,4 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
         }
         return false;
     }
-
 }

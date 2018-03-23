@@ -1,10 +1,12 @@
 package com.chhd.android.common.util.image;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +23,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 public class ImageLoader {
 
+    @SuppressLint("StaticFieldLeak")
     private static ImageLoader imageLoader = new ImageLoader();
 
     public static ImageLoader getInstance() {
@@ -32,24 +35,24 @@ public class ImageLoader {
     private Activity activity;
     private Fragment fragment;
     private Object model;
-    private boolean isAnimation = true;
-    private int placeholderId;
-    private int errorId;
+    private boolean isAnimation = true; // 加载动画
+    private int placeholderId; // 加载占位图
+    private int errorId; // 错误占位图
 
     private ImageLoader() {
     }
 
-    private ImageLoader with(Activity activity) {
+    public ImageLoader with(Activity activity) {
         this.activity = activity;
         return this;
     }
 
-    private ImageLoader with(Fragment fragment) {
+    public ImageLoader with(Fragment fragment) {
         this.fragment = fragment;
         return this;
     }
 
-    private ImageLoader load(Object model) {
+    public ImageLoader load(Object model) {
         this.model = model;
         return this;
     }
@@ -59,17 +62,17 @@ public class ImageLoader {
         return this;
     }
 
-    private ImageLoader placeholderId(int placeholderId) {
+    public ImageLoader placeholderId(int placeholderId) {
         this.placeholderId = placeholderId;
         return this;
     }
 
-    private ImageLoader errorId(int errorId) {
+    public ImageLoader errorId(int errorId) {
         this.errorId = errorId;
         return this;
     }
 
-    private void into(ImageView imageView) {
+    public void into(ImageView imageView) {
 
         RequestManager requestManager;
         if (activity != null) {
@@ -92,7 +95,11 @@ public class ImageLoader {
         } else if (configuration.getErrorId() != 0) {
             requestBuilder.apply(RequestOptions.errorOf(configuration.getErrorId()));
         }
-        if (configuration.isAnimation() && isAnimation) {
+        String appCompatImageViewClazzName = "android.support.v7.widget.AppCompatImageView";
+        String imageViewClazzName = "android.widget.ImageView";
+        String clazzName = imageView.getClass().getName();
+        if (configuration.isAnimation() && isAnimation
+                && (appCompatImageViewClazzName.equals(clazzName) || imageViewClazzName.equals(clazzName))) {
             requestBuilder.transition(DrawableTransitionOptions.withCrossFade());
         }
         if (configuration.isNoPhoto() && isMobileConnected(imageView.getContext())) {
@@ -111,6 +118,9 @@ public class ImageLoader {
         isAnimation = true;
     }
 
+    /**
+     * 是否移动数据连接
+     */
     private Boolean isMobileConnected(Context context) {
         ConnectivityManager manager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);

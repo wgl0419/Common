@@ -24,6 +24,9 @@ import io.reactivex.functions.Function;
 
 public class ResponseTransformer {
 
+    /**
+     * 过滤网络请求结果
+     */
     public static <T> ObservableTransformer<BaseResponseData<T>, T> transform() {
         return new ObservableTransformer<BaseResponseData<T>, T>() {
             @Override

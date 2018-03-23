@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.chhd.android.common.R;
-import com.chhd.android.common.ui.view.IPageView;
+import com.chhd.android.common.mvp.IPageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,8 +81,14 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
         btnRefresh.setOnClickListener(this);
     }
 
+    /**
+     * 初始化
+     */
     public abstract void onInit();
 
+    /**
+     * 加载
+     */
     public abstract void onLoad();
 
     private void showStatusView(int viewId) {
@@ -94,7 +100,6 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
             }
         }
     }
-
 
     private void showLoadingView() {
         showStatusView(R.id.loading);

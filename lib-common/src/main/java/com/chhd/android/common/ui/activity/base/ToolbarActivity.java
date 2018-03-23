@@ -71,14 +71,23 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     }
 
+    /**
+     * 是否显示Home键
+     */
     protected boolean showHomeAsUp() {
         return true;
     }
 
+    /**
+     * 获取菜单栏标题
+     */
     protected String getToolbarTitle() {
         return null;
     }
 
+    /**
+     * 设置菜单栏标题
+     */
     protected void setToolbarTitle(CharSequence title) {
         if (getSupportActionBar() != null) {
             initToolbarTitle(title);
@@ -104,25 +113,19 @@ public abstract class ToolbarActivity extends BaseActivity {
 
             title = title == null ? getString(R.string.app_name) : title;
             toolbarTitle.setText(title);
-
-            outValue = new TypedValue();
-            getTheme().resolveAttribute(R.attr.titleTextColor,
-                    outValue, true);
-            try {
-                Field field = Toolbar.class.getDeclaredField("mTitleTextView");
-                field.setAccessible(true);
-                TextView mTitleTextView = (TextView) field.get(toolbar);
-                toolbarTitle.setTextColor(mTitleTextView.getCurrentTextColor());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
+    /**
+     * 设置菜单栏布局
+     */
     protected void setToolbarContainer(View view) {
         setToolbarContainer(view, false);
     }
 
+    /**
+     * 设置菜单栏布局
+     */
     protected void setToolbarContainer(View view, boolean showHomeAsUp) {
         toolbar.setTitle("");
         if (getSupportActionBar() != null) {

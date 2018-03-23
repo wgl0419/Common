@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
-import com.chhd.android.common.ui.view.IPageView;
+import com.chhd.android.common.mvp.IPageView;
 import com.chhd.android.common.util.ToastUtils;
 
 import java.net.SocketTimeoutException;
@@ -23,6 +23,7 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
 
     private IPageView iPageView;
     private ProgressDialog dialog;
+    private T t;
 
     @Override
     protected final void onStart() {
@@ -50,6 +51,7 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
 
     @Override
     public final void onNext(T t) {
+        this.t = t;
         if (iPageView != null) {
             iPageView.onPageSuccess();
         }
@@ -90,6 +92,8 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
     @Override
     public final void onComplete() {
         if (iPageView != null) {
+            if (t == null)
+                iPageView.onPageEmpty();
             iPageView.onPageComplete();
         } else if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
@@ -97,28 +101,49 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
         onFinish();
     }
 
+    /**
+     * 请求开始
+     */
     protected void _onStart() {
 
     }
 
+    /**
+     * 请求成功
+     */
     protected abstract void onSucceed(T t);
 
+    /**
+     * 请求失败
+     */
     protected void onFailed(Throwable e) {
 
     }
 
+    /**
+     * 请求结束
+     */
     protected void onFinish() {
 
     }
 
+    /**
+     * 是否弹出进度对话框
+     */
     protected Context showProgressDialog() {
         return null;
     }
 
+    /**
+     * 是否显示请求进度、请求成功、请求失败等布局
+     */
     protected IPageView showPageView() {
         return null;
     }
 
+    /**
+     * 是否吐司错误提示
+     */
     protected boolean showToast() {
         return true;
     }

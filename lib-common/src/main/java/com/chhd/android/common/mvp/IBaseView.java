@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.view;
+package com.chhd.android.common.mvp;
 
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -11,5 +11,8 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 
 public interface IBaseView {
 
-    <T> LifecycleTransformer<T> _bindToLifecycle();
+    /**
+     * 绑定onDestroy的生命周期，结合RxJava使用
+     */
+    <T> LifecycleTransformer<T> bindUntilDestroy();
 }

@@ -17,11 +17,11 @@ public class UiUtils {
     private UiUtils() {
     }
 
-    private static Context getContext() {
+    public static Context getContext() {
         return CommonUtils.getApplication();
     }
 
-    private static Resources getResources() {
+    public static Resources getResources() {
         return getContext().getResources();
     }
 

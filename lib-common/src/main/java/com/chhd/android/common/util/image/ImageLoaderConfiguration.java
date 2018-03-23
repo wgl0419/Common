@@ -8,10 +8,10 @@ package com.chhd.android.common.util.image;
 
 public class ImageLoaderConfiguration {
 
-    private int placeholderId;
-    private int errorId;
-    private boolean isAnimation = true;
-    private boolean isNoPhoto = false;
+    private int placeholderId; // 加载占位图
+    private int errorId; // 错误占位图
+    private boolean isAnimation = true; // 加载动画
+    private boolean isNoPhoto = false; // 省流量模式
 
     public int getPlaceholderId() {
         return placeholderId;

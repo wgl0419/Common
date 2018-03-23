@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * author : 葱花滑蛋
  * date   : 2018/03/12
- * desc   : 应用于有CompoundButton子类的ViewGroup，点击ViewGroup控制CompoundButton开关
+ * desc   : 应用于有CompoundButton子类的ViewGroup，点击ViewGroup控制CompoundButton开关，务必加上android:clickable="true"，建议加上android:focusable="true"
  */
 
 public class CompoundRelativeLayout extends RelativeLayout implements ViewTreeObserver.OnGlobalLayoutListener

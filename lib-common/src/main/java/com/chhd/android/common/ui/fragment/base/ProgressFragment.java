@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.chhd.android.common.R;
-import com.chhd.android.common.ui.view.IPageView;
+import com.chhd.android.common.mvp.IPageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,8 +87,14 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
         btnRefresh.setOnClickListener(this);
     }
 
+    /**
+     * 初始化
+     */
     public abstract void onInit(View view);
 
+    /**
+     * 加载
+     */
     public abstract void onLoad();
 
     private void showStatusView(int viewId) {

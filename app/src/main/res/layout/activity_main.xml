@@ -60,7 +60,17 @@
     <com.chhd.android.common.ui.view.Toolbar
         android:id="@+id/custom_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:theme="?attr/actionBarTheme" />
+        android:layout_height="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        android:background="@android:color/holo_blue_light" />
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="88dp"
+        android:layout_height="88dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ"
+        android:layout_width="88dp"
+        android:layout_height="88dp" />
 </LinearLayout>

@@ -18,6 +18,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RxHelper {
 
+    /**
+     * 切换线程：工作线程-》主线程
+     */
     public static <T> ObservableTransformer<T, T> ioMainThread() {
         return new ObservableTransformer<T, T>() {
             @Override

@@ -14,5 +14,4 @@
             android:name=".ui.activity.H5Activity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
     </application>
-
 </manifest>

@@ -23,10 +23,16 @@ public class RetrofitProvider {
     private static final HttpLoggingInterceptor HTTP_LOGGING_INTERCEPTOR = new HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY);
 
+    /**
+     * 生成Retrofit对象
+     */
     public static Retrofit newInstance(String baseUrl) {
         return newInstance(baseUrl, null);
     }
 
+    /**
+     * 生成Retrofit对象
+     */
     public static Retrofit newInstance(String baseUrl, Map<String, String> headers) {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
@@ -37,10 +43,22 @@ public class RetrofitProvider {
                 .build();
     }
 
+    /**
+     * 创建api
+     *
+     * @param baseUrl baseUrl
+     * @param clazz   请求头部
+     */
     public static <T> T createApi(String baseUrl, Class<T> clazz) {
         return createApi(baseUrl, null, clazz);
     }
 
+    /**
+     * 创建api
+     *
+     * @param baseUrl baseUrl
+     * @param headers 请求头部
+     */
     public static <T> T createApi(String baseUrl, Map<String, String> headers, Class<T> clazz) {
         return newInstance(baseUrl, headers).create(clazz);
     }

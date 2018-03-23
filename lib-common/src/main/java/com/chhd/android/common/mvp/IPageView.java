@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.view;
+package com.chhd.android.common.mvp;
 
 /**
  * author : 葱花滑蛋

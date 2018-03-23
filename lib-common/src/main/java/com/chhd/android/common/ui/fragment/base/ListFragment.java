@@ -84,28 +84,47 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * 下拉加载
+     */
     @Override
     public void onLazyLoad() {
         onLoad(false);
     }
 
+    /**
+     * 上拉加载
+     */
     public void onLoadMore() {
         onLoad(true);
     }
 
+    /**
+     * 加载
+     *
+     * @param isLoadMore 是否上拉加载
+     */
     public abstract void onLoad(boolean isLoadMore);
 
+    /**
+     * Item点击事件
+     */
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
     }
 
+    /**
+     * Item的子View点击事件
+     */
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 
     }
 
-
+    /**
+     * 加载列表成功
+     */
     protected void onLoadSuccess(BaseListData<Entity> listData) {
         this.listData = listData;
         if (this.listData.getStart() == 0) {
@@ -127,6 +146,9 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
         }
     }
 
+    /**
+     * 加载列表成功
+     */
     protected void onLoadSuccess(List<Entity> list) {
         this.list.clear();
         this.list.addAll(list);
@@ -142,6 +164,9 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
         adapter.loadMoreEnd(true);
     }
 
+    /**
+     * 显示列表空布局
+     */
     protected void showListEmpty() {
         View emptyView = View.inflate(getActivity(), R.layout.layout_empty, null);
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
@@ -151,6 +176,9 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
         adapter.setEmptyView(emptyView);
     }
 
+    /**
+     * 显示列表失败布局
+     */
     protected void showListError(String message) {
         View errorView = View.inflate(getActivity(), R.layout.layout_error, null);
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
@@ -169,6 +197,9 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
         adapter.setEmptyView(errorView);
     }
 
+    /**
+     * 加载列表失败
+     */
     protected void onLoadError(String message) {
         if (listData.getStart() == 0) {
             showListError(message);

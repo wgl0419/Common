@@ -7,4 +7,13 @@
         <!-- true：布局延伸至状态栏和导航栏 -->
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
+
+    <!-- 透明主题 -->
+    <style name="NoTitleTranslucentTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
 </resources>

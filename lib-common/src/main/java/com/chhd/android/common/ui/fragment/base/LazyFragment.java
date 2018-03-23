@@ -61,5 +61,8 @@ public abstract class LazyFragment extends ProgressFragment {
 
     }
 
+    /**
+     * 懒加载，适用于ViewPager,第一次可见时执行此方法
+     */
     public abstract void onLazyLoad();
 }

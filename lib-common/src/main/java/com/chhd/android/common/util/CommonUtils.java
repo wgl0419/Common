@@ -21,7 +21,7 @@ public class CommonUtils {
 
     static Application getApplication() {
         if (instance == null) {
-            throw new RuntimeException("Please extend BaseApplication, or CommonUtils.init()");
+            throw new NullPointerException("Please extend BaseApplication, or CommonUtils.init()");
         }
         return instance;
     }

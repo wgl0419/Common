@@ -4,7 +4,7 @@ import com.chhd.android.common.http.HttpObserver;
 import com.chhd.android.common.http.ResponseTransformer;
 import com.chhd.android.common.http.RxHelper;
 import com.chhd.android.common.ui.activity.base.PullToRefreshTActivity;
-import com.chhd.android.common.ui.view.IPageView;
+import com.chhd.android.common.mvp.IPageView;
 
 public class Demo1Activity extends PullToRefreshTActivity<Adapter, Object> {
 

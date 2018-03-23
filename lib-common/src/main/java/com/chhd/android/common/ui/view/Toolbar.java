@@ -4,17 +4,21 @@ package com.chhd.android.common.ui.view;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chhd.android.common.R;
 
 import java.lang.reflect.Field;
+
+/**
+ * author : 葱花滑蛋
+ * date   : 2018/03/19
+ * desc   :
+ */
 
 public class Toolbar extends android.support.v7.widget.Toolbar {
 
@@ -62,15 +66,6 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
             super.setTitle(title);
         } else {
             toolbarTitle.setText(title);
-
-            try {
-                Field field = android.support.v7.widget.Toolbar.class.getDeclaredField("mTitleTextView");
-                field.setAccessible(true);
-                TextView mTitleTextView = (TextView) field.get(this);
-                toolbarTitle.setTextColor(mTitleTextView.getCurrentTextColor());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
