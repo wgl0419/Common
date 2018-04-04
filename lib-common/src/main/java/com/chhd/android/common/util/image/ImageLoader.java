@@ -6,7 +6,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -23,14 +22,18 @@ import com.bumptech.glide.request.RequestOptions;
 
 public class ImageLoader {
 
+    private static ImageLoaderConfig config = new ImageLoaderConfig();
+
+    public static void init(ImageLoaderConfig config) {
+        ImageLoader.config = config;
+    }
+
     @SuppressLint("StaticFieldLeak")
     private static ImageLoader imageLoader = new ImageLoader();
 
     public static ImageLoader getInstance() {
-        return imageLoader;
+        return new ImageLoader();
     }
-
-    private ImageLoaderConfiguration configuration = new ImageLoaderConfiguration();
 
     private Activity activity;
     private Fragment fragment;
@@ -41,6 +44,7 @@ public class ImageLoader {
 
     private ImageLoader() {
     }
+
 
     public ImageLoader with(Activity activity) {
         this.activity = activity;
@@ -87,22 +91,22 @@ public class ImageLoader {
 
         if (placeholderId != 0) {
             requestBuilder.apply(RequestOptions.placeholderOf(placeholderId));
-        } else if (configuration.getPlaceholderId() != 0) {
-            requestBuilder.apply(RequestOptions.placeholderOf(configuration.getPlaceholderId()));
+        } else if (config.getPlaceholderId() != 0) {
+            requestBuilder.apply(RequestOptions.placeholderOf(config.getPlaceholderId()));
         }
         if (errorId != 0) {
             requestBuilder.apply(RequestOptions.errorOf(errorId));
-        } else if (configuration.getErrorId() != 0) {
-            requestBuilder.apply(RequestOptions.errorOf(configuration.getErrorId()));
+        } else if (config.getErrorId() != 0) {
+            requestBuilder.apply(RequestOptions.errorOf(config.getErrorId()));
         }
         String appCompatImageViewClazzName = "android.support.v7.widget.AppCompatImageView";
         String imageViewClazzName = "android.widget.ImageView";
         String clazzName = imageView.getClass().getName();
-        if (configuration.isAnimation() && isAnimation
+        if (config.isAnimation() && isAnimation
                 && (appCompatImageViewClazzName.equals(clazzName) || imageViewClazzName.equals(clazzName))) {
             requestBuilder.transition(DrawableTransitionOptions.withCrossFade());
         }
-        if (configuration.isNoPhoto() && isMobileConnected(imageView.getContext())) {
+        if (config.isNoPhoto() && isMobileConnected(imageView.getContext()) && isUrl(model)) {
             requestBuilder.apply(new RequestOptions().onlyRetrieveFromCache(true));
         }
 
@@ -112,16 +116,18 @@ public class ImageLoader {
     }
 
     private void reset() {
+        activity = null;
+        fragment = null;
         model = null;
-        placeholderId = 0;
-        errorId = 0;
-        isAnimation = true;
+        isAnimation = true; // 加载动画
+        placeholderId = 0; // 加载占位图
+        errorId = 0; // 错误占位图
     }
 
     /**
      * 是否移动数据连接
      */
-    private Boolean isMobileConnected(Context context) {
+    private boolean isMobileConnected(Context context) {
         ConnectivityManager manager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (manager != null) {
@@ -131,4 +137,13 @@ public class ImageLoader {
         }
         return false;
     }
+
+    private boolean isUrl(Object model) {
+        if (model instanceof String) {
+            String str = (String) model;
+            if (str.startsWith("http://") || str.startsWith("https://")) return true;
+        }
+        return false;
+    }
+
 }

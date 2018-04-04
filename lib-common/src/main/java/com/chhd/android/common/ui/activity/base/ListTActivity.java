@@ -85,7 +85,7 @@ public abstract class ListTActivity <Adapter extends BaseQuickAdapter, Entity> e
     }
 
     /**
-     * 下拉加载
+     * 加载
      */
     @Override
     public void onLoad() {

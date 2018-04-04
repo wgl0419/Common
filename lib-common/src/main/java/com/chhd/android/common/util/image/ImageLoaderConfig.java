@@ -6,7 +6,7 @@ package com.chhd.android.common.util.image;
  * desc   :
  */
 
-public class ImageLoaderConfiguration {
+public class ImageLoaderConfig {
 
     private int placeholderId; // 加载占位图
     private int errorId; // 错误占位图
@@ -17,31 +17,35 @@ public class ImageLoaderConfiguration {
         return placeholderId;
     }
 
-    public void setPlaceholderId(int placeholderId) {
+    public ImageLoaderConfig setPlaceholderId(int placeholderId) {
         this.placeholderId = placeholderId;
+        return this;
     }
 
     public int getErrorId() {
         return errorId;
     }
 
-    public void setErrorId(int errorId) {
+    public ImageLoaderConfig setErrorId(int errorId) {
         this.errorId = errorId;
+        return this;
     }
 
     public boolean isAnimation() {
         return isAnimation;
     }
 
-    public void setAnimation(boolean animation) {
-        isAnimation = animation;
+    public ImageLoaderConfig setAnimation(boolean animation) {
+        this. isAnimation = animation;
+        return this;
     }
 
     public boolean isNoPhoto() {
         return isNoPhoto;
     }
 
-    public void setNoPhoto(boolean noPhoto) {
-        isNoPhoto = noPhoto;
+    public ImageLoaderConfig setNoPhoto(boolean noPhoto) {
+        this.isNoPhoto = noPhoto;
+        return this;
     }
 }

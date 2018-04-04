@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import com.chhd.android.common.ui.activity.base.ToolbarActivity;
 import com.chhd.android.common.ui.view.Toolbar;
 import com.chhd.android.common.util.image.ImageLoader;
+import com.chhd.android.common.util.image.ImageLoaderConfig;
 
 public class MainActivity extends ToolbarActivity {
 
@@ -80,8 +81,8 @@ public class MainActivity extends ToolbarActivity {
 //        toolbar.setToolbarContainer(relativeLayout);
         toolbar.setTitle("hello");
 
-        ImageLoader.getInstance().load(imgUrl).placeholderId(R.mipmap.ic_placeholder).into((ImageView) findViewById(R.id.iv));
-        ImageLoader.getInstance().load(imgUrl).placeholderId(R.mipmap.ic_placeholder).into((ImageView) findViewById(R.id.civ));
+        ImageLoader.init(new ImageLoaderConfig().setNoPhoto(true));
+        ImageLoader.getInstance().load(R.mipmap.ic_placeholder).into((ImageView) findViewById(R.id.iv));
 
 //        Observable
 //                .interval(2000, TimeUnit.MILLISECONDS)

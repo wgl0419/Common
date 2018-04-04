@@ -85,7 +85,7 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
     }
 
     /**
-     * 下拉加载
+     * 加载
      */
     @Override
     public void onLazyLoad() {
