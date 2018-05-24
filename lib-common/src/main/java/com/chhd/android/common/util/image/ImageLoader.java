@@ -14,10 +14,10 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 
+
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/18
- * desc   :
+ * @author : 葱花滑蛋
+ * @date :  2018/03/18
  */
 
 public class ImageLoader {
@@ -38,9 +38,18 @@ public class ImageLoader {
     private Activity activity;
     private Fragment fragment;
     private Object model;
-    private boolean isAnimation = true; // 加载动画
-    private int placeholderId; // 加载占位图
-    private int errorId; // 错误占位图
+    /**
+     * 加载动画
+     */
+    private boolean isAnimation = true;
+    /**
+     * 加载占位图
+     */
+    private int placeholderId;
+    /**
+     * 错误占位图
+     */
+    private int errorId;
 
     private ImageLoader() {
     }
@@ -119,9 +128,9 @@ public class ImageLoader {
         activity = null;
         fragment = null;
         model = null;
-        isAnimation = true; // 加载动画
-        placeholderId = 0; // 加载占位图
-        errorId = 0; // 错误占位图
+        isAnimation = true;
+        placeholderId = 0;
+        errorId = 0;
     }
 
     /**
@@ -132,8 +141,9 @@ public class ImageLoader {
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (manager != null) {
             NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-            if (null != networkInfo && networkInfo.getType() == ConnectivityManager.TYPE_MOBILE)
+            if (null != networkInfo && networkInfo.getType() == ConnectivityManager.TYPE_MOBILE){
                 return networkInfo.isAvailable();
+            }
         }
         return false;
     }

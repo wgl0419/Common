@@ -1,5 +1,7 @@
 package com.chhd.android.common.http;
 
+import android.support.annotation.NonNull;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,9 +11,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/12
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2018/03/12
  */
 
 public class BasicParamsInterceptor implements Interceptor {
@@ -22,7 +23,7 @@ public class BasicParamsInterceptor implements Interceptor {
     }
 
     @Override
-    public Response intercept(Interceptor.Chain chain) throws IOException {
+    public Response intercept(@NonNull Interceptor.Chain chain) throws IOException {
         Request original = chain.request();
         Request.Builder builder = original.newBuilder();
         if (!headers.isEmpty()) {

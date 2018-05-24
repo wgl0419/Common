@@ -4,9 +4,10 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/12/24
- * desc   : 滑动工具类
+ * 滑动工具类
+ *
+ * @author : 葱花滑蛋
+ * @date :  2017/12/24
  */
 
 public class SlideHelper {

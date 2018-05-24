@@ -14,9 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/15
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2018/03/15
  */
 
 public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> extends LazyFragment
@@ -50,6 +49,11 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
         onLoadError(message);
     }
 
+    /**
+     * 获取列表适配器
+     *
+     * @return Adapter
+     */
     protected abstract Adapter getAdapter();
 
     protected RecyclerView.LayoutManager getLayoutManager() {
@@ -68,13 +72,13 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
 
         adapter = getAdapter();
         adapter.openLoadAnimation();
-        adapter.setEnableLoadMore(true);
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
                 onLoadMore();
             }
         }, recyclerView);
+        adapter.setEnableLoadMore(false);
         adapter.setHeaderFooterEmpty(true, true);
         adapter.setEmptyView(new View(getActivity()));
         adapter.setOnItemClickListener(this);
@@ -139,6 +143,7 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
             onPageSuccess();
         }
 
+        adapter.setEnableLoadMore(true);
         if (listData.hasMore()) {
             adapter.loadMoreComplete();
         } else {
@@ -160,8 +165,6 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
         } else {
             onPageSuccess();
         }
-
-        adapter.loadMoreEnd(true);
     }
 
     /**

@@ -14,16 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/12
- * desc   : 应用于有CompoundButton子类的ViewGroup，点击ViewGroup控制CompoundButton开关，务必加上android:clickable="true"，建议加上android:focusable="true"
+ * 应用于有CompoundButton子类的ViewGroup，点击ViewGroup控制CompoundButton开关，务必加上android:clickable="true"，建议加上android:focusable="true"
+ *
+ * @author : 葱花滑蛋
+ * @date : 2018/03/12
  */
 
 public class CompoundRelativeLayout extends RelativeLayout implements ViewTreeObserver.OnGlobalLayoutListener
         , View.OnClickListener {
 
-    private List<CompoundButton> compoundButtonList = new ArrayList<>();
     private CompoundButton compoundButton;
+    private OnCompoundClickListener onCompoundClickListener;
 
     public CompoundRelativeLayout(Context context) {
         this(context, null);
@@ -53,12 +54,7 @@ public class CompoundRelativeLayout extends RelativeLayout implements ViewTreeOb
     @Override
     public void onGlobalLayout() {
         getViewTreeObserver().removeGlobalOnLayoutListener(this);
-        loopThroughChildView(this);
-        if (compoundButtonList.isEmpty() || compoundButtonList.size() > 1) {
-            throw new RuntimeException("compoundButtonList: " + compoundButtonList.size() + ", ViewGroup can only have one CompoundButton.");
-        } else {
-            compoundButton = compoundButtonList.get(0);
-        }
+        compoundButton = findViewWithTag("compound");
         if (isClickable()) {
             setOnClickListener(this);
         } else {
@@ -66,26 +62,40 @@ public class CompoundRelativeLayout extends RelativeLayout implements ViewTreeOb
         }
     }
 
-    /**
-     * 迭代遍历子View，寻找CompoundButton的子类
-     */
-    private void loopThroughChildView(View parent) {
-        if (parent instanceof ViewGroup) {
-            ViewGroup viewGroup = (ViewGroup) parent;
-            int childCount = viewGroup.getChildCount();
-            for (int i = 0, len = childCount; i < len; i++) {
-                View child = viewGroup.getChildAt(i);
-                if (child instanceof CompoundButton) {
-                    compoundButtonList.add((CompoundButton) child);
-                } else {
-                    loopThroughChildView(child);
-                }
-            }
-        }
-    }
-
     @Override
     public void onClick(View view) {
         compoundButton.setChecked(!compoundButton.isChecked());
+        if (onCompoundClickListener != null) {
+            onCompoundClickListener.onCompoundClick(compoundButton, compoundButton.isChecked());
+        }
+    }
+
+    public boolean isChecked() {
+        if (compoundButton == null) {
+            compoundButton = findViewWithTag("compound");
+        }
+        return compoundButton.isChecked();
+    }
+
+    public void setChecked(boolean isChecked) {
+        if (compoundButton == null) {
+            compoundButton = findViewWithTag("compound");
+        }
+        compoundButton.setChecked(isChecked);
+    }
+
+    public void setOnCompoundClickListener(OnCompoundClickListener onCompoundClickListener) {
+        this.onCompoundClickListener = onCompoundClickListener;
+    }
+
+    public interface OnCompoundClickListener {
+
+        /**
+         * 点击事件
+         *
+         * @param compoundButton 子类compoundButton
+         * @param isChecked      isChecked
+         */
+        void onCompoundClick(CompoundButton compoundButton, boolean isChecked);
     }
 }

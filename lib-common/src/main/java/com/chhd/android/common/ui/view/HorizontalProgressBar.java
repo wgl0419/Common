@@ -15,9 +15,8 @@ import android.view.View;
 import com.chhd.android.common.R;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/12
- * desc   :
+ * @author : 葱花滑蛋
+ * @date :  2018/03/12
  */
 
 public class HorizontalProgressBar extends View {
@@ -70,7 +69,8 @@ public class HorizontalProgressBar extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         Log.v(TAG, "onMeasure -> --------------------------------------");
         Log.v(TAG, "onMeasure -> MeasuredWidth: " + getMeasuredWidth() + ", MeasuredHeight: " + getMeasuredHeight());
-        int width = getRealSize(widthMeasureSpec);//获取控件的宽度、高度
+        // 获取控件的宽度、高度
+        int width = getRealSize(widthMeasureSpec);
         int height = getRealSize(heightMeasureSpec);
         Log.v(TAG, "onMeasure -> width: " + width + ", height: " + height);
         setMeasuredDimension(width, height);

@@ -5,9 +5,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/14
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2018/03/14
  */
 
 public abstract class LazyFragment extends ProgressFragment {
@@ -45,13 +44,15 @@ public abstract class LazyFragment extends ProgressFragment {
     private void onPreLazyLoad() {
         if (isVisibleToUser == null) {
             hasLazyLoad = true;
-            if (isAutoLoad())
+            if (isAutoLoad()) {
                 onLazyLoad();
+            }
         } else {
             if (isVisibleToUser && hasViewCreate && !hasLazyLoad) {
                 hasLazyLoad = true;
-                if (isAutoLoad())
+                if (isAutoLoad()) {
                     onLazyLoad();
+                }
             }
         }
     }

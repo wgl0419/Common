@@ -11,9 +11,10 @@ import android.view.Window;
 import android.view.WindowManager;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/01/14
- * desc   : 全屏界面，适用于启动页、视频播放页
+ * 全屏界面，适用于启动页、视频播放页
+ *
+ * @author : 葱花滑蛋
+ * @date : 2018/01/14
  */
 
 public class FullScreenActivity extends BaseActivity {
@@ -30,18 +31,21 @@ public class FullScreenActivity extends BaseActivity {
                 case MESSAGE_HIDE_BARS:
                     hideBar();
                     break;
+                default:
+                    break;
             }
         }
     };
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN)
+        if (event.getAction() == MotionEvent.ACTION_DOWN){
             if (!isShowBar) {
                 showBar();
             } else {
                 hideBar();
             }
+        }
         return super.onTouchEvent(event);
     }
 

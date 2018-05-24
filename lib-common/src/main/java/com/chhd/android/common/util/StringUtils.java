@@ -31,7 +31,23 @@ public class StringUtils {
         return isNotEmpty(textView.getText());
     }
 
-    /* --------------------------扩展方法-------------------------- */
+    public static boolean isBlank(CharSequence charSequence) {
+        return isEmpty(charSequence.toString().trim());
+    }
+
+    public static boolean isBlank(TextView textView) {
+        return isBlank(textView.getText());
+    }
+
+    public static boolean isNotBlank(CharSequence charSequence) {
+        return !isBlank(charSequence);
+    }
+
+    public static boolean isNotBlank(TextView textView) {
+        return isNotBlank(textView.getText());
+    }
+
+    /* -------------------------- 扩展方法 -------------------------- */
 
     public static boolean isEmpty(TextView textView, String errorMsg) {
         return isEmpty(textView, errorMsg, false);
@@ -47,5 +63,21 @@ public class StringUtils {
             ToastUtils.show(errorMsg);
         }
         return isEmpty;
+    }
+
+    public static boolean isBlank(TextView textView, String errorMsg) {
+        return isBlank(textView, errorMsg, false);
+    }
+
+    public static boolean isBlank(TextView textView, String errorMsg, boolean anim) {
+        boolean isBlank = isBlank(textView);
+        if (isBlank) {
+            if (anim) {
+                ShakeUtils.on(textView);
+            }
+            textView.requestFocus();
+            ToastUtils.show(errorMsg);
+        }
+        return isBlank;
     }
 }

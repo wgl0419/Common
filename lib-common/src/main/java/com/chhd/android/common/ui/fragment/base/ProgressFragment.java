@@ -16,9 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/14
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2018/03/14
  */
 
 public abstract class ProgressFragment extends BaseFragment implements IPageView, View.OnClickListener {
@@ -59,6 +58,11 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
         return true;
     }
 
+    /**
+     * 获取布局文件
+     *
+     * @return int
+     */
     public abstract int getContentResId();
 
     public void onPrepare(View view) {
@@ -80,8 +84,9 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
 
         showContentView();
 
-        if (getContentResId() != 0)
+        if (getContentResId() != 0) {
             LayoutInflater.from(getActivity()).inflate(getContentResId(), contentView, true);
+        }
 
         btnRetry.setOnClickListener(this);
         btnRefresh.setOnClickListener(this);
@@ -89,6 +94,8 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
 
     /**
      * 初始化
+     *
+     * @param view 根布局
      */
     public abstract void onInit(View view);
 
@@ -125,8 +132,14 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
         showStatusView(R.id.content);
     }
 
-    protected boolean hasSuccess = false; // 因为可能会在onResume方法中重新加载数据，如果已经时显示成功，则不再显示加载中、加载失败状态
-    protected boolean hasFirstLoadComplete = false; // 同样可能会在onResume方法中重新加载数据的问题，这样第一次进入可能会分别在onCreate,onResume触发网络请求，所以衍生出此属性
+    /**
+     * 因为可能会在onResume方法中重新加载数据，如果已经时显示成功，则不再显示加载中、加载失败状态
+     */
+    protected boolean hasSuccess = false;
+    /**
+     * 同样可能会在onResume方法中重新加载数据的问题，这样第一次进入可能会分别在onCreate,onResume触发网络请求，所以衍生出此属性
+     */
+    protected boolean hasFirstLoadComplete = false;
 
     @Override
     public void onPageLoading() {

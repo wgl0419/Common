@@ -1,18 +1,37 @@
 package com.chhd.android.common.entity;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/13
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2018/03/13
  */
 
 public interface BaseResponseData<T> {
 
-    public  int getStatus();
+    /**
+     * 请求状态码
+     *
+     * @return int
+     */
+    int getCode();
 
-    public  String getMessage();
+    /**
+     * 请求信息
+     *
+     * @return String
+     */
+    String getMessage();
 
-    public  T getData();
+    /**
+     * 请求结果
+     *
+     * @return 泛型T
+     */
+    T getData();
 
-    public  boolean isSuccess();
+    /**
+     * 请求是否成功
+     *
+     * @return boolean
+     */
+    boolean isSuccess();
 }

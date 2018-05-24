@@ -3,8 +3,11 @@ package com.chhd.android.common.ui.activity.base;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.chhd.android.common.R;
 import com.chhd.android.common.mvp.IBaseView;
 import com.chhd.android.common.util.UiUtils;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -23,9 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/09
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2018/03/09
  */
 
 public class BaseActivity extends RxAppCompatActivity implements IBaseView, View.OnTouchListener {
@@ -44,7 +47,26 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
         instance = this;
 
         activities.add(this);
+
+        initScreenOrientation();
     }
+
+    /**
+     * 初始化屏幕的方向
+     */
+    private void initScreenOrientation() {
+        TypedValue outValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.screenOrientation, outValue, true);
+
+        if (outValue.data == 1) {
+            // 横屏
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        } else if (outValue.data == 2) {
+            // 竖屏
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -89,9 +111,13 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
     private void hideSoftInput() {
         InputMethodManager imm =
                 (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if (imm == null) return;
+        if (imm == null) {
+            return;
+        }
         View view = getCurrentFocus();
-        if (view == null) view = new View(this);
+        if (view == null) {
+            view = new View(this);
+        }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
@@ -115,6 +141,8 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                break;
+            default:
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -141,6 +169,8 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
                 downAnim.setDuration(150);
                 downAnim.setInterpolator(new AccelerateInterpolator());
                 downAnim.start();
+                break;
+            default:
                 break;
         }
         return false;

@@ -6,9 +6,10 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/11/30
- * desc   : 抖动工具类，产生一个左右抖动动画
+ * 抖动工具类，产生一个左右抖动动画
+ *
+ * @author : 葱花滑蛋
+ * @date :  2017/11/30
  */
 
 public class ShakeUtils {

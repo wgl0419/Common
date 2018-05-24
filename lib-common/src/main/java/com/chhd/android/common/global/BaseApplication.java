@@ -6,9 +6,8 @@ import com.chhd.android.common.util.CommonUtils;
 import com.facebook.stetho.Stetho;
 
 /**
- * author : 葱花滑蛋
- * date   : 2017/11/24
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2017/11/24
  */
 
 public class BaseApplication extends Application {

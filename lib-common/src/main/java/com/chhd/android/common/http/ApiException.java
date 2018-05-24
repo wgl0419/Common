@@ -1,9 +1,8 @@
 package com.chhd.android.common.http;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/12
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2018/03/12
  */
 
 public class ApiException extends Throwable{
@@ -16,11 +15,11 @@ public class ApiException extends Throwable{
         this.errMsg = errMsg;
     }
 
-    public String getErrMsg() {
-        return errMsg;
+    public int getCode() {
+        return code;
     }
 
-    public void setErrMsg(String errMsg) {
-        this.errMsg = errMsg;
+    public String getErrMsg() {
+        return errMsg;
     }
 }

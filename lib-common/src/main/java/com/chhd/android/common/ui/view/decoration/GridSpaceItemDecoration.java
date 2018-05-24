@@ -5,20 +5,37 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * author : 葱花滑蛋
- * date   : 2017/11/16
- * desc   :
+ * @author : 葱花滑蛋
+ * @date :  2017/11/16
  */
 
 public class GridSpaceItemDecoration extends RecyclerView.ItemDecoration {
 
-    private int spanCount; // 多少列
-    private int space; // item与item之间的边距
+    /**
+     * 多少列
+     */
+    private int spanCount;
+    /**
+     * item与item之间的边距
+     */
+    private int space;
 
-    private int left; // 第一列item与父容器的左边距
-    private int top; // 第一行item与父容器的上边距
-    private int right; // 最后一列item与父容器的右边距
-    private int bottom; // 最后一行item与父容器的底边距
+    /**
+     * 第一列item与父容器的左边距
+     */
+    private int left;
+    /**
+     * 第一行item与父容器的上边距
+     */
+    private int top;
+    /**
+     * 最后一列item与父容器的右边距
+     */
+    private int right;
+    /**
+     * 最后一行item与父容器的底边距
+     */
+    private int bottom;
 
     public GridSpaceItemDecoration(int spanCount, int space) {
         this.spanCount = spanCount;
@@ -36,14 +53,19 @@ public class GridSpaceItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        int position = parent.getChildAdapterPosition(view); // item position
-        int column = position % spanCount; // item column
+        // item position
+        int position = parent.getChildAdapterPosition(view);
+        // item column
+        int column = position % spanCount;
 
-        outRect.left = column == 0 ? left : column * space / spanCount; // column * ((1f / spanCount) * space)
-        outRect.right = column == spanCount - 1 ? right : space - (column + 1) * space / spanCount; // space - (column + 1) * ((1f /    spanCount) * space)
+        // column * ((1f / spanCount) * space)
+        outRect.left = column == 0 ? left : column * space / spanCount;
+        // space - (column + 1) * ((1f /    spanCount) * space)
+        outRect.right = column == spanCount - 1 ? right : space - (column + 1) * space / spanCount;
 
         if (position >= spanCount) {
-            outRect.top = space; // item top
+            // item top
+            outRect.top = space;
         }
         outRect.top = position < spanCount ? top : space;
 
@@ -58,7 +80,8 @@ public class GridSpaceItemDecoration extends RecyclerView.ItemDecoration {
         int index = 0;
         try {
             int childCount = parent.getChildCount();
-            int mod = childCount % spanCount; // 余数
+            // 余数
+            int mod = childCount % spanCount;
             if (mod != 0) {
                 index = childCount - mod - 1;
             } else {

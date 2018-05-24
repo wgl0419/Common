@@ -1,20 +1,32 @@
 package com.chhd.android.demo;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.chhd.android.common.ui.activity.base.ToolbarActivity;
 import com.chhd.android.common.ui.view.Toolbar;
+import com.chhd.android.common.util.SoftKeyboardUtils;
 import com.chhd.android.common.util.image.ImageLoader;
 import com.chhd.android.common.util.image.ImageLoaderConfig;
+
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.subscribers.DisposableSubscriber;
 
 public class MainActivity extends ToolbarActivity {
 
@@ -22,6 +34,7 @@ public class MainActivity extends ToolbarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme_Light);
         super.onCreate(savedInstanceState);
 
         findViewById(R.id.tv1).setOnClickListener(new View.OnClickListener() {
@@ -94,6 +107,10 @@ public class MainActivity extends ToolbarActivity {
 //                        Log.i("debug-app", "" + aLong);
 //                    }
 //                });
+
+
+        EditText et1 = findViewById(R.id.et1);
+        SoftKeyboardUtils.showSoftInput(et1);
     }
 
     @Override
@@ -103,8 +120,8 @@ public class MainActivity extends ToolbarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, 10, 0, "菜单1");
-        menu.add(0, 11, 0, "菜单2");
+        MenuItem item = menu.add(0, 10, 0, "菜单1");
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -112,4 +129,5 @@ public class MainActivity extends ToolbarActivity {
     protected String getToolbarTitle() {
         return "hello";
     }
+
 }

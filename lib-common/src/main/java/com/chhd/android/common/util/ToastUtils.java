@@ -10,9 +10,10 @@ import android.widget.Toast;
 import com.chhd.android.common.global.BaseApplication;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/11/30
- * desc   : 吐司工具类
+ * 吐司工具类
+ *
+ * @author : 葱花滑蛋
+ * @date : 2017/11/30
  */
 
 public class ToastUtils {

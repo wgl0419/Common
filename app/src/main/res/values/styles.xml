@@ -1,12 +1,21 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="actionBarTheme">@style/ThemeOverlay.Dark</item>
         <item name="actionBarPopupTheme">@style/PopupOverlay.Light</item>
         <item name="actionBarTitleGravity">center</item>
-        <item name="actionBarElevation">@dimen/app_bar_layout_elevation</item>
+        <item name="actionBarElevation">0dp</item>
+    </style>
+
+    <style name="AppTheme.Light" parent="AppTheme">
+        <item name="colorPrimaryDark">#33000000</item>
+        <item name="colorPrimary">@android:color/white</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.Light</item>
+        <item name="actionBarPopupTheme">@style/PopupOverlay.Light</item>
+        <item name="actionBarTitleGravity">center</item>
+        <item name="actionBarElevation">0dp</item>
     </style>
 </resources>

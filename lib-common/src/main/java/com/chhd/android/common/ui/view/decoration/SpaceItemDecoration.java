@@ -6,9 +6,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 /**
- * author : 葱花滑蛋
- * date   : 2017/11/21
- * desc   :
+ * @author : 葱花滑蛋
+ * @date :  2017/11/21
  */
 
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
@@ -16,13 +15,28 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     public static final int HORIZONTAL = LinearLayout.HORIZONTAL;
     public static final int VERTICAL = LinearLayout.VERTICAL;
 
-    private int space; // item与item之间的边距
+    /**
+     * item与item之间的边距
+     */
+    private int space;
     private int orientation = VERTICAL;
 
-    private int left; // item与父容器的左边距
-    private int top; // 第一个item与父容器的上边距
-    private int right;// item与如容器的右边距
-    private int bottom; // 最后一个item与父容器的底边距
+    /**
+     * item与父容器的左边距
+     */
+    private int left;
+    /**
+     * 第一个item与父容器的上边距
+     */
+    private int top;
+    /**
+     * item与父容器的右边距
+     */
+    private int right;
+    /**
+     * 最后一个item与父容器的底边距
+     */
+    private int bottom;
 
     public SpaceItemDecoration(int space) {
         this.space = space;

@@ -10,9 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * author : 葱花滑蛋
- * date   : 2017/11/26
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2017/11/26
  */
 
 public class FragmentAdapter extends FragmentStatePagerAdapter {

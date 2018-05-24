@@ -1,15 +1,18 @@
 package com.chhd.android.common.util;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/01/27
- * desc   : 使用Util包下工具类，必须先初始化
+ * 使用Util包下工具类，必须先初始化
+ *
+ * @author : 葱花滑蛋
+ * @date :  2018/01/27
  */
 
 public class CommonUtils {
 
+    @SuppressLint("StaticFieldLeak")
     private static Application instance;
 
     private CommonUtils() {

@@ -1,17 +1,28 @@
 package com.chhd.android.common.util.image;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/18
- * desc   :
+ * @author : 陈伟强
+ * @date :  2018/03/18
  */
 
 public class ImageLoaderConfig {
 
-    private int placeholderId; // 加载占位图
-    private int errorId; // 错误占位图
-    private boolean isAnimation = true; // 加载动画
-    private boolean isNoPhoto = false; // 省流量模式
+    /**
+     * 加载占位图
+     */
+    private int placeholderId;
+    /**
+     * 错误占位图
+     */
+    private int errorId;
+    /**
+     * 加载动画
+     */
+    private boolean isAnimation = true;
+    /**
+     * 省流量模式
+     */
+    private boolean isNoPhoto = false;
 
     public int getPlaceholderId() {
         return placeholderId;

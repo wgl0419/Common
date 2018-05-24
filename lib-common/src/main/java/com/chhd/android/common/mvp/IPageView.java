@@ -1,9 +1,8 @@
 package com.chhd.android.common.mvp;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/12
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2018/03/12
  */
 
 public interface IPageView extends IBaseView {
@@ -20,6 +19,8 @@ public interface IPageView extends IBaseView {
 
     /**
      * 页面加载失败
+     *
+     * @param errMsg 服务端返回的错误信息
      */
     void onPageError(String errMsg);
 

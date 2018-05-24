@@ -9,9 +9,10 @@ import android.util.Log;
 import java.lang.reflect.Field;
 
 /**
- * author : 葱花滑蛋
- * date   : 2017/11/24
- * desc   : 安卓原生控件BottomNavigationView工具类，原文地址：https://stackoverflow.com/questions/40176244/how-to-disable-bottomnavigationview-shift-mode
+ * 安卓原生控件BottomNavigationView工具类，原文地址：https://stackoverflow.com/questions/40176244/how-to-disable-bottomnavigationview-shift-mode
+ *
+ * @author : 葱花滑蛋
+ * @date :  2017/11/24
  */
 
 public class BottomNavigationViewHelper {

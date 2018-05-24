@@ -17,9 +17,8 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Function;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/13
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2018/03/13
  */
 
 public class ResponseTransformer {
@@ -45,7 +44,7 @@ public class ResponseTransformer {
                                 }
                             });
                         } else {
-                            return Observable.error(new ApiException(responseData.getStatus(),
+                            return Observable.error(new ApiException(responseData.getCode(),
                                     responseData.getMessage()));
                         }
                     }

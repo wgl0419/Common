@@ -12,9 +12,8 @@ import com.chhd.android.common.global.Constant;
 import java.util.List;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/13
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2018/03/13
  */
 
 public abstract class PullToRefreshActivity<Adapter extends BaseQuickAdapter, Entity>
@@ -51,7 +50,7 @@ public abstract class PullToRefreshActivity<Adapter extends BaseQuickAdapter, En
     }
 
     @Override
-    protected final boolean isAutoLoad() {
+    protected boolean isAutoLoad() {
         return false;
     }
 
@@ -75,34 +74,42 @@ public abstract class PullToRefreshActivity<Adapter extends BaseQuickAdapter, En
 
     @Override
     public void onRefresh() {
-        onLoad();
+        onLoad(false);
     }
 
     @Override
     public void onPageComplete() {
         super.onPageComplete();
 
-        if (swipeRefreshLayout.isRefreshing()) swipeRefreshLayout.setRefreshing(false);
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     protected void onLoadSuccess(BaseListData<Entity> listData) {
         super.onLoadSuccess(listData);
 
-        if (swipeRefreshLayout.isRefreshing()) swipeRefreshLayout.setRefreshing(false);
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     protected void onLoadSuccess(List<Entity> list) {
         super.onLoadSuccess(list);
 
-        if (swipeRefreshLayout.isRefreshing()) swipeRefreshLayout.setRefreshing(false);
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     protected void onLoadError(String message) {
         super.onLoadError(message);
 
-        if (swipeRefreshLayout.isRefreshing()) swipeRefreshLayout.setRefreshing(false);
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

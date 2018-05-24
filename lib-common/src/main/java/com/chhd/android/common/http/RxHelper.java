@@ -11,9 +11,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/14
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2018/03/14
  */
 
 public class RxHelper {

@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- 默认屏幕方向 -->
+    <attr name="screenOrientation">
+        <flag name="unspecified" value="0" />
+        <flag name="landscape" value="1" />
+        <flag name="portrait" value="2" />
+    </attr>
+
+    <!-- 默认菜单栏标题位置 -->
     <attr name="actionBarTitleGravity">
         <flag name="center" value="17" />
         <flag name="start" value="8388611" />
+        <flag name="left" value="8388611" />
     </attr>
+
+    <!-- 默认菜单栏阴影大小 -->
     <attr name="actionBarElevation" format="dimension" />
+
 </resources>

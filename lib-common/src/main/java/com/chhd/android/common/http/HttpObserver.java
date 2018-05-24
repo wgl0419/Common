@@ -14,15 +14,18 @@ import java.util.concurrent.TimeoutException;
 import io.reactivex.observers.DisposableObserver;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/12
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2018/03/12
  */
 
 public abstract class HttpObserver<T> extends DisposableObserver<T> {
 
     private IPageView iPageView;
     private ProgressDialog dialog;
+
+    private boolean hasNext;
+    private boolean hasError;
+
     private T t;
 
     @Override
@@ -46,11 +49,12 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
             });
             dialog.show();
         }
-        _onStart();
+        onBefore();
     }
 
     @Override
     public final void onNext(T t) {
+        hasNext = true;
         this.t = t;
         if (iPageView != null) {
             iPageView.onPageSuccess();
@@ -62,10 +66,13 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
     public final void onError(Throwable e) {
         e.printStackTrace();
 
+        hasError = true;
+
         String errMsg;
         if (e instanceof ApiException) {
             ApiException apiException = (ApiException) e;
             errMsg = apiException.getErrMsg();
+            onApiException(apiException.getCode(), apiException.getErrMsg());
         } else if (e instanceof TimeoutException || e instanceof SocketTimeoutException || e instanceof UnknownHostException) {
             errMsg = "网络连接失败";
         } else {
@@ -80,23 +87,26 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
                 dialog.dismiss();
             }
         }
-
         if (showToast()) {
             ToastUtils.show(errMsg);
         }
-
-        onFailed(e);
+        onFailed(e, errMsg);
         onFinish();
     }
 
     @Override
     public final void onComplete() {
         if (iPageView != null) {
-            if (t == null)
+            if (t == null) {
                 iPageView.onPageEmpty();
+            }
             iPageView.onPageComplete();
         } else if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
+        }
+        if (!hasNext && !hasError) {
+            // 在ApiException，如果data是空，仅会走onComplete
+            onSucceed(null);
         }
         onFinish();
     }
@@ -104,19 +114,31 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
     /**
      * 请求开始
      */
-    protected void _onStart() {
+    protected void onBefore() {
 
     }
 
     /**
      * 请求成功
+     *
+     * @param t 泛型t
      */
     protected abstract void onSucceed(T t);
 
     /**
-     * 请求失败
+     * 请求失败，服务端异常
      */
-    protected void onFailed(Throwable e) {
+    protected void onApiException(int code, String errMsg) {
+
+    }
+
+    /**
+     * 请求失败
+     *
+     * @param e      异常
+     * @param errMsg 服务端返回的错误信息
+     */
+    protected void onFailed(Throwable e, String errMsg) {
 
     }
 
@@ -135,7 +157,7 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
     }
 
     /**
-     * 是否显示请求进度、请求成功、请求失败等布局
+     * 是否显示请求进度、请求成功、请求失败、空布局
      */
     protected IPageView showPageView() {
         return null;

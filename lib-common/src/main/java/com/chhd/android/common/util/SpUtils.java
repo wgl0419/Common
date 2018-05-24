@@ -4,9 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/18
- * desc   :
+ * 软键盘工具类
+ *
+ * @author : 葱花滑蛋
+ * @date :  2018/03/18
  */
 
 public class SpUtils {

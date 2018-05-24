@@ -1,18 +1,12 @@
 package com.chhd.android.common.ui.activity.base;
 
-import android.animation.ObjectAnimator;
-import android.animation.StateListAnimator;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,14 +14,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chhd.android.common.R;
-import com.chhd.android.common.util.UiUtils;
-
-import java.lang.reflect.Field;
+import com.chhd.android.common.ui.view.Toolbar;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/13
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2018/03/13
  */
 
 public abstract class ToolbarActivity extends BaseActivity {
@@ -55,19 +46,11 @@ public abstract class ToolbarActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(showHomeAsUp());
         }
 
-        initToolbarTitle(getToolbarTitle());
+        toolbar.setTitle(getToolbarTitle());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            TypedValue outValue = new TypedValue();
-            getTheme().resolveAttribute(R.attr.actionBarElevation,
-                    outValue, true);
-            float elevation = outValue.getDimension(getResources().getDisplayMetrics());
-            elevation = getAppBarLayoutElevation() == -1 ? elevation : getAppBarLayoutElevation();
-            setDefaultAppBarLayoutStateListAnimator(appBarLayout, elevation);
-        }
-
-        if (getContainerResId() != 0)
+        if (getContainerResId() != 0) {
             LayoutInflater.from(this).inflate(getContainerResId(), container, true);
+        }
 
     }
 
@@ -90,29 +73,7 @@ public abstract class ToolbarActivity extends BaseActivity {
      */
     protected void setToolbarTitle(CharSequence title) {
         if (getSupportActionBar() != null) {
-            initToolbarTitle(title);
-        }
-    }
-
-    private void initToolbarTitle(CharSequence title) {
-        TypedValue outValue = new TypedValue();
-        getTheme().resolveAttribute(R.attr.actionBarTitleGravity,
-                outValue, true);
-        if (Gravity.CENTER != outValue.data) {
-            if (title != null)
-                if (getSupportActionBar() != null) {
-                    getSupportActionBar().setTitle(title);
-                }
-        } else {
-            toolbar.setTitle("");
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                getSupportActionBar().setTitle("");
-                getSupportActionBar().setDisplayShowTitleEnabled(false);
-            }
-
-            title = title == null ? getString(R.string.app_name) : title;
-            toolbarTitle.setText(title);
+            toolbar.setTitle(title);
         }
     }
 
@@ -127,41 +88,18 @@ public abstract class ToolbarActivity extends BaseActivity {
      * 设置菜单栏布局
      */
     protected void setToolbarContainer(View view, boolean showHomeAsUp) {
-        toolbar.setTitle("");
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(showHomeAsUp);
             getSupportActionBar().setTitle("");
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-
-        if (view.getLayoutParams() == null) {
-            RelativeLayout.LayoutParams layoutParams =
-                    new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                            RelativeLayout.LayoutParams.MATCH_PARENT);
-            view.setLayoutParams(layoutParams);
-        }
-        toolbarContainer.removeAllViews();
-        toolbarContainer.addView(view);
-
-        if (!showHomeAsUp)
-            toolbar.setContentInsetsAbsolute(0, 0);
-    }
-
-    public abstract int getContainerResId();
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setDefaultAppBarLayoutStateListAnimator(final View view, final float elevation) {
-        final StateListAnimator sla = new StateListAnimator();
-        sla.addState(new int[0],
-                ObjectAnimator.ofFloat(view, "elevation", elevation).setDuration(0));
-        view.setStateListAnimator(sla);
+        toolbar.setToolbarContainer(view);
     }
 
     /**
-     * 设置AppBarLayout的底部阴影
+     * 获取布局文件
+     *
+     * @return int
      */
-    @SuppressLint("PrivateResource")
-    protected float getAppBarLayoutElevation() {
-        return -1;
-    }
+    protected abstract int getContainerResId();
 }

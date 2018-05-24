@@ -1,5 +1,7 @@
 package com.chhd.android.common.ui.activity.base;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,12 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/15
- * desc   :
+ * @author : 葱花滑蛋
+ * @date : 2018/03/15
  */
 
-public abstract class ListTActivity <Adapter extends BaseQuickAdapter, Entity> extends ProgressTActivity
+public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> extends ProgressTActivity
         implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     protected RecyclerView recyclerView;
@@ -50,10 +51,24 @@ public abstract class ListTActivity <Adapter extends BaseQuickAdapter, Entity> e
         onLoadError(message);
     }
 
+    /**
+     * 获取列表适配器
+     *
+     * @return Adapter
+     */
     public abstract Adapter getAdapter();
 
     protected RecyclerView.LayoutManager getLayoutManager() {
         return new LinearLayoutManager(this);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (isAutoLoad()) {
+            onLoad(false);
+        }
     }
 
     @Override
@@ -68,13 +83,13 @@ public abstract class ListTActivity <Adapter extends BaseQuickAdapter, Entity> e
 
         adapter = getAdapter();
         adapter.openLoadAnimation();
-        adapter.setEnableLoadMore(true);
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
                 onLoadMore();
             }
         }, recyclerView);
+        adapter.setEnableLoadMore(false);
         adapter.setHeaderFooterEmpty(true, true);
         adapter.setEmptyView(new View(this));
         adapter.setOnItemClickListener(this);
@@ -84,12 +99,12 @@ public abstract class ListTActivity <Adapter extends BaseQuickAdapter, Entity> e
         recyclerView.setAdapter(adapter);
     }
 
+
     /**
      * 加载
      */
     @Override
     public void onLoad() {
-        onLoad(false);
     }
 
     /**
@@ -139,6 +154,7 @@ public abstract class ListTActivity <Adapter extends BaseQuickAdapter, Entity> e
             onPageSuccess();
         }
 
+        adapter.setEnableLoadMore(true);
         if (listData.hasMore()) {
             adapter.loadMoreComplete();
         } else {
@@ -160,8 +176,6 @@ public abstract class ListTActivity <Adapter extends BaseQuickAdapter, Entity> e
         } else {
             onPageSuccess();
         }
-
-        adapter.loadMoreEnd(true);
     }
 
     /**
@@ -190,7 +204,7 @@ public abstract class ListTActivity <Adapter extends BaseQuickAdapter, Entity> e
         btnRetry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onLoad();
+                onLoad(false);
             }
         });
         tvError.setText(message);
