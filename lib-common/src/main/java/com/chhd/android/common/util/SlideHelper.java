@@ -6,8 +6,7 @@ import android.view.View;
 /**
  * 滑动工具类
  *
- * @author : 葱花滑蛋
- * @date :  2017/12/24
+ * @author : 葱花滑蛋 (2017/12/24)
  */
 
 public class SlideHelper {

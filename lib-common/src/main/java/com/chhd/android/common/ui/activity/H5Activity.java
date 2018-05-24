@@ -17,8 +17,7 @@ import com.chhd.android.common.ui.activity.base.ToolbarActivity;
 import com.chhd.android.common.ui.view.HorizontalProgressBar;
 
 /**
- * @author : 葱花滑蛋
- * @date : 2018/03/18
+ * @author : 葱花滑蛋 (2018/03/18)
  */
 
 @SuppressLint("SetJavaScriptEnabled")

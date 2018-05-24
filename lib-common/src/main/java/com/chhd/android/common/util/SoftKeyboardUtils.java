@@ -10,8 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 /**
  * 软键盘工具类
  *
- * @author : 葱花滑蛋
- * @date :  2018/01/08
+ * @author : 葱花滑蛋 (2018/01/08)
  */
 
 public class SoftKeyboardUtils {
@@ -21,6 +20,8 @@ public class SoftKeyboardUtils {
 
     /**
      * 弹出软键盘
+     *
+     * @param view view
      */
     public static void showSoftInput(final View view) {
         view.postDelayed(new Runnable() {
@@ -32,7 +33,9 @@ public class SoftKeyboardUtils {
                 view.requestFocus();
                 InputMethodManager imm =
                         (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm == null) return;
+                if (imm == null) {
+                    return;
+                }
                 imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
             }
         }, 100);
@@ -40,6 +43,8 @@ public class SoftKeyboardUtils {
 
     /**
      * 隐藏软键盘
+     *
+     * @param activity activity
      */
     public static void hideSoftInput(final Activity activity) {
         InputMethodManager imm =
@@ -52,6 +57,8 @@ public class SoftKeyboardUtils {
 
     /**
      * 隐藏软键盘
+     *
+     * @param view view
      */
     public static void hideSoftInput(final View view) {
         InputMethodManager imm =

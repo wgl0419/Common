@@ -16,8 +16,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 /**
  * 有两种创建方法：1是通过静态方法；2是通过链式编程
  *
- * @author : 葱花滑蛋
- * @date : 2018/03/12
+ * @author : 葱花滑蛋 (2018/03/12)
  */
 
 public class RetrofitProvider {
@@ -29,6 +28,9 @@ public class RetrofitProvider {
 
     /**
      * 生成Retrofit对象
+     *
+     * @param baseUrl baseUrl
+     * @return Retrofit
      */
     public static Retrofit newInstance(String baseUrl) {
         return newInstance(baseUrl, null);
@@ -36,6 +38,10 @@ public class RetrofitProvider {
 
     /**
      * 生成Retrofit对象
+     *
+     * @param baseUrl baseUrl
+     * @param headers 请求头部
+     * @return Retrofit
      */
     public static Retrofit newInstance(String baseUrl, Map<String, String> headers) {
         return new Retrofit.Builder()

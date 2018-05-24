@@ -13,8 +13,7 @@ import android.view.WindowManager;
 /**
  * 全屏界面，适用于启动页、视频播放页
  *
- * @author : 葱花滑蛋
- * @date : 2018/01/14
+ * @author : 葱花滑蛋 (2018/01/14)
  */
 
 public class FullScreenActivity extends BaseActivity {

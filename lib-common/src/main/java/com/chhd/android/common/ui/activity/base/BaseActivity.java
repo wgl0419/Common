@@ -27,8 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author : 葱花滑蛋
- * @date : 2018/03/09
+ * @author : 葱花滑蛋 (2018/03/09)
  */
 
 public class BaseActivity extends RxAppCompatActivity implements IBaseView, View.OnTouchListener {
@@ -123,6 +122,8 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
 
     /**
      * 是否开启，触摸EditText以外的地方，自动隐藏软键盘，默认开启
+     *
+     * @return boolean
      */
     protected boolean isAutoHideKeyboard() {
         return true;

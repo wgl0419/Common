@@ -15,8 +15,7 @@ import java.lang.reflect.Method;
 /**
  * 应用缓存工具类
  *
- * @author : 葱花滑蛋
- * @date :  2018/01/05
+ * @author : 葱花滑蛋 (2018/01/05)
  */
 
 public class CacheUtils {
@@ -31,6 +30,7 @@ public class CacheUtils {
     /**
      * 安卓原生方法获取应用大小信息
      *
+     * @param observer observer
      */
     public static void getPackageSizeInfo(final IPackageStatsObserver observer) {
         try {

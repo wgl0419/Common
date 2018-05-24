@@ -14,8 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * @author : 葱花滑蛋
- * @date : 2018/03/12
+ * @author : 葱花滑蛋 (2018/03/12)
  */
 
 public abstract class AppCompatPreferenceActivity extends PreferenceActivity {

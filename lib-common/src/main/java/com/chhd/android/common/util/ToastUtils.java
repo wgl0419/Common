@@ -12,8 +12,7 @@ import com.chhd.android.common.global.BaseApplication;
 /**
  * 吐司工具类
  *
- * @author : 葱花滑蛋
- * @date : 2017/11/30
+ * @author : 葱花滑蛋 (2017/11/30)
  */
 
 public class ToastUtils {

@@ -16,8 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author : 葱花滑蛋
- * @date : 2018/03/14
+ * @author : 葱花滑蛋 (2018/03/14)
  */
 
 public abstract class ProgressFragment extends BaseFragment implements IPageView, View.OnClickListener {

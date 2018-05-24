@@ -6,8 +6,7 @@ import android.content.res.Resources;
 import com.chhd.android.common.global.BaseApplication;
 
 /**
- * @author : 葱花滑蛋
- * @date : 2017/11/30
+ * @author : 葱花滑蛋 (2017/11/30)
  */
 
 public class UiUtils {

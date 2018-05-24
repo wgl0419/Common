@@ -5,9 +5,9 @@ import android.text.TextUtils;
 import android.widget.TextView;
 
 /**
- * author : 葱花滑蛋
- * date   : 2018/03/09
- * desc   : 字符串工具类
+ * 字符串工具类
+ *
+ * @author : 葱花滑蛋 (2018/03/09)
  */
 
 public class StringUtils {

@@ -17,8 +17,7 @@ import com.chhd.android.common.R;
 import com.chhd.android.common.ui.view.Toolbar;
 
 /**
- * @author : 葱花滑蛋
- * @date : 2018/03/13
+ * @author : 葱花滑蛋 (2018/03/13)
  */
 
 public abstract class ToolbarActivity extends BaseActivity {
@@ -56,6 +55,8 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     /**
      * 是否显示Home键
+     *
+     * @return boolean
      */
     protected boolean showHomeAsUp() {
         return true;
@@ -63,6 +64,8 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     /**
      * 获取菜单栏标题
+     *
+     * @return String
      */
     protected String getToolbarTitle() {
         return null;
@@ -70,6 +73,8 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     /**
      * 设置菜单栏标题
+     *
+     * @param title 标题
      */
     protected void setToolbarTitle(CharSequence title) {
         if (getSupportActionBar() != null) {
@@ -79,6 +84,8 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     /**
      * 设置菜单栏布局
+     *
+     * @param view 自定义View
      */
     protected void setToolbarContainer(View view) {
         setToolbarContainer(view, false);
@@ -86,6 +93,9 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     /**
      * 设置菜单栏布局
+     *
+     * @param view         自定义View
+     * @param showHomeAsUp 是否显示Home键
      */
     protected void setToolbarContainer(View view, boolean showHomeAsUp) {
         if (getSupportActionBar() != null) {

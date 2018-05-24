@@ -5,8 +5,7 @@ import android.app.Application;
 import android.support.v4.app.Fragment;
 
 /**
- * @author : 葱花滑蛋
- * @date : 2018/03/21
+ * @author : 葱花滑蛋 (2018/03/21)
  */
 
 public class BasePresenter<View> {

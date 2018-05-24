@@ -6,8 +6,7 @@ import android.content.SharedPreferences;
 /**
  * 软键盘工具类
  *
- * @author : 葱花滑蛋
- * @date :  2018/03/18
+ * @author : 葱花滑蛋 (2018/03/18)
  */
 
 public class SpUtils {

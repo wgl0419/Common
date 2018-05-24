@@ -14,8 +14,7 @@ import java.util.concurrent.TimeoutException;
 import io.reactivex.observers.DisposableObserver;
 
 /**
- * @author : 葱花滑蛋
- * @date : 2018/03/12
+ * @author : 葱花滑蛋 (2018/03/12)
  */
 
 public abstract class HttpObserver<T> extends DisposableObserver<T> {
@@ -127,6 +126,9 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
 
     /**
      * 请求失败，服务端异常
+     *
+     * @param code   服务端返回的状态码
+     * @param errMsg 服务端返回的错误信息
      */
     protected void onApiException(int code, String errMsg) {
 
@@ -151,6 +153,8 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
 
     /**
      * 是否弹出进度对话框
+     *
+     * @return Context
      */
     protected Context showProgressDialog() {
         return null;
@@ -158,6 +162,8 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
 
     /**
      * 是否显示请求进度、请求成功、请求失败、空布局
+     *
+     * @return IPageView
      */
     protected IPageView showPageView() {
         return null;
@@ -165,6 +171,8 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
 
     /**
      * 是否吐司错误提示
+     *
+     * @return boolean
      */
     protected boolean showToast() {
         return true;

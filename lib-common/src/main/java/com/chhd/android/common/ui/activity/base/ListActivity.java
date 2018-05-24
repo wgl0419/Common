@@ -16,8 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author : 葱花滑蛋
- * @date : 2018/03/15
+ * @author : 葱花滑蛋 (2018/03/15)
  */
 
 public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> extends ProgressActivity
@@ -139,6 +138,8 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
 
     /**
      * 加载列表成功
+     *
+     * @param listData listData
      */
     protected void onLoadSuccess(BaseListData<Entity> listData) {
         this.listData = listData;
@@ -164,6 +165,8 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
 
     /**
      * 加载列表成功
+     *
+     * @param list list
      */
     protected void onLoadSuccess(List<Entity> list) {
         this.list.clear();
@@ -192,6 +195,8 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
 
     /**
      * 显示列表失败布局
+     *
+     * @param message 服务端返回的错误信息
      */
     protected void showListError(String message) {
         View errorView = View.inflate(this, R.layout.layout_error, null);
@@ -213,6 +218,8 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
 
     /**
      * 加载列表失败
+     *
+     * @param message 服务端返回的错误信息
      */
     protected void onLoadError(String message) {
         if (listData.getStart() == 0) {

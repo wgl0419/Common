@@ -8,8 +8,7 @@ import android.view.animation.TranslateAnimation;
 /**
  * 抖动工具类，产生一个左右抖动动画
  *
- * @author : 葱花滑蛋
- * @date :  2017/11/30
+ * @author : 葱花滑蛋 (2017/11/30)
  */
 
 public class ShakeUtils {

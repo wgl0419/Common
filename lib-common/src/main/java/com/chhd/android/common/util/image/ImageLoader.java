@@ -16,8 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 
 /**
- * @author : 葱花滑蛋
- * @date :  2018/03/18
+ * @author : 葱花滑蛋 (2018/03/18)
  */
 
 public class ImageLoader {

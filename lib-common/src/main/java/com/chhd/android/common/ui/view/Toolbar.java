@@ -2,19 +2,12 @@ package com.chhd.android.common.ui.view;
 
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.VectorDrawable;
-import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.app.AppCompatDelegate;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -22,13 +15,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chhd.android.common.R;
-import com.facebook.stetho.common.LogUtil;
-
-import java.lang.reflect.Field;
 
 /**
- * @author : 葱花滑蛋
- * @date :  2018/03/19
+ * 自定义Toolbar：
+ * · app自定义属性actionBarTitleGravity控制标题位置，居左、居中
+ * · 当Toolbar是白色背景，修改部分样式，包括默认图标颜色、增加底部分割线
+ *
+ * @author : 葱花滑蛋 (2018/03/19)
  */
 
 public class Toolbar extends android.support.v7.widget.Toolbar {

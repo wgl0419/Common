@@ -4,14 +4,16 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 /**
- * @author : 葱花滑蛋
- * @date : 2018/03/14
+ * @author : 葱花滑蛋 (2018/03/14)
  */
 
 public interface IBaseView {
 
     /**
      * 绑定onDestroy的生命周期，结合RxJava使用
+     *
+     * @param <T> 泛型T
+     * @return 泛型T
      */
     <T> LifecycleTransformer<T> bindUntilDestroy();
 }

@@ -5,8 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * @author : 葱花滑蛋
- * @date :  2017/11/16
+ * @author : 葱花滑蛋 (2017/11/16)
  */
 
 public class GridSpaceItemDecoration extends RecyclerView.ItemDecoration {

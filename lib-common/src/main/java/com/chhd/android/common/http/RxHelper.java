@@ -11,14 +11,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * @author : 葱花滑蛋
- * @date : 2018/03/14
+ * @author : 葱花滑蛋 (2018/03/14)
  */
 
 public class RxHelper {
 
     /**
      * 切换线程：工作线程-》主线程
+     *
+     * @param <T> 泛型T
+     * @return ObservableTransformer
      */
     public static <T> ObservableTransformer<T, T> ioMainThread() {
         return new ObservableTransformer<T, T>() {

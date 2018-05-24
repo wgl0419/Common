@@ -3,8 +3,7 @@ package com.chhd.android.common.entity;
 import java.util.List;
 
 /**
- * @author : 葱花滑蛋
- * @date : 2018/03/13
+ * @author : 葱花滑蛋 (2018/03/13)
  */
 
 public abstract class BaseListData<T> {

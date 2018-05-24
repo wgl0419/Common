@@ -11,8 +11,7 @@ import com.chhd.android.common.global.Constant;
 import java.util.List;
 
 /**
- * @author : 葱花滑蛋
- * @date : 2018/03/14
+ * @author : 葱花滑蛋 (2018/03/14)
  */
 
 public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, Entity>

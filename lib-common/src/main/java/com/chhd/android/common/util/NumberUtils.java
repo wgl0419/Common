@@ -8,8 +8,7 @@ import java.math.BigDecimal;
 /**
  * 使用Util包下工具类，必须先初始化
  *
- * @author : 葱花滑蛋
- * @date :  2018/03/09
+ * @author : 葱花滑蛋 (2018/03/09)
  */
 
 public class NumberUtils {

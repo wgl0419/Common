@@ -6,8 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 /**
- * @author : 葱花滑蛋
- * @date :  2017/11/21
+ * @author : 葱花滑蛋 (2017/11/21)
  */
 
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {

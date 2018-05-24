@@ -12,8 +12,10 @@ import android.view.View;
 import com.chhd.android.common.R;
 
 /**
- * @author : 葱花滑蛋
- * @date : 2018/5/21.
+ * 自定义AppBarLayout：
+ *  · app自定义属性actionBarElevation控制菜单栏底部阴影
+ *
+ * @author : 葱花滑蛋 (2018/5/21)
  */
 
 public class AppBarLayout extends android.support.design.widget.AppBarLayout {
