@@ -9,5 +9,4 @@
     app:popupTheme="?attr/actionBarPopupTheme"
     app:theme="?attr/actionBarTheme">
 
-    <include layout="@layout/toolbar_container"/>
 </com.chhd.android.common.ui.view.Toolbar>

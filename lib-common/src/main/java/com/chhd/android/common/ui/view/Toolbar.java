@@ -36,7 +36,7 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
     }
 
     public Toolbar(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context, attrs, android.support.v7.appcompat.R.attr.toolbarStyle);
     }
 
     public Toolbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
