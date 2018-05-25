@@ -10,9 +10,9 @@ import android.view.View;
 
 public abstract class LazyFragment extends ProgressFragment {
 
-    protected Boolean isVisibleToUser = null;
-    protected boolean hasViewCreate = false;
-    protected boolean hasLazyLoad = false;
+    private Boolean isVisibleToUser = null;
+    private boolean hasViewCreate = false;
+    private boolean hasLazyLoad = false;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -57,12 +57,12 @@ public abstract class LazyFragment extends ProgressFragment {
     }
 
     @Override
-    public void onLoad() {
+    protected void onLoad() {
 
     }
 
     /**
      * 懒加载，适用于ViewPager,第一次可见时执行此方法
      */
-    public abstract void onLazyLoad();
+    protected abstract void onLazyLoad();
 }

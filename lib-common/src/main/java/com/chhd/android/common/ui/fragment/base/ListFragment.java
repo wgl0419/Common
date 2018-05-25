@@ -60,7 +60,7 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
     }
 
     @Override
-    public void onPrepare(View view) {
+    protected void onPrepare(View view) {
         super.onPrepare(view);
 
         try {
@@ -91,14 +91,16 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
      * 加载
      */
     @Override
-    public void onLazyLoad() {
-        onLoad(false);
+    protected void onLazyLoad() {
+        if (isAutoLoad()) {
+            onLoad(false);
+        }
     }
 
     /**
      * 上拉加载
      */
-    public void onLoadMore() {
+    protected void onLoadMore() {
         onLoad(true);
     }
 
@@ -107,7 +109,7 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
      *
      * @param isLoadMore 是否上拉加载
      */
-    public abstract void onLoad(boolean isLoadMore);
+    protected abstract void onLoad(boolean isLoadMore);
 
     /**
      * Item点击事件
@@ -198,7 +200,7 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
         btnRetry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onLoad();
+                onLoad(false);
             }
         });
         tvError.setText(message);

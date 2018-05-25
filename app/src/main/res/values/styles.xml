@@ -16,6 +16,6 @@
         <item name="actionBarTheme">@style/ThemeOverlay.Light</item>
         <item name="actionBarPopupTheme">@style/PopupOverlay.Light</item>
         <item name="actionBarTitleGravity">center</item>
-        <item name="actionBarElevation">0dp</item>
+        <item name="actionBarElevation">4dp</item>
     </style>
 </resources>

@@ -62,9 +62,9 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
      *
      * @return int
      */
-    public abstract int getContentResId();
+    protected abstract int getContentResId();
 
-    public void onPrepare(View view) {
+    protected void onPrepare(View view) {
         loadingView = view.findViewById(R.id.loading);
         errorView = view.findViewById(R.id.error);
         emptyView = view.findViewById(R.id.empty);
@@ -96,12 +96,12 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
      *
      * @param view 根布局
      */
-    public abstract void onInit(View view);
+    protected abstract void onInit(View view);
 
     /**
      * 加载
      */
-    public abstract void onLoad();
+    protected abstract void onLoad();
 
     private void showStatusView(int viewId) {
         for (View view : viewList) {
@@ -134,7 +134,7 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
     /**
      * 因为可能会在onResume方法中重新加载数据，如果已经时显示成功，则不再显示加载中、加载失败状态
      */
-    protected boolean hasSuccess = false;
+    private boolean hasSuccess = false;
     /**
      * 同样可能会在onResume方法中重新加载数据的问题，这样第一次进入可能会分别在onCreate,onResume触发网络请求，所以衍生出此属性
      */

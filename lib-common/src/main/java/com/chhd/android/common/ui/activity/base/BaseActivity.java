@@ -4,10 +4,18 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.internal.view.SupportSubMenu;
+import android.support.v7.view.menu.MenuBuilder;
+import android.support.v7.view.menu.MenuItemImpl;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -175,5 +183,28 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
                 break;
         }
         return false;
+    }
+
+    @SuppressLint("RestrictedApi")
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (menu instanceof MenuBuilder) {
+            TypedValue typedValue = new TypedValue();
+            getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
+            int color = typedValue.data;
+            // 如果主题色是白色，右侧图标使用和返回箭头、标题文字一样的颜色
+            if (color == -1) {
+                MenuBuilder builder = (MenuBuilder) menu;
+                ArrayList<MenuItemImpl> actionItems = builder.getActionItems();
+                for (MenuItemImpl item : actionItems) {
+                    Drawable icon = item.getIcon();
+                    if (icon != null) {
+                        color = ContextCompat.getColor(instance, R.color.color_text_dark);
+                        icon.mutate().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                    }
+                }
+            }
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 }

@@ -38,7 +38,7 @@ public class FullScreenActivity extends BaseActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN){
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (!isShowBar) {
                 showBar();
             } else {
@@ -63,7 +63,7 @@ public class FullScreenActivity extends BaseActivity {
     private void showBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             isShowBar = true;
-//            findViewById(android.R.id.content).setSystemUiVisibility(View.VISIBLE);
+            /*findViewById(android.R.id.content).setSystemUiVisibility(View.VISIBLE);*/
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
                     | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -86,7 +86,7 @@ public class FullScreenActivity extends BaseActivity {
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
                     | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//            findViewById(android.R.id.content)
+            /*findViewById(android.R.id.content)*/
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                     | View.SYSTEM_UI_FLAG_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY

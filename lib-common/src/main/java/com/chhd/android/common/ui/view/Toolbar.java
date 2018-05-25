@@ -67,8 +67,14 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
                 if (getNavigationIcon() != null) {
                     getNavigationIcon().mutate().setColorFilter(color, PorterDuff.Mode.SRC_IN);
                 }
-                // 底部增加一条灰色的分割线
-                setBackgroundResource(R.drawable.bg_white_line_bottom);
+                outValue = new TypedValue();
+                getContext().getTheme().resolveAttribute(R.attr.actionBarElevation,
+                        outValue, true);
+                float elevation = outValue.getDimension(getResources().getDisplayMetrics());
+                // 当阴影是0，底部增加一条灰色的分割线
+                if (elevation == 0) {
+                    setBackgroundResource(R.drawable.bg_white_line_bottom);
+                }
                 // 右则溢出图标是黑色
                 Drawable drawable = ContextCompat.getDrawable(getContext(),
                         R.drawable.ic_more_vert_black_24dp);

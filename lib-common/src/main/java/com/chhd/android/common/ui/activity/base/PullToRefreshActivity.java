@@ -44,12 +44,12 @@ public abstract class PullToRefreshActivity<Adapter extends BaseQuickAdapter, En
 
     }
 
-    public int[] getColorSchemeResources() {
+    protected int[] getColorSchemeResources() {
         return Constant.SWIPE_REFRESH_LAYOUT_COLORS;
     }
 
     @Override
-    protected boolean isAutoLoad() {
+    protected final boolean isAutoLoad() {
         return false;
     }
 
@@ -58,7 +58,7 @@ public abstract class PullToRefreshActivity<Adapter extends BaseQuickAdapter, En
     }
 
     @Override
-    public void onPrepare() {
+    protected void onPrepare() {
         super.onPrepare();
         try {
             swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);

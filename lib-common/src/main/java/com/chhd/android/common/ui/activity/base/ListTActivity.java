@@ -55,7 +55,7 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
      *
      * @return Adapter
      */
-    public abstract Adapter getAdapter();
+    protected abstract Adapter getAdapter();
 
     protected RecyclerView.LayoutManager getLayoutManager() {
         return new LinearLayoutManager(this);
@@ -71,7 +71,7 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
     }
 
     @Override
-    public void onPrepare() {
+    protected void onPrepare() {
         super.onPrepare();
 
         try {
@@ -103,13 +103,13 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
      * 加载
      */
     @Override
-    public void onLoad() {
+    protected void onLoad() {
     }
 
     /**
      * 上拉加载
      */
-    public void onLoadMore() {
+    protected void onLoadMore() {
         onLoad(true);
     }
 
@@ -118,7 +118,7 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
      *
      * @param isLoadMore 是否上拉加载
      */
-    public abstract void onLoad(boolean isLoadMore);
+    protected abstract void onLoad(boolean isLoadMore);
 
     /**
      * Item点击事件

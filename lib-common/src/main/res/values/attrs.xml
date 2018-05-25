@@ -18,4 +18,8 @@
     <!-- 默认菜单栏阴影大小 -->
     <attr name="actionBarElevation" format="dimension" />
 
+    <declare-styleable name="ClearEditText">
+        <attr name="clearIcon" format="reference" />
+    </declare-styleable>
+
 </resources>

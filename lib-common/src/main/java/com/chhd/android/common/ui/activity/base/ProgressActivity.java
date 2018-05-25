@@ -56,9 +56,9 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
      *
      * @return int
      */
-    public abstract int getContentResId();
+    protected abstract int getContentResId();
 
-    public void onPrepare() {
+    protected void onPrepare() {
         loadingView = findViewById(R.id.loading);
         errorView = findViewById(R.id.error);
         emptyView = findViewById(R.id.empty);
@@ -77,8 +77,9 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
 
         showContentView();
 
-        if (getContentResId() != 0)
+        if (getContentResId() != 0) {
             LayoutInflater.from(this).inflate(getContentResId(), contentView, true);
+        }
 
         btnRetry.setOnClickListener(this);
         btnRefresh.setOnClickListener(this);
@@ -87,12 +88,12 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
     /**
      * 初始化
      */
-    public abstract void onInit();
+    protected abstract void onInit();
 
     /**
      * 加载
      */
-    public abstract void onLoad();
+    protected abstract void onLoad();
 
     private void showStatusView(int viewId) {
         for (View view : viewList) {
@@ -124,7 +125,7 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
     /**
      * 因为可能会在onResume方法中重新加载数据，如果已经时显示成功，则不再显示加载中、加载失败状态
      */
-    protected boolean hasSuccess = false;
+    private boolean hasSuccess = false;
     /**
      * 同样可能会在onResume方法中重新加载数据的问题，这样第一次进入可能会分别在onCreate,onResume触发网络请求，所以衍生出此属性
      */

@@ -38,12 +38,12 @@ public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, En
 
     }
 
-    public int[] getColorSchemeResources() {
+    protected int[] getColorSchemeResources() {
         return Constant.SWIPE_REFRESH_LAYOUT_COLORS;
     }
 
     @Override
-    protected boolean isAutoLoad() {
+    protected final boolean isAutoLoad() {
         return false;
     }
 
@@ -52,7 +52,7 @@ public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, En
     }
 
     @Override
-    public void onLazyLoad() {
+    protected void onLazyLoad() {
         if (isAutoPullToRefresh()) {
             refresh();
         }
@@ -64,7 +64,7 @@ public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, En
     }
 
     @Override
-    public void onPrepare(View view) {
+    protected void onPrepare(View view) {
         super.onPrepare(view);
 
         try {
