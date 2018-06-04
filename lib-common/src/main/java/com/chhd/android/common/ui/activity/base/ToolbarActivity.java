@@ -4,12 +4,12 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.chhd.android.common.R;
+import com.chhd.android.common.ui.view.Toolbar;
 
 /**
  * @author : 葱花滑蛋 (2018/03/13)
@@ -31,13 +31,9 @@ public abstract class ToolbarActivity extends BaseActivity {
         toolbar = findViewById(R.id.toolbar);
         container = findViewById(R.id.container);
 
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getToolbarTitle());
-            getSupportActionBar().setDisplayHomeAsUpEnabled(showHomeAsUp());
-        }
-
         toolbar.setTitle(getToolbarTitle());
+
+        setToolbar(toolbar, getToolbarTitle(), showHomeAsUp());
 
         if (getContainerResId() != 0) {
             LayoutInflater.from(this).inflate(getContainerResId(), container, true);
@@ -95,7 +91,7 @@ public abstract class ToolbarActivity extends BaseActivity {
             getSupportActionBar().setTitle("");
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-//        toolbar.setToolbarContainer(view);
+        toolbar.setToolbarContainer(view);
     }
 
     /**

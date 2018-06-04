@@ -1,6 +1,7 @@
 package com.chhd.android.common.http;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,6 +17,8 @@ import okhttp3.Response;
 
 public class BasicParamsInterceptor implements Interceptor {
 
+    private final String TAG = this.getClass().getSimpleName();
+
     private Map<String, String> headers = new HashMap<>();
 
     private BasicParamsInterceptor() {
@@ -26,9 +29,13 @@ public class BasicParamsInterceptor implements Interceptor {
         Request original = chain.request();
         Request.Builder builder = original.newBuilder();
         if (!headers.isEmpty()) {
+            StringBuilder logBuilder = new StringBuilder();
+            logBuilder.append("Request Headers\r\n");
             for (Map.Entry<String, String> entry : headers.entrySet()) {
                 builder.header(entry.getKey(), entry.getValue());
+                logBuilder.append(entry.getKey() + " = " + entry.getValue() + "\r\n");
             }
+            Log.d(TAG, logBuilder.toString());
         }
         Request request = builder.build();
         return chain.proceed(request);

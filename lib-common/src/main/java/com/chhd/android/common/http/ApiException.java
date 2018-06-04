@@ -6,10 +6,10 @@ package com.chhd.android.common.http;
 
 public class ApiException extends Throwable{
 
-    private int code;
+    private Integer code;
     private String errMsg;
 
-    public ApiException(int code, String errMsg) {
+    public ApiException(Integer code, String errMsg) {
         this.code = code;
         this.errMsg = errMsg;
     }

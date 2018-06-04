@@ -15,12 +15,12 @@ public class ListData<T> extends BaseListData<T> {
     private int hasMore;
 
     @Override
-    public int getStart() {
+    public Integer getPageStart() {
         return start;
     }
 
     @Override
-    public boolean hasMore() {
+    public Boolean isPageNext() {
         return hasMore == 1;
     }
 

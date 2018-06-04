@@ -28,7 +28,8 @@
             android:theme="@style/NoTitleTranslucentTheme" />
         <activity android:name=".ImagePickerActivity" />
         <activity android:name=".CodeActivity" />
-        <activity android:name=".KotlinActivity"></activity>
+        <activity android:name=".KotlinActivity" />
+        <activity android:name=".Demo4Activity"></activity>
     </application>
 
 </manifest>

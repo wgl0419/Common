@@ -28,7 +28,7 @@ public class Demo1Activity extends PullToRefreshTActivity<Adapter, Object> {
         HttpUtils
                 .retrofit("http://test.hulubao.com")
                 .create(ApiService.class)
-                .getRentList(listData.getStart(isLoadMore) + "")
+                .getRentList(listData.getPageStart(isLoadMore) + "")
                 .compose(RxHelper.<ResponseData<ListData<Object>>>ioMainThread())
                 .compose(ResponseTransformer.<ListData<Object>>transform())
                 .subscribe(new HttpObserver<ListData<Object>>() {

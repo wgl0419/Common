@@ -130,7 +130,7 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
      * @param code   服务端返回的状态码
      * @param errMsg 服务端返回的错误信息
      */
-    protected void onApiException(int code, String errMsg) {
+    protected void onApiException(Integer code, String errMsg) {
 
     }
 
