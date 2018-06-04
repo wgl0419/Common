@@ -111,6 +111,16 @@ public class MainActivity extends ToolbarActivity {
 
         EditText et1 = findViewById(R.id.et1);
         SoftKeyboardUtils.showSoftInput(et1);
+
+        toolbar.setTitle("213");
+
+        findViewById(R.id.iv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(instance, Demo4Activity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

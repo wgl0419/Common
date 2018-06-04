@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.internal.view.SupportSubMenu;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.view.menu.MenuItemImpl;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextMenu;
@@ -56,6 +57,21 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
         activities.add(this);
 
         initScreenOrientation();
+    }
+
+    /**
+     * 设置菜单栏
+     *
+     * @param toolbar      toolbar
+     * @param title        标题
+     * @param showHomeAsUp 是否显示Home键
+     */
+    protected void setToolbar(Toolbar toolbar, String title, boolean showHomeAsUp) {
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(showHomeAsUp);
+        }
     }
 
     /**

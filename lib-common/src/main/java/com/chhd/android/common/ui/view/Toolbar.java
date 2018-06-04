@@ -96,7 +96,6 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
 
     @Override
     public void setTitle(CharSequence title) {
-
         TypedValue outValue = new TypedValue();
         getContext().getTheme().resolveAttribute(R.attr.actionBarTitleGravity,
                 outValue, true);

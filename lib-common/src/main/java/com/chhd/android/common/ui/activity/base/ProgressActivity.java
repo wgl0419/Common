@@ -18,7 +18,7 @@ import java.util.List;
  * @author : 葱花滑蛋 (2018/03/13)
  */
 
-public abstract class ProgressActivity extends BaseActivity implements IPageView, View.OnClickListener {
+public abstract class ProgressActivity extends BaseActivity implements IPageView {
 
     protected List<View> viewList = new ArrayList<>();
 
@@ -81,8 +81,18 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
             LayoutInflater.from(this).inflate(getContentResId(), contentView, true);
         }
 
-        btnRetry.setOnClickListener(this);
-        btnRefresh.setOnClickListener(this);
+        btnRetry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onLoad();
+            }
+        });
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onLoad();
+            }
+        });
     }
 
     /**
@@ -105,42 +115,43 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
         }
     }
 
-    private void showLoadingView() {
+    protected void showLoadingView() {
         showStatusView(R.id.loading);
     }
 
-    private void showEmptyView() {
+    protected void showEmptyView() {
         showStatusView(R.id.empty);
     }
 
-    private void showErrorView(String message) {
+    protected void showErrorView(String message) {
         showStatusView(R.id.error);
         tvError.setText(message);
     }
 
-    private void showContentView() {
+    protected void showContentView() {
         showStatusView(R.id.content);
     }
 
     /**
+     * 是否加载成功
      * 因为可能会在onResume方法中重新加载数据，如果已经时显示成功，则不再显示加载中、加载失败状态
      */
-    private boolean hasSuccess = false;
+    private boolean hasLoadSuccess = false;
     /**
-     * 同样可能会在onResume方法中重新加载数据的问题，这样第一次进入可能会分别在onCreate,onResume触发网络请求，所以衍生出此属性
+     * 是否加载完毕
      */
-    protected boolean hasFirstLoadComplete = false;
+    protected boolean hasLoadComplete = false;
 
     @Override
     public void onPageLoading() {
-        if (!hasSuccess) {
+        if (!hasLoadSuccess) {
             showLoadingView();
         }
     }
 
     @Override
     public void onPageSuccess() {
-        hasSuccess = true;
+        hasLoadSuccess = true;
         showContentView();
     }
 
@@ -151,20 +162,14 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
 
     @Override
     public void onPageError(String message) {
-        if (!hasSuccess) {
+        if (!hasLoadSuccess) {
             showErrorView(message);
         }
     }
 
     @Override
     public void onPageComplete() {
-        hasFirstLoadComplete = true;
+        hasLoadComplete = true;
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.btn_retry || v.getId() == R.id.btn_refresh) {
-            onLoad();
-        }
-    }
 }

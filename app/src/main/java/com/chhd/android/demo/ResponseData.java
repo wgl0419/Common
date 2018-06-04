@@ -12,7 +12,7 @@ public class ResponseData<T> implements BaseResponseData<T> {
     private T data;
 
     @Override
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 
@@ -27,7 +27,7 @@ public class ResponseData<T> implements BaseResponseData<T> {
     }
 
     @Override
-    public boolean isSuccess() {
+    public Boolean isSuccess() {
         return code == 0;
     }
 }

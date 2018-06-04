@@ -11,7 +11,7 @@ public interface BaseResponseData<T> {
      *
      * @return int
      */
-    int getCode();
+    Integer getCode();
 
     /**
      * 请求信息
@@ -32,5 +32,5 @@ public interface BaseResponseData<T> {
      *
      * @return boolean
      */
-    boolean isSuccess();
+    Boolean isSuccess();
 }

@@ -26,12 +26,12 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
 
     protected BaseListData listData = new BaseListData() {
         @Override
-        public int getStart() {
+        public Integer getPageStart() {
             return 0;
         }
 
         @Override
-        public boolean hasMore() {
+        public Boolean isPageNext() {
             return false;
         }
 
@@ -143,10 +143,10 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
      */
     protected void onLoadSuccess(BaseListData<Entity> listData) {
         this.listData = listData;
-        if (this.listData.getStart() == 0) {
-            this.list.clear();
+        if (listData.getPageStart() == null || listData.getPageStart() == 0) {
+            list.clear();
         }
-        this.list.addAll(listData.getList());
+        list.addAll(listData.getList());
         adapter.notifyDataSetChanged();
 
         showListEmpty();
@@ -156,7 +156,7 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
         }
 
         adapter.setEnableLoadMore(true);
-        if (listData.hasMore()) {
+        if (listData.isPageNext() != null && listData.isPageNext()) {
             adapter.loadMoreComplete();
         } else {
             adapter.loadMoreEnd();
@@ -209,6 +209,12 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
         btnRetry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                View loadingView = View.inflate(instance, R.layout.layout_loading, null);
+                RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
+                        RecyclerView.LayoutParams.WRAP_CONTENT);
+                loadingView.setLayoutParams(params);
+                loadingView.setVisibility(View.VISIBLE);
+                adapter.setEmptyView(loadingView);
                 onLoad(false);
             }
         });
@@ -222,7 +228,7 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
      * @param message 服务端返回的错误信息
      */
     protected void onLoadError(String message) {
-        if (listData.getStart() == 0) {
+        if (listData.getPageStart() == null || listData.getPageStart() == 0) {
             showListError(message);
         } else {
             adapter.loadMoreFail();

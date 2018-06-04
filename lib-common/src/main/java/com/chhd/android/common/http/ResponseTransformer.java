@@ -27,8 +27,9 @@ public class ResponseTransformer {
             public ObservableSource<T> apply(Observable<BaseResponseData<T>> upstream) {
                 return upstream.flatMap(new Function<BaseResponseData<T>, ObservableSource<T>>() {
                     @Override
-                    public ObservableSource<T> apply(final BaseResponseData<T> responseData) throws Exception {
-                        if (responseData.isSuccess()) {
+                    public ObservableSource<T> apply(final BaseResponseData<T> responseData)
+                            throws Exception {
+                        if (responseData.isSuccess() != null && responseData.isSuccess()) {
                             return Observable.create(new ObservableOnSubscribe<T>() {
                                 @Override
                                 public void subscribe(ObservableEmitter<T> e) throws Exception {

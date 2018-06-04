@@ -13,11 +13,15 @@ public abstract class BaseListData<T> {
      *
      * @return int
      */
-    public abstract int getStart();
+    public abstract Integer getPageStart();
 
-    public int getStart(boolean isLoadMore) {
+    public int getPageStart(boolean isLoadMore) {
         if (isLoadMore) {
-            return getStart() + getList().size();
+            if (getPageStart() == null) {
+                return getList().size();
+            }
+            return getPageStart() + getList().size();
+
         }
         return 0;
     }
@@ -27,7 +31,7 @@ public abstract class BaseListData<T> {
      *
      * @return boolean
      */
-    public abstract boolean hasMore();
+    public abstract Boolean isPageNext();
 
     /**
      * 获取列表
