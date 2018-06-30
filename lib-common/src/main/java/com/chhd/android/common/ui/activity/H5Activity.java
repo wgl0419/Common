@@ -17,12 +17,33 @@ import com.chhd.android.common.ui.activity.base.ToolbarActivity;
 import com.chhd.android.common.ui.view.HorizontalProgressBar;
 
 /**
+ * H5Activity
+ *
  * @author : 葱花滑蛋 (2018/03/18)
  */
 
 @SuppressLint("SetJavaScriptEnabled")
 public class H5Activity extends ToolbarActivity {
 
+    /**
+     * 启动界面
+     *
+     * @param context context
+     * @param resId   主题
+     * @param url     链接
+     */
+    public static void start(Context context, @StyleRes int resId, String url) {
+        start(context, resId, url);
+    }
+
+    /**
+     * 启动界面
+     *
+     * @param context context
+     * @param resId   主题
+     * @param url     链接
+     * @param title   标题
+     */
     public static void start(Context context, @StyleRes int resId, String url, String title) {
         Intent intent = new Intent(context, H5Activity.class);
         intent.putExtra("resId", resId);

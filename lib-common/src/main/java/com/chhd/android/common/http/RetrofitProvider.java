@@ -1,10 +1,13 @@
 package com.chhd.android.common.http;
 
+import android.util.Log;
+
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -14,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
+ * Retrofit提供者
  * 有两种创建方法：1是通过静态方法；2是通过链式编程
  *
  * @author : 葱花滑蛋 (2018/03/12)

@@ -16,6 +16,8 @@ import com.bumptech.glide.request.RequestOptions;
 
 
 /**
+ * 图片加载器，基于Glide实现，统一图片加载入口
+ *
  * @author : 葱花滑蛋 (2018/03/18)
  */
 
@@ -54,31 +56,66 @@ public class ImageLoader {
     }
 
 
+    /**
+     * 绑定当前Activity的生命周期
+     *
+     * @param activity 当前Activity
+     * @return ImageLoader
+     */
     public ImageLoader with(Activity activity) {
         this.activity = activity;
         return this;
     }
 
+    /**
+     * 绑定当前Fragment的生命周期
+     *
+     * @param fragment 当前Fragment
+     * @return ImageLoader
+     */
     public ImageLoader with(Fragment fragment) {
         this.fragment = fragment;
         return this;
     }
 
+    /**
+     * 加载图片
+     *
+     * @param model 本地图片、网络图片
+     * @return ImageLoader
+     */
     public ImageLoader load(Object model) {
         this.model = model;
         return this;
     }
 
-    private ImageLoader dontAnimate() {
+    /**
+     * 关闭加载动画
+     *
+     * @return ImageLoader
+     */
+    public ImageLoader dontAnimate() {
         this.isAnimation = false;
         return this;
     }
 
+    /**
+     * 设置加载占位图
+     *
+     * @param placeholderId 加载占位图
+     * @return ImageLoader
+     */
     public ImageLoader placeholderId(int placeholderId) {
         this.placeholderId = placeholderId;
         return this;
     }
 
+    /**
+     * 设置错误占位图
+     *
+     * @param errorId 错误占位图
+     * @return ImageLoader
+     */
     public ImageLoader errorId(int errorId) {
         this.errorId = errorId;
         return this;
@@ -140,7 +177,7 @@ public class ImageLoader {
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (manager != null) {
             NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-            if (null != networkInfo && networkInfo.getType() == ConnectivityManager.TYPE_MOBILE){
+            if (null != networkInfo && networkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
                 return networkInfo.isAvailable();
             }
         }

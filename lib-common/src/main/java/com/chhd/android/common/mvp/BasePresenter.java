@@ -5,6 +5,8 @@ import android.app.Application;
 import android.support.v4.app.Fragment;
 
 /**
+ * BasePresenter
+ *
  * @author : 葱花滑蛋 (2018/03/21)
  */
 

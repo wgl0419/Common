@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 列表界面
+ *
  * @author : 葱花滑蛋 (2018/03/15)
  */
 
@@ -63,10 +65,10 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
     protected void onPrepare(View view) {
         super.onPrepare(view);
 
-        try {
-            recyclerView = view.findViewById(R.id.recycler_view);
-        } catch (Exception e) {
-            throw new RuntimeException("Layout must have one RecyclerView, and id must set recycler_view.");
+        recyclerView = view.findViewById(R.id.recycler_view);
+        if (recyclerView == null) {
+            throw new NullPointerException("Layout must have one RecyclerView, " +
+                    "and id must set recycler_view.");
         }
 
         adapter = getAdapter();
@@ -95,6 +97,13 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
         if (isAutoLoad()) {
             onLoad(false);
         }
+    }
+
+    @Override
+    protected void reLoad() {
+        hasLoadSuccess = false;
+        hasLoadComplete = false;
+        onLoad(false);
     }
 
     /**

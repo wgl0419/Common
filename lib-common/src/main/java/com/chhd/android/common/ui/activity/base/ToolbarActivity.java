@@ -12,6 +12,8 @@ import com.chhd.android.common.R;
 import com.chhd.android.common.ui.view.Toolbar;
 
 /**
+ * Toolbar界面
+ *
  * @author : 葱花滑蛋 (2018/03/13)
  */
 

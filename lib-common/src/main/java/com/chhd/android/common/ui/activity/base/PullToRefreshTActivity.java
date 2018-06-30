@@ -12,6 +12,8 @@ import com.chhd.android.common.global.Constant;
 import java.util.List;
 
 /**
+ * 下拉刷新界面，带Toolbar
+ *
  * @author : 葱花滑蛋 (2018/03/13)
  */
 
@@ -27,6 +29,14 @@ public abstract class PullToRefreshTActivity<Adapter extends BaseQuickAdapter, E
         if (isAutoPullToRefresh()) {
             refresh();
         }
+    }
+
+    @Override
+    protected void reLoad() {
+        hasLoadSuccess = false;
+        hasLoadComplete = false;
+
+        refresh();
     }
 
     protected void refresh() {
@@ -63,8 +73,8 @@ public abstract class PullToRefreshTActivity<Adapter extends BaseQuickAdapter, E
     }
 
     @Override
-    protected void onPrepare() {
-        super.onPrepare();
+    protected void onPrepare(Bundle savedInstanceState) {
+        super.onPrepare(savedInstanceState);
 
         try {
             swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);

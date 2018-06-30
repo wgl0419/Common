@@ -6,7 +6,7 @@ import android.widget.TextView;
 import java.math.BigDecimal;
 
 /**
- * 使用Util包下工具类，必须先初始化
+ * NumberUtils
  *
  * @author : 葱花滑蛋 (2018/03/09)
  */
@@ -56,7 +56,7 @@ public class NumberUtils {
         } catch (Exception e) {
 
         }
-        return "0.00";
+        return "0";
     }
 
     public static String getString(TextView textView, int scale) {

@@ -16,10 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 进度界面
+ *
  * @author : 葱花滑蛋 (2018/03/14)
  */
 
-public abstract class ProgressFragment extends BaseFragment implements IPageView{
+public abstract class ProgressFragment extends BaseFragment implements IPageView {
 
     protected List<View> viewList = new ArrayList<>();
 
@@ -113,6 +115,15 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
      */
     protected abstract void onLoad();
 
+    /**
+     * 重新加载，带加载进度动画
+     */
+    protected void reLoad() {
+        hasLoadSuccess = false;
+        hasLoadComplete = false;
+        onLoad();
+    }
+
     private void showStatusView(int viewId) {
         for (View view : viewList) {
             if (view.getId() == viewId) {
@@ -145,7 +156,7 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
      * 是否加载成功
      * 因为可能会在onResume方法中重新加载数据，如果已经时显示成功，则不再显示加载中、加载失败状态
      */
-    private boolean hasLoadSuccess = false;
+    boolean hasLoadSuccess = false;
     /**
      * 是否加载完毕
      */

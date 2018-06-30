@@ -19,6 +19,6 @@ public interface ApiService {
     @POST("/api/course/light")
     Single<String> edit(@Field("course_id") String course_id);
 
-    @GET("/api/order/rentList")
+    @GET("api/order/rentList")
     Observable<ResponseData<ListData<Object>>> getRentList(@Query("start") String start);
 }

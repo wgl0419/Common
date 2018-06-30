@@ -13,8 +13,11 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.chhd.android.common.R;
+import com.chhd.android.common.ui.activity.H5Activity;
 
 /**
+ * 水平进度条，配合WebView使用，参考{@link H5Activity}
+ *
  * @author : 葱花滑蛋 (2018/03/12)
  */
 

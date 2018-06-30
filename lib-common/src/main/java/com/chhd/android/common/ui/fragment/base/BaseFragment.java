@@ -6,6 +6,8 @@ import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 /**
+ * BaseFragment
+ *
  * @author : 葱花滑蛋 (2018/03/12)
  */
 

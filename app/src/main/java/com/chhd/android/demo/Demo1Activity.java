@@ -1,12 +1,15 @@
 package com.chhd.android.demo;
 
+import android.os.Bundle;
+
 import com.chhd.android.common.http.HttpObserver;
 import com.chhd.android.common.http.ResponseTransformer;
 import com.chhd.android.common.http.RxHelper;
+import com.chhd.android.common.ui.activity.base.ListActivity;
 import com.chhd.android.common.ui.activity.base.PullToRefreshTActivity;
 import com.chhd.android.common.mvp.IPageView;
 
-public class Demo1Activity extends PullToRefreshTActivity<Adapter, Object> {
+public class Demo1Activity extends ListActivity<Adapter, Object> {
 
     @Override
     public int getContentResId() {
@@ -14,7 +17,7 @@ public class Demo1Activity extends PullToRefreshTActivity<Adapter, Object> {
     }
 
     @Override
-    public void onInit() {
+    public void onInit(Bundle savedInstanceState) {
 
     }
 
@@ -26,7 +29,7 @@ public class Demo1Activity extends PullToRefreshTActivity<Adapter, Object> {
     @Override
     public void onLoad(boolean isLoadMore) {
         HttpUtils
-                .retrofit("http://test.hulubao.com")
+                .retrofit("http://10.0.0.137:8080/tms-server/")
                 .create(ApiService.class)
                 .getRentList(listData.getPageStart(isLoadMore) + "")
                 .compose(RxHelper.<ResponseData<ListData<Object>>>ioMainThread())

@@ -12,6 +12,8 @@ import com.chhd.android.common.global.Constant;
 import java.util.List;
 
 /**
+ * 下拉刷新界面，不带Toolbar
+ *
  * @author : 葱花滑蛋 (2018/03/13)
  */
 
@@ -27,6 +29,14 @@ public abstract class PullToRefreshActivity<Adapter extends BaseQuickAdapter, En
         if (isAutoPullToRefresh()) {
             refresh();
         }
+    }
+
+    @Override
+    protected void reLoad() {
+        hasLoadSuccess = false;
+        hasLoadComplete = false;
+
+        refresh();
     }
 
     protected void refresh() {
@@ -58,12 +68,13 @@ public abstract class PullToRefreshActivity<Adapter extends BaseQuickAdapter, En
     }
 
     @Override
-    protected void onPrepare() {
-        super.onPrepare();
-        try {
-            swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
-        } catch (Exception e) {
-            throw new RuntimeException("Layout must have one SwipeRefreshLayout, and id must set swipe_refresh_layout.");
+    protected void onPrepare(Bundle savedInstanceState) {
+        super.onPrepare(savedInstanceState);
+
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        if (swipeRefreshLayout == null) {
+            throw new NullPointerException("Layout must have one SwipeRefreshLayout, " +
+                    "and id must set swipe_refresh_layout.");
         }
 
         swipeRefreshLayout.setColorSchemeResources(getColorSchemeResources());

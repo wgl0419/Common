@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 进度界面，不带Toolbar
+ *
  * @author : 葱花滑蛋 (2018/03/13)
  */
 
@@ -38,9 +40,9 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress);
 
-        onPrepare();
+        onPrepare(savedInstanceState);
 
-        onInit();
+        onInit(savedInstanceState);
 
         if (isAutoLoad()) {
             onLoad();
@@ -58,7 +60,7 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
      */
     protected abstract int getContentResId();
 
-    protected void onPrepare() {
+    protected void onPrepare(Bundle savedInstanceState) {
         loadingView = findViewById(R.id.loading);
         errorView = findViewById(R.id.error);
         emptyView = findViewById(R.id.empty);
@@ -98,12 +100,21 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
     /**
      * 初始化
      */
-    protected abstract void onInit();
+    protected abstract void onInit(Bundle savedInstanceState);
 
     /**
      * 加载
      */
     protected abstract void onLoad();
+
+    /**
+     * 重新加载，带加载进度动画
+     */
+    protected void reLoad() {
+        hasLoadSuccess = false;
+        hasLoadComplete = false;
+        onLoad();
+    }
 
     private void showStatusView(int viewId) {
         for (View view : viewList) {
@@ -136,7 +147,7 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
      * 是否加载成功
      * 因为可能会在onResume方法中重新加载数据，如果已经时显示成功，则不再显示加载中、加载失败状态
      */
-    private boolean hasLoadSuccess = false;
+    boolean hasLoadSuccess = false;
     /**
      * 是否加载完毕
      */

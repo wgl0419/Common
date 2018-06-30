@@ -20,6 +20,18 @@ public class ListData<T> extends BaseListData<T> {
     }
 
     @Override
+    public int getPageStart(boolean isLoadMore) {
+        if (isLoadMore) {
+            if (getPageStart() == null) {
+                return 1;
+            }
+            return getPageStart() + 1;
+
+        }
+        return 0;
+    }
+
+    @Override
     public Boolean isPageNext() {
         return hasMore == 1;
     }

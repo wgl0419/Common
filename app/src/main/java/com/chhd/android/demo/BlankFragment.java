@@ -8,6 +8,7 @@ import com.chhd.android.common.ui.fragment.base.PullToRefreshFragment;
 
 public class BlankFragment extends PullToRefreshFragment<Adapter,Object> {
 
+
     @Override
     public int getContentResId() {
         return R.layout.layout_pull_to_refresh;

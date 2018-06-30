@@ -6,7 +6,7 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 
 /**
- * 抖动工具类，产生一个左右抖动动画
+ * 抖动工具类
  *
  * @author : 葱花滑蛋 (2017/11/30)
  */
@@ -16,6 +16,11 @@ public class ShakeUtils {
     private ShakeUtils() {
     }
 
+    /**
+     * 产生一个左右抖动动画
+     *
+     * @param view 被作用的控件
+     */
     public static void on(View view) {
         Context context = view.getContext();
         TranslateAnimation animation = new TranslateAnimation(0, dp2px(context, 3),

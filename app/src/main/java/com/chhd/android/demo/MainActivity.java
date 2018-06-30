@@ -12,9 +12,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.chhd.android.common.http.HttpObserver;
+import com.chhd.android.common.http.ResponseTransformer;
+import com.chhd.android.common.ui.activity.H5Activity;
 import com.chhd.android.common.ui.activity.base.ToolbarActivity;
 import com.chhd.android.common.ui.view.Toolbar;
 import com.chhd.android.common.util.SoftKeyboardUtils;
+import com.chhd.android.common.util.ToastUtils;
 import com.chhd.android.common.util.image.ImageLoader;
 import com.chhd.android.common.util.image.ImageLoaderConfig;
 
@@ -34,12 +38,17 @@ public class MainActivity extends ToolbarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme_Light);
         super.onCreate(savedInstanceState);
 
         findViewById(R.id.tv1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Intent intent = new Intent(instance, H5Activity.class);
+//                intent.putExtra("url", "https://m.baidu.com/");
+//                startActivity(intent);
+
+//                H5Activity.start(instance, R.style.AppTheme, "https://m.baidu.com/");
+
                 startActivity(new Intent(instance, Demo1Activity.class));
             }
         });
@@ -121,6 +130,24 @@ public class MainActivity extends ToolbarActivity {
                 startActivity(intent);
             }
         });
+
+        Observable
+                .create(new ObservableOnSubscribe<ResponseData<String>>() {
+                    @Override
+                    public void subscribe(ObservableEmitter<ResponseData<String>> e) throws Exception {
+                        ResponseData<String> responseData = new ResponseData<>();
+                        responseData.setCode(0);
+                        responseData.setMsg("成功");
+                        e.onNext(responseData);
+                        e.onComplete();
+                    }
+                })
+                .compose(ResponseTransformer.<String>transform())
+                .subscribe(new HttpObserver<String>() {
+                    @Override
+                    protected void onSucceed(String s) {
+                    }
+                });
     }
 
     @Override

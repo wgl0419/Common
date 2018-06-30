@@ -14,7 +14,7 @@ public class Demo4Activity extends ProgressTActivity {
     }
 
     @Override
-    protected void onInit() {
+    protected void onInit(Bundle savedInstanceState) {
         onPageError("出错了");
     }
 

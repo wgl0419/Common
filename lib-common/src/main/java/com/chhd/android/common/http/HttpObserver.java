@@ -14,6 +14,8 @@ import java.util.concurrent.TimeoutException;
 import io.reactivex.observers.DisposableObserver;
 
 /**
+ * 网络请求回调
+ *
  * @author : 葱花滑蛋 (2018/03/12)
  */
 
@@ -58,7 +60,11 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
         if (iPageView != null) {
             iPageView.onPageSuccess();
         }
-        onSucceed(t);
+        try {
+            onSucceed(t);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -71,8 +77,14 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
         if (e instanceof ApiException) {
             ApiException apiException = (ApiException) e;
             errMsg = apiException.getErrMsg();
-            onApiException(apiException.getCode(), apiException.getErrMsg());
-        } else if (e instanceof TimeoutException || e instanceof SocketTimeoutException || e instanceof UnknownHostException) {
+            onApiException(
+                    apiException.getCode(),
+                    apiException.getErrMsg(),
+                    apiException.<T>getData());
+        } else if (
+                e instanceof TimeoutException ||
+                        e instanceof SocketTimeoutException ||
+                        e instanceof UnknownHostException) {
             errMsg = "网络连接失败";
         } else {
             errMsg = "出错了";
@@ -105,7 +117,11 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
         }
         if (!hasNext && !hasError) {
             // 在ApiException，如果data是空，仅会走onComplete
-            onSucceed(null);
+            try {
+                onSucceed(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         onFinish();
     }
@@ -120,17 +136,18 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
     /**
      * 请求成功
      *
-     * @param t 泛型t
+     * @param t 服务端返回的实体类
      */
-    protected abstract void onSucceed(T t);
+    protected abstract void onSucceed(T t) throws Exception;
 
     /**
      * 请求失败，服务端异常
      *
      * @param code   服务端返回的状态码
      * @param errMsg 服务端返回的错误信息
+     * @param t      服务端返回的实体类
      */
-    protected void onApiException(Integer code, String errMsg) {
+    protected void onApiException(Integer code, String errMsg, T t) {
 
     }
 
