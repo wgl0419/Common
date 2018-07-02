@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * ViewPager适配器
+ *
  * @author : 葱花滑蛋 (2017/11/26)
  */
 

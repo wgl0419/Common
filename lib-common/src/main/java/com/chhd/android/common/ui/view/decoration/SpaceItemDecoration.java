@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 /**
+ * 垂直列表 - 间距装饰器
+ *
  * @author : 葱花滑蛋 (2017/11/21)
  */
 

@@ -10,6 +10,8 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Function;
 
 /**
+ * 网络请求结果转换器
+ *
  * @author : 葱花滑蛋 (2018/03/13)
  */
 
@@ -18,7 +20,7 @@ public class ResponseTransformer {
     /**
      * 过滤网络请求结果
      *
-     * @param <T> 泛型T
+     * @param <T> 服务端返回的实体类
      * @return ObservableTransformer
      */
     public static <T> ObservableTransformer<BaseResponseData<T>, T> transform() {
@@ -41,7 +43,7 @@ public class ResponseTransformer {
                             });
                         } else {
                             return Observable.error(new ApiException(responseData.getCode(),
-                                    responseData.getMessage()));
+                                    responseData.getMessage(), responseData.getData()));
                         }
                     }
                 });

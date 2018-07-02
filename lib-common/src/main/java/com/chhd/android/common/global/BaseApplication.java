@@ -6,6 +6,8 @@ import com.chhd.android.common.util.CommonUtils;
 import com.facebook.stetho.Stetho;
 
 /**
+ * BaseApplication
+ *
  * @author : 葱花滑蛋 (2017/11/24)
  */
 

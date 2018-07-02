@@ -1,6 +1,8 @@
 package com.chhd.android.common.global;
 
 /**
+ * Constant
+ *
  * @author : 葱花滑蛋 (2018/03/18)
  */
 

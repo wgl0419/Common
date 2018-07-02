@@ -11,6 +11,8 @@ import com.chhd.android.common.global.Constant;
 import java.util.List;
 
 /**
+ * 下拉刷新界面
+ *
  * @author : 葱花滑蛋 (2018/03/14)
  */
 
@@ -19,18 +21,21 @@ public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, En
 
     protected SwipeRefreshLayout swipeRefreshLayout;
 
+    @Override
+    protected void reLoad() {
+        hasLoadSuccess = false;
+        hasLoadComplete = false;
+        refresh();
+    }
+
     protected void refresh() {
-        if (list.isEmpty()) {
-            swipeRefreshLayout.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    swipeRefreshLayout.setRefreshing(true);
-                    onRefresh();
-                }
-            }, 100);
-        } else {
-            onRefresh();
-        }
+        swipeRefreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+                onRefresh();
+            }
+        }, 100);
     }
 
     @Override
@@ -67,10 +72,10 @@ public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, En
     protected void onPrepare(View view) {
         super.onPrepare(view);
 
-        try {
-            swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
-        } catch (Exception e) {
-            throw new RuntimeException("Layout must have one SwipeRefreshLayout, and id must set swipe_refresh_layout.");
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
+        if (swipeRefreshLayout == null) {
+            throw new NullPointerException("Layout must have one SwipeRefreshLayout, " +
+                    "and id must set swipe_refresh_layout.");
         }
 
         swipeRefreshLayout.setColorSchemeResources(getColorSchemeResources());

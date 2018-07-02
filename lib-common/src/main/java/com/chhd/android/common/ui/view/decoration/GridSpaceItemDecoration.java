@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
+ * 网格列表 - 间距装饰器
+ *
  * @author : 葱花滑蛋 (2017/11/16)
  */
 

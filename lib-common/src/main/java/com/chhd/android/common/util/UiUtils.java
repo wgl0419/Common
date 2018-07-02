@@ -6,6 +6,8 @@ import android.content.res.Resources;
 import com.chhd.android.common.global.BaseApplication;
 
 /**
+ * Ui工具类
+ *
  * @author : 葱花滑蛋 (2017/11/30)
  */
 

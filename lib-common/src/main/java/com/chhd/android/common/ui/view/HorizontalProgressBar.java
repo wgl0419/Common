@@ -13,8 +13,11 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.chhd.android.common.R;
+import com.chhd.android.common.ui.activity.H5Activity;
 
 /**
+ * 水平进度条，配合WebView使用，参考{@link H5Activity}
+ *
  * @author : 葱花滑蛋 (2018/03/12)
  */
 
@@ -66,12 +69,9 @@ public class HorizontalProgressBar extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Log.v(TAG, "onMeasure -> --------------------------------------");
-        Log.v(TAG, "onMeasure -> MeasuredWidth: " + getMeasuredWidth() + ", MeasuredHeight: " + getMeasuredHeight());
         // 获取控件的宽度、高度
         int width = getRealSize(widthMeasureSpec);
         int height = getRealSize(heightMeasureSpec);
-        Log.v(TAG, "onMeasure -> width: " + width + ", height: " + height);
         setMeasuredDimension(width, height);
     }
 
@@ -107,8 +107,6 @@ public class HorizontalProgressBar extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         mViewWidth = getWidth() - getPaddingLeft() - getPaddingRight();
         mViewHeight = getHeight();
-        Log.v(TAG, "onSizeChanged -> --------------------------------------");
-        Log.v(TAG, "onSizeChanged -> mViewWidth: " + mViewWidth + ", onMeasure: mViewHeight: " + mViewHeight);
     }
 
     @Override

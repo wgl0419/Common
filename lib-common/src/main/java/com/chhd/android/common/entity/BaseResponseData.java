@@ -1,6 +1,8 @@
 package com.chhd.android.common.entity;
 
 /**
+ * 网络请求结果实体基类
+ *
  * @author : 葱花滑蛋 (2018/03/13)
  */
 

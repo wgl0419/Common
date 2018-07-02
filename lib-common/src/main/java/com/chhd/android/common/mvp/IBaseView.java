@@ -4,6 +4,8 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 /**
+ * IBaseView
+ *
  * @author : 葱花滑蛋 (2018/03/14)
  */
 

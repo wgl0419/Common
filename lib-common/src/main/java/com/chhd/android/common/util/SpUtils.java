@@ -1,5 +1,6 @@
 package com.chhd.android.common.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -9,6 +10,7 @@ import android.content.SharedPreferences;
  * @author : 葱花滑蛋 (2018/03/18)
  */
 
+@SuppressLint("ApplySharedPref")
 public class SpUtils {
 
     private static final String NAME = "config";

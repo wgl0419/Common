@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 列表界面，带Toolbar
+ *
  * @author : 葱花滑蛋 (2018/03/15)
  */
 
@@ -71,13 +73,13 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
     }
 
     @Override
-    protected void onPrepare() {
-        super.onPrepare();
+    protected void onPrepare(Bundle savedInstanceState) {
+        super.onPrepare(savedInstanceState);
 
-        try {
-            recyclerView = findViewById(R.id.recycler_view);
-        } catch (Exception e) {
-            throw new RuntimeException("Layout must have one RecyclerView, and id must set recycler_view.");
+        recyclerView = findViewById(R.id.recycler_view);
+        if (recyclerView == null) {
+            throw new NullPointerException("Layout must have one RecyclerView, " +
+                    "and id must set recycler_view.");
         }
 
         adapter = getAdapter();
@@ -104,6 +106,13 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
      */
     @Override
     protected void onLoad() {
+    }
+
+    @Override
+    protected void reLoad() {
+        hasLoadSuccess = false;
+        hasLoadComplete = false;
+        onLoad(false);
     }
 
     /**

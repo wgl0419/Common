@@ -1,6 +1,8 @@
 package com.chhd.android.common.util.image;
 
 /**
+ * 图片加载器配置
+ *
  * @author : 陈伟强 (2018/03/18)
  */
 

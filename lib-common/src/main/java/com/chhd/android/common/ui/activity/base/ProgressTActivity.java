@@ -15,10 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 进度界面，带Toolbar
+ *
  * @author : 葱花滑蛋 (2018/03/13)
  */
 
-public abstract class ProgressTActivity extends ToolbarActivity implements IPageView{
+public abstract class ProgressTActivity extends ToolbarActivity implements IPageView {
 
     protected List<View> viewList = new ArrayList<>();
 
@@ -36,19 +38,15 @@ public abstract class ProgressTActivity extends ToolbarActivity implements IPage
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_progress);
 
-        onPrepare();
+        onPrepare(savedInstanceState);
 
-        onInit();
+        onInit(savedInstanceState);
 
         if (isAutoLoad()) {
             onLoad();
         }
-    }
-
-    @Override
-    protected final int getContainerResId() {
-        return R.layout.activity_progress;
     }
 
     protected boolean isAutoLoad() {
@@ -62,7 +60,7 @@ public abstract class ProgressTActivity extends ToolbarActivity implements IPage
      */
     protected abstract int getContentResId();
 
-    protected void onPrepare() {
+    protected void onPrepare(Bundle savedInstanceState) {
         loadingView = findViewById(R.id.loading);
         errorView = findViewById(R.id.error);
         emptyView = findViewById(R.id.empty);
@@ -102,12 +100,21 @@ public abstract class ProgressTActivity extends ToolbarActivity implements IPage
     /**
      * 初始化
      */
-    protected abstract void onInit();
+    protected abstract void onInit(Bundle savedInstanceState);
 
     /**
      * 加载
      */
     protected abstract void onLoad();
+
+    /**
+     * 重新加载，带加载进度动画
+     */
+    protected void reLoad() {
+        hasLoadSuccess = false;
+        hasLoadComplete = false;
+        onLoad();
+    }
 
     private void showStatusView(int viewId) {
         for (View view : viewList) {
@@ -141,7 +148,7 @@ public abstract class ProgressTActivity extends ToolbarActivity implements IPage
      * 是否加载成功
      * 因为可能会在onResume方法中重新加载数据，如果已经时显示成功，则不再显示加载中、加载失败状态
      */
-    private boolean hasLoadSuccess = false;
+    boolean hasLoadSuccess = false;
     /**
      * 是否加载完毕
      */

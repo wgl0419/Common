@@ -12,6 +12,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
+ * 拦截请求参数
+ *
  * @author : 葱花滑蛋 (2018/03/12)
  */
 

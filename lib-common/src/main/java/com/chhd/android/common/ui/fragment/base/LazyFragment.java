@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 /**
+ * 懒加载界面
+ *
  * @author : 葱花滑蛋 (2018/03/14)
  */
 

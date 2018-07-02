@@ -9,13 +9,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.internal.view.SupportSubMenu;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -36,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * BaseActivity
+ *
  * @author : 葱花滑蛋 (2018/03/09)
  */
 
@@ -66,7 +65,7 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
      * @param title        标题
      * @param showHomeAsUp 是否显示Home键
      */
-    protected void setToolbar(Toolbar toolbar, String title, boolean showHomeAsUp) {
+    protected void setToolbar(Toolbar toolbar, CharSequence title, boolean showHomeAsUp) {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(title);
