@@ -16,6 +16,9 @@ import com.chhd.android.common.R;
 import com.chhd.android.common.ui.activity.base.ToolbarActivity;
 import com.chhd.android.common.ui.view.HorizontalProgressBar;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * H5Activity
  *
@@ -33,7 +36,27 @@ public class H5Activity extends ToolbarActivity {
      * @param url     链接
      */
     public static void start(Context context, @StyleRes int resId, String url) {
-        start(context, resId, url);
+        Intent intent = new Intent(context, H5Activity.class);
+        intent.putExtra("resId", resId);
+        intent.putExtra("url", url);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 启动界面
+     *
+     * @param context context
+     * @param resId   主题
+     * @param url     链接
+     * @param headers 头部
+     */
+    public static void start(Context context, @StyleRes int resId,
+                             String url, HashMap<String, String> headers) {
+        Intent intent = new Intent(context, H5Activity.class);
+        intent.putExtra("resId", resId);
+        intent.putExtra("url", url);
+        intent.putExtra("headers", headers);
+        context.startActivity(intent);
     }
 
     /**
@@ -52,6 +75,25 @@ public class H5Activity extends ToolbarActivity {
         context.startActivity(intent);
     }
 
+    /**
+     * 启动界面
+     *
+     * @param context context
+     * @param resId   主题
+     * @param url     链接
+     * @param headers 头部
+     * @param title   标题
+     */
+    public static void start(Context context, @StyleRes int resId,
+                             String url, HashMap<String, String> headers, String title) {
+        Intent intent = new Intent(context, H5Activity.class);
+        intent.putExtra("resId", resId);
+        intent.putExtra("url", url);
+        intent.putExtra("headers", headers);
+        intent.putExtra("title", title);
+        context.startActivity(intent);
+    }
+
     private HorizontalProgressBar progressBar;
     private WebView webView;
 
@@ -59,6 +101,7 @@ public class H5Activity extends ToolbarActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setTheme(getIntent().getIntExtra("resId", 0));
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_h5);
 
         webView = findViewById(R.id.web_view);
         progressBar = findViewById(R.id.progress_bar);
@@ -88,16 +131,15 @@ public class H5Activity extends ToolbarActivity {
                 progressBar.setProgress(newProgress);
             }
         });
-        webView.loadUrl("https://m.baidu.com/");
+
+        String url = getIntent().getStringExtra("url");
+        HashMap<String, String> headers =
+                (HashMap<String, String>) getIntent().getSerializableExtra("headers");
+        webView.loadUrl(url, headers);
     }
 
     @Override
-    public int getContainerResId() {
-        return R.layout.activity_h5;
-    }
-
-    @Override
-    protected String getToolbarTitle() {
+    protected CharSequence getToolbarTitle() {
         String title = getIntent().getStringExtra("title");
         if (title != null) {
             return title;

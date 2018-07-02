@@ -38,6 +38,7 @@ public abstract class ProgressTActivity extends ToolbarActivity implements IPage
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_progress);
 
         onPrepare(savedInstanceState);
 
@@ -46,11 +47,6 @@ public abstract class ProgressTActivity extends ToolbarActivity implements IPage
         if (isAutoLoad()) {
             onLoad();
         }
-    }
-
-    @Override
-    protected final int getContainerResId() {
-        return R.layout.activity_progress;
     }
 
     protected boolean isAutoLoad() {

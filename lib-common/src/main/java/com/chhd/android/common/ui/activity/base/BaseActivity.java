@@ -65,7 +65,7 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
      * @param title        标题
      * @param showHomeAsUp 是否显示Home键
      */
-    protected void setToolbar(Toolbar toolbar, String title, boolean showHomeAsUp) {
+    protected void setToolbar(Toolbar toolbar, CharSequence title, boolean showHomeAsUp) {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(title);

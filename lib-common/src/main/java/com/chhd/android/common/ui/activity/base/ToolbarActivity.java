@@ -17,7 +17,7 @@ import com.chhd.android.common.ui.view.Toolbar;
  * @author : 葱花滑蛋 (2018/03/13)
  */
 
-public abstract class ToolbarActivity extends BaseActivity {
+public  class ToolbarActivity extends BaseActivity {
 
     protected AppBarLayout appBarLayout;
     protected Toolbar toolbar;
@@ -27,7 +27,7 @@ public abstract class ToolbarActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_toolbar);
+        super.setContentView(R.layout.activity_toolbar);
 
         appBarLayout = findViewById(R.id.app_bar_layout);
         toolbar = findViewById(R.id.toolbar);
@@ -36,11 +36,6 @@ public abstract class ToolbarActivity extends BaseActivity {
         toolbar.setTitle(getToolbarTitle());
 
         setToolbar(toolbar, getToolbarTitle(), showHomeAsUp());
-
-        if (getContainerResId() != 0) {
-            LayoutInflater.from(this).inflate(getContainerResId(), container, true);
-        }
-
     }
 
     /**
@@ -57,8 +52,8 @@ public abstract class ToolbarActivity extends BaseActivity {
      *
      * @return String
      */
-    protected String getToolbarTitle() {
-        return null;
+    protected CharSequence getToolbarTitle() {
+        return getTitle();
     }
 
     /**
@@ -96,10 +91,8 @@ public abstract class ToolbarActivity extends BaseActivity {
         toolbar.setToolbarContainer(view);
     }
 
-    /**
-     * 获取布局文件
-     *
-     * @return int
-     */
-    protected abstract int getContainerResId();
+    @Override
+    public void setContentView(int layoutResID) {
+        LayoutInflater.from(this).inflate(layoutResID, container, true);
+    }
 }

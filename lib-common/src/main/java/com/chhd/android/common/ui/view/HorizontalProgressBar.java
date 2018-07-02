@@ -69,12 +69,9 @@ public class HorizontalProgressBar extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Log.v(TAG, "onMeasure -> --------------------------------------");
-        Log.v(TAG, "onMeasure -> MeasuredWidth: " + getMeasuredWidth() + ", MeasuredHeight: " + getMeasuredHeight());
         // 获取控件的宽度、高度
         int width = getRealSize(widthMeasureSpec);
         int height = getRealSize(heightMeasureSpec);
-        Log.v(TAG, "onMeasure -> width: " + width + ", height: " + height);
         setMeasuredDimension(width, height);
     }
 
@@ -110,8 +107,6 @@ public class HorizontalProgressBar extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         mViewWidth = getWidth() - getPaddingLeft() - getPaddingRight();
         mViewHeight = getHeight();
-        Log.v(TAG, "onSizeChanged -> --------------------------------------");
-        Log.v(TAG, "onSizeChanged -> mViewWidth: " + mViewWidth + ", onMeasure: mViewHeight: " + mViewHeight);
     }
 
     @Override
