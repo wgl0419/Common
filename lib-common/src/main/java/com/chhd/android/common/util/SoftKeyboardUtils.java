@@ -2,7 +2,6 @@ package com.chhd.android.common.util;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Handler;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;

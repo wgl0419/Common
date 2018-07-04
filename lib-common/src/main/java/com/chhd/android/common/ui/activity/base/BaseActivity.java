@@ -3,6 +3,7 @@ package com.chhd.android.common.ui.activity.base;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -181,7 +182,7 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 ObjectAnimator upAnim = ObjectAnimator.ofFloat(v, "translationZ",
-                        UiUtils.dp2px(4));
+                        dp2px(this, 4));
                 upAnim.setDuration(150);
                 upAnim.setInterpolator(new DecelerateInterpolator());
                 upAnim.start();
@@ -221,5 +222,10 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
             }
         }
         return super.onCreateOptionsMenu(menu);
+    }
+
+    protected int dp2px(Context context, float dp) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return (int) (dp * density + 0.5f);
     }
 }

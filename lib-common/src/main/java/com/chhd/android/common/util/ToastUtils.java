@@ -4,10 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
 import android.widget.Toast;
 
-import com.chhd.android.common.global.BaseApplication;
 
 /**
  * 吐司工具类

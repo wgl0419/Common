@@ -8,14 +8,17 @@ import android.view.View;
  * 网格列表 - 间距装饰器
  *
  * @author : 葱花滑蛋 (2017/11/16)
+ * @see com.chhd.android.common.ui.view.decoration.dp.GridSpaceItemDecoration
  */
 
+@Deprecated
 public class GridSpaceItemDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * 多少列
      */
     private int spanCount;
+
     /**
      * item与item之间的边距
      */
@@ -25,14 +28,17 @@ public class GridSpaceItemDecoration extends RecyclerView.ItemDecoration {
      * 第一列item与父容器的左边距
      */
     private int left;
+
     /**
      * 第一行item与父容器的上边距
      */
     private int top;
+
     /**
      * 最后一列item与父容器的右边距
      */
     private int right;
+
     /**
      * 最后一行item与父容器的底边距
      */

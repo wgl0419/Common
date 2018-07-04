@@ -179,6 +179,7 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
         } else {
             onPageSuccess();
         }
+        adapter.loadMoreEnd(true);
     }
 
     /**

@@ -17,7 +17,7 @@ import com.chhd.android.common.ui.view.Toolbar;
  * @author : 葱花滑蛋 (2018/03/13)
  */
 
-public  class ToolbarActivity extends BaseActivity {
+public class ToolbarActivity extends BaseActivity {
 
     protected AppBarLayout appBarLayout;
     protected Toolbar toolbar;

@@ -3,7 +3,6 @@ package com.chhd.android.common.util;
 import android.content.Context;
 import android.content.res.Resources;
 
-import com.chhd.android.common.global.BaseApplication;
 
 /**
  * Ui工具类

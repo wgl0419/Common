@@ -1,13 +1,10 @@
 package com.chhd.android.common.http;
 
-import android.util.Log;
-
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

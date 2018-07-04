@@ -45,15 +45,11 @@ public abstract class LazyFragment extends ProgressFragment {
     private void onPreLazyLoad() {
         if (isVisibleToUser == null) {
             hasLazyLoad = true;
-            if (isAutoLoad()) {
-                onLazyLoad();
-            }
+            onLazyLoad();
         } else {
             if (isVisibleToUser && hasViewCreate && !hasLazyLoad) {
                 hasLazyLoad = true;
-                if (isAutoLoad()) {
-                    onLazyLoad();
-                }
+                onLazyLoad();
             }
         }
     }

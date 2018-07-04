@@ -9,8 +9,10 @@ import android.widget.LinearLayout;
  * 垂直列表 - 间距装饰器
  *
  * @author : 葱花滑蛋 (2017/11/21)
+ * @see com.chhd.android.common.ui.view.decoration.dp.SpaceItemDecoration
  */
 
+@Deprecated
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 
     public static final int HORIZONTAL = LinearLayout.HORIZONTAL;
@@ -20,20 +22,24 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
      * item与item之间的边距
      */
     private int space;
+
     private int orientation = VERTICAL;
 
     /**
-     * item与父容器的左边距
+     * 第一个item与父容器的左边距
      */
     private int left;
+
     /**
      * 第一个item与父容器的上边距
      */
     private int top;
+
     /**
-     * item与父容器的右边距
+     * 第一个item与父容器的右边距
      */
     private int right;
+
     /**
      * 最后一个item与父容器的底边距
      */
@@ -48,7 +54,8 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
         this.orientation = orientation;
     }
 
-    public SpaceItemDecoration(int space, int orientation, int left, int top, int right, int bottom) {
+    public SpaceItemDecoration(int space, int orientation,
+                               int left, int top, int right, int bottom) {
         this.space = space;
         this.orientation = orientation;
         this.left = left;
@@ -59,18 +66,20 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+        int childAdapterPosition = parent.getChildAdapterPosition(view);
+        int lastPosition = parent.getAdapter().getItemCount() - 1;
         if (orientation == VERTICAL) {
-            if (parent.getChildAdapterPosition(view) == 0) {
+            if (childAdapterPosition == 0) {
                 outRect.set(left, top, right, 0);
-            } else if (parent.getChildAdapterPosition(view) == parent.getAdapter().getItemCount() - 1) {
+            } else if (childAdapterPosition == lastPosition) {
                 outRect.set(left, space, right, bottom);
             } else {
                 outRect.set(left, space, right, 0);
             }
         } else {
-            if (parent.getChildAdapterPosition(view) == 0) {
+            if (childAdapterPosition == 0) {
                 outRect.set(left, top, 0, bottom);
-            } else if (parent.getChildAdapterPosition(view) == parent.getAdapter().getItemCount() - 1) {
+            } else if (childAdapterPosition == lastPosition) {
                 outRect.set(space, top, right, bottom);
             } else {
                 outRect.set(space, top, 0, bottom);

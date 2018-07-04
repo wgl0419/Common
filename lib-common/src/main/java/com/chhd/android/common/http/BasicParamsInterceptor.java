@@ -27,7 +27,7 @@ public class BasicParamsInterceptor implements Interceptor {
     }
 
     @Override
-    public Response intercept(@NonNull Interceptor.Chain chain) throws IOException {
+    public Response intercept(@NonNull Chain chain) throws IOException {
         Request original = chain.request();
         Request.Builder builder = original.newBuilder();
         if (!headers.isEmpty()) {

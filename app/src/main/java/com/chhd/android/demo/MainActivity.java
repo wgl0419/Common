@@ -1,5 +1,6 @@
 package com.chhd.android.demo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -23,6 +24,30 @@ public class MainActivity extends ToolbarActivity {
             public void onClick(View v) {
 
                 H5Activity.start(instance, R.style.AppTheme_Light, "https://fir.im/b1ce");
+            }
+        });
+
+        findViewById(R.id.btn_popup).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(instance, PopupActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.btn_decoration_list).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(instance, RvListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.btn_decoration_grid).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(instance, RvGridActivity.class);
+                startActivity(intent);
             }
         });
     }

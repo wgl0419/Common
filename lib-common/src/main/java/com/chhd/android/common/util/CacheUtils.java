@@ -2,13 +2,10 @@ package com.chhd.android.common.util;
 
 import android.content.Context;
 import android.content.pm.IPackageDataObserver;
-import android.content.pm.IPackageStatsObserver;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageStats;
 import android.os.RemoteException;
-import android.util.Log;
 
-import com.chhd.android.common.global.BaseApplication;
 
 import java.lang.reflect.Method;
 
