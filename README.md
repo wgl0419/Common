@@ -1,5 +1,4 @@
 ## 依赖
-```java
 [ ![Download](https://api.bintray.com/packages/conghuahuadan/maven/common/images/download.svg) ](https://bintray.com/conghuahuadan/maven/common/_latestVersion)
 ```java
 dependencies {
