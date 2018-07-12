@@ -52,7 +52,7 @@ public class CacheUtils {
         /**
          * onGetStatsCompleted
          *
-         * @param pStats pStats
+         * @param pStats    pStats
          * @param succeeded succeeded
          */
         void onGetStatsCompleted(PackageStats pStats, boolean succeeded);

@@ -24,7 +24,9 @@
         </activity>
         <activity android:name=".PopupActivity" />
         <activity android:name=".RvListActivity" />
-        <activity android:name=".RvGridActivity"></activity>
+        <activity android:name=".RvGridActivity" />
+        <activity android:name=".ClickBgActivity" />
+        <activity android:name=".ClearEditTextActivity"></activity>
     </application>
 
 </manifest>

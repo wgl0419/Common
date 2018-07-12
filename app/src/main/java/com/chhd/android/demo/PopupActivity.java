@@ -1,5 +1,6 @@
 package com.chhd.android.demo;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,6 @@ public class PopupActivity extends ToolbarActivity {
                     public void onItemClick(PopupWindow popup, User o, int position) {
                         PopupActivity.this.user = o;
                         ToastUtils.show(o.getName() + "");
-                        popup.dismiss();
                     }
                 })
                 .setOnItemChildClickListener(new Popup.OnItemChildClickListener<User>() {
@@ -70,7 +70,6 @@ public class PopupActivity extends ToolbarActivity {
                     public void onItemChildClick(PopupWindow popup, User o, int position) {
                         PopupActivity.this.user = o;
                         ToastUtils.show(o.getName() + "");
-                        popup.dismiss();
                     }
                 })
                 .show(v);
@@ -83,14 +82,12 @@ public class PopupActivity extends ToolbarActivity {
                 .Builder(this)
                 .setItems(userList)
                 .setCheck(user)
-                .setDividerHeight(3)
                 .setOnItemClickListener(new Popup.OnItemClickListener<User>() {
 
                     @Override
                     public void onItemClick(PopupWindow popup, User o, int position) {
                         PopupActivity.this.user = o;
                         ToastUtils.show(o.getName() + "");
-                        popup.dismiss();
                     }
                 })
                 .setOnItemChildClickListener(new Popup.OnItemChildClickListener<User>() {
@@ -98,7 +95,6 @@ public class PopupActivity extends ToolbarActivity {
                     public void onItemChildClick(PopupWindow popup, User o, int position) {
                         PopupActivity.this.user = o;
                         ToastUtils.show(o.getName() + "");
-                        popup.dismiss();
                     }
                 })
                 .show(v);
@@ -110,7 +106,7 @@ public class PopupActivity extends ToolbarActivity {
 
         private String name;
 
-        public User(String id, String name) {
+        User(String id, String name) {
             this.id = id;
             this.name = name;
         }

@@ -18,16 +18,23 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btn_web"
+                android:id="@+id/btn_clear_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="web" />
+                android:text="clear_edit_text" />
 
             <Button
-                android:id="@+id/btn_popup"
+                android:id="@+id/btn_click_bg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="popup" />
+                android:text="click_bg" />
+
+            <Button
+                android:id="@+id/btn_decoration_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="decoration_grid" />
+
 
             <Button
                 android:id="@+id/btn_decoration_list"
@@ -36,10 +43,18 @@
                 android:text="decoration_list" />
 
             <Button
-                android:id="@+id/btn_decoration_grid"
+                android:id="@+id/btn_popup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="decoration_grid" />
+                android:text="popup" />
+
+
+            <Button
+                android:id="@+id/btn_web"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="web" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

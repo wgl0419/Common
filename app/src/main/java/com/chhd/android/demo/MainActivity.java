@@ -19,18 +19,26 @@ public class MainActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.btn_web).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_clear_edit_text).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                H5Activity.start(instance, R.style.AppTheme_Light, "https://fir.im/b1ce");
+                Intent intent = new Intent(instance, ClearEditTextActivity.class);
+                startActivity(intent);
             }
         });
 
-        findViewById(R.id.btn_popup).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_click_bg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(instance, PopupActivity.class);
+                Intent intent = new Intent(instance, ClickBgActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.btn_decoration_grid).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(instance, RvGridActivity.class);
                 startActivity(intent);
             }
         });
@@ -43,12 +51,13 @@ public class MainActivity extends ToolbarActivity {
             }
         });
 
-        findViewById(R.id.btn_decoration_grid).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_popup).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(instance, RvGridActivity.class);
+                Intent intent = new Intent(instance, PopupActivity.class);
                 startActivity(intent);
             }
         });
+
     }
 }

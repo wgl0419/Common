@@ -3,9 +3,9 @@ package com.chhd.android.common.ui.view.popup;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.support.annotation.ColorInt;
 import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -13,10 +13,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.chhd.android.common.R;
@@ -31,6 +28,7 @@ import java.util.List;
 
 public class PopupGridView<T> extends Popup<T> {
 
+    private int bgColor = INVALID;
     private int column = 4;
     private float horSpacing = 8;
     private float verSpacing = 8;
@@ -46,7 +44,11 @@ public class PopupGridView<T> extends Popup<T> {
     @Override
     AbsListView initAbsListView() {
         GridView gridView = new GridView(activity);
-        gridView.setBackgroundColor(Color.parseColor("#fbfcfe"));
+        if (bgColor == INVALID) {
+            gridView.setBackgroundColor(Color.parseColor("#fbfcfe"));
+        } else {
+            gridView.setBackgroundColor(bgColor);
+        }
         gridView.setPadding(dp2px(activity, pLeft), dp2px(activity, pTop),
                 dp2px(activity, pRight), dp2px(activity, pBottom));
         gridView.setCacheColorHint(Color.TRANSPARENT);
@@ -67,6 +69,17 @@ public class PopupGridView<T> extends Popup<T> {
 
         public Builder(Activity activity) {
             popup = new PopupGridView(activity);
+        }
+
+        /**
+         * 设置GridView的背景颜色
+         *
+         * @param color color
+         * @return Builder
+         */
+        public Builder setBackground(@ColorInt int color) {
+            popup.bgColor = color;
+            return this;
         }
 
         /**

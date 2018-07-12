@@ -141,7 +141,7 @@ public abstract class Popup<T> {
         /**
          * 设置数据源
          *
-         * @param list 数据源
+         * @param list 数据源，实体类需要重写“toString”
          * @param <T>  数据类型
          * @return Builder
          */
@@ -153,7 +153,7 @@ public abstract class Popup<T> {
         /**
          * 设置数据源
          *
-         * @param t   数据源
+         * @param t   数据源，实体类需要重写“toString”
          * @param <T> 数据类型
          * @return Builder
          */
@@ -260,7 +260,7 @@ public abstract class Popup<T> {
          * @param onItemClickListener onItemClickListener
          * @return Builder
          */
-        public B setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        public <T> B setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
             popup.onItemClickListener = onItemClickListener;
             return b;
         }
@@ -271,7 +271,7 @@ public abstract class Popup<T> {
          * @param onItemChildClickListener onItemChildClickListener
          * @return Builder
          */
-        public B setOnItemChildClickListener(OnItemChildClickListener onItemChildClickListener) {
+        public <T> B setOnItemChildClickListener(OnItemChildClickListener<T> onItemChildClickListener) {
             popup.onItemChildClickListener = onItemChildClickListener;
             return b;
         }

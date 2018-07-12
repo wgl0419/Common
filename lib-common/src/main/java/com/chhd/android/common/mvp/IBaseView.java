@@ -14,7 +14,7 @@ public interface IBaseView {
      * 绑定onDestroy的生命周期，结合RxJava使用
      *
      * @param <T> 泛型T
-     * @return 泛型T
+     * @return LifecycleTransformer
      */
     <T> LifecycleTransformer<T> bindUntilDestroy();
 }
