@@ -142,7 +142,7 @@ public abstract class Popup<T> {
          * 设置数据源
          *
          * @param list 数据源，实体类需要重写“toString”
-         * @param <T>  数据类型
+         * @param <T>  数据源类型
          * @return Builder
          */
         public <T> B setItems(List<T> list) {
@@ -154,7 +154,7 @@ public abstract class Popup<T> {
          * 设置数据源
          *
          * @param t   数据源，实体类需要重写“toString”
-         * @param <T> 数据类型
+         * @param <T> 数据源类型
          * @return Builder
          */
         public <T> B setItems(T... t) {
@@ -166,7 +166,7 @@ public abstract class Popup<T> {
          * 设置已选项
          *
          * @param check 已选项，实体类需要重写“hashCode”和“equals”
-         * @param <T>   数据类型
+         * @param <T>   数据源类型
          * @return Builder
          */
         public <T> B setCheck(T check) {
@@ -258,6 +258,7 @@ public abstract class Popup<T> {
          * 设置ItemView的点击事件
          *
          * @param onItemClickListener onItemClickListener
+         * @param <T>                 数据源类型
          * @return Builder
          */
         public <T> B setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
@@ -269,6 +270,7 @@ public abstract class Popup<T> {
          * 设置子View的点击事件，如果设置id自动添加点击事件
          *
          * @param onItemChildClickListener onItemChildClickListener
+         * @param <T>                      数据源类型
          * @return Builder
          */
         public <T> B setOnItemChildClickListener(OnItemChildClickListener<T> onItemChildClickListener) {
