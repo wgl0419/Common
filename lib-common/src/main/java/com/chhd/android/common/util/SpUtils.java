@@ -4,6 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+
 /**
  * 软键盘工具类
  *
@@ -13,7 +18,7 @@ import android.content.SharedPreferences;
 @SuppressLint("ApplySharedPref")
 public class SpUtils {
 
-    private static final String NAME = "config";
+    private static final String NAME = getContext().getPackageName();
 
     private static SharedPreferences sharedPreferences;
 
@@ -23,6 +28,8 @@ public class SpUtils {
     private static Context getContext() {
         return CommonUtils.getApplication();
     }
+
+    /* -------------------------- 保存获取基本类型 -------------------------- */
 
     public static boolean getBoolean(String key) {
         return getBoolean(key, false);
@@ -35,7 +42,7 @@ public class SpUtils {
         return sharedPreferences.getBoolean(key, defValue);
     }
 
-    public static void putBoolean(String key, boolean value) {
+    public static void put(String key, boolean value) {
         if (sharedPreferences == null) {
             sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
         }
@@ -53,7 +60,7 @@ public class SpUtils {
         return sharedPreferences.getInt(key, defValue);
     }
 
-    public static void putInt(String key, int value) {
+    public static void put(String key, int value) {
         if (sharedPreferences == null) {
             sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
         }
@@ -71,7 +78,7 @@ public class SpUtils {
         return sharedPreferences.getLong(key, defValue);
     }
 
-    public static void putLong(String key, long value) {
+    public static void put(String key, long value) {
         if (sharedPreferences == null) {
             sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
         }
@@ -89,7 +96,7 @@ public class SpUtils {
         return sharedPreferences.getString(key, defValue);
     }
 
-    public static void putString(String key, String value) {
+    public static void put(String key, String value) {
         if (sharedPreferences == null) {
             sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
         }
@@ -107,10 +114,29 @@ public class SpUtils {
         return sharedPreferences.getFloat(key, defValue);
     }
 
-    public static void putDoulbe(String key, float value) {
+    public static void put(String key, float value) {
         if (sharedPreferences == null) {
             sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
         }
         sharedPreferences.edit().putFloat(key, value).commit();
+    }
+
+    /* -------------------------- 保存获取对象 -------------------------- */
+
+    public static <T> T get(String key) {
+        if (sharedPreferences == null) {
+            sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        }
+        String json = sharedPreferences.getString(key, "");
+        Type type = new TypeToken<T>() {
+        }.getType();
+        return new Gson().fromJson(json, type);
+    }
+
+    public static void put(String key, Object value) {
+        if (sharedPreferences == null) {
+            sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        }
+        sharedPreferences.edit().putString(key, new Gson().toJson(value)).commit();
     }
 }

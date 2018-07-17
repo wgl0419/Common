@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chhd.android.common.ui.activity.H5Activity;
 import com.chhd.android.common.ui.activity.base.ToolbarActivity;
+import com.chhd.android.common.util.NumberUtils;
+import com.chhd.android.common.util.SpUtils;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeMap;
 
 public class MainActivity extends ToolbarActivity {
@@ -59,5 +64,13 @@ public class MainActivity extends ToolbarActivity {
             }
         });
 
+        Map<Float, Integer> map = new HashMap<>();
+        map.put(1.1f, 1);
+        map.put(1.2f, 2);
+        map.put(1.3f, 3);
+        Log.i("debug-app", "" + map);
+        SpUtils.put("bb", map);
+        Map<Float, Integer> a = SpUtils.get("bb");
+        Log.i("debug-app", "" + a);
     }
 }
