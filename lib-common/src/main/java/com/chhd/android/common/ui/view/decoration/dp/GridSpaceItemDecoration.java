@@ -6,6 +6,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.chhd.android.common.util.UiUtils;
+
 /**
  * 网格列表 - 间距装饰器，使用dp单位
  *
@@ -109,20 +111,20 @@ public class GridSpaceItemDecoration extends RecyclerView.ItemDecoration {
         int column = position % spanCount;
 
         // column * ((1f / spanCount) * space)
-        outRect.left = column == 0 ? dp2px(context, left) :
-                column * dp2px(context, horSpace) / spanCount;
+        outRect.left = column == 0 ? UiUtils.dp2px(context, left) :
+                column * UiUtils.dp2px(context, horSpace) / spanCount;
         // space - (column + 1) * ((1f /    spanCount) * space)
-        outRect.right = column == spanCount - 1 ? dp2px(context, right) :
-                dp2px(context, horSpace) - (column + 1) * dp2px(context, horSpace) / spanCount;
+        outRect.right = column == spanCount - 1 ? UiUtils.dp2px(context, right) :
+                UiUtils.dp2px(context, horSpace) - (column + 1) * UiUtils.dp2px(context, horSpace) / spanCount;
 
         if (position >= spanCount) {
             // item top
-            outRect.top = dp2px(context, verSpace);
+            outRect.top = UiUtils.dp2px(context, verSpace);
         }
-        outRect.top = position < spanCount ? dp2px(context, top) : dp2px(context, verSpace);
+        outRect.top = position < spanCount ? UiUtils.dp2px(context, top) : UiUtils.dp2px(context, verSpace);
 
         int firstColumnLastRowIndex = getFirstColumnLastRowIndex(parent, spanCount);
-        outRect.bottom = position >= firstColumnLastRowIndex ? dp2px(context, bottom) : 0;
+        outRect.bottom = position >= firstColumnLastRowIndex ? UiUtils.dp2px(context, bottom) : 0;
     }
 
     /**
@@ -143,10 +145,5 @@ public class GridSpaceItemDecoration extends RecyclerView.ItemDecoration {
             e.printStackTrace();
         }
         return index;
-    }
-
-    private int dp2px(Context context, float dp) {
-        float density = context.getResources().getDisplayMetrics().density;
-        return (int) (dp * density + 0.5f);
     }
 }

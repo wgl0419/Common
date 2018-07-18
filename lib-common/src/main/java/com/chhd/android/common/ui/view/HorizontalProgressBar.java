@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.chhd.android.common.R;
 import com.chhd.android.common.ui.activity.H5Activity;
+import com.chhd.android.common.util.UiUtils;
 
 /**
  * 水平进度条，配合WebView使用，参考{@link H5Activity}
@@ -90,16 +91,11 @@ public class HorizontalProgressBar extends View {
         int size = MeasureSpec.getSize(measureSpec);
 
         if (mode == MeasureSpec.AT_MOST || mode == MeasureSpec.UNSPECIFIED) {
-            result = dp2px(2);
+            result = UiUtils.dp2px(getContext(), 2);
         } else {
             result = size;
         }
         return result;
-    }
-
-    private int dp2px(float dp) {
-        float density = getContext().getResources().getDisplayMetrics().density;
-        return (int) (dp * density + 0.5f);
     }
 
     @Override

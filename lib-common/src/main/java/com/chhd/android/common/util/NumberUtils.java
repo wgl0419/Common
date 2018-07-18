@@ -23,25 +23,28 @@ public class NumberUtils {
 
     /* -------------------------- “字符串”转“数字” -------------------------- */
 
-    public static int str2int(CharSequence value) {
+    public static int toInt(CharSequence value) {
         try {
             if (!TextUtils.isEmpty(value)) {
-                return Integer.parseInt(value.toString());
+                if (value.toString().contains(".")) {
+                    return (int) Double.parseDouble(value.toString());
+                } else {
+                    return Integer.parseInt(value.toString());
+                }
             }
         } catch (Exception ignored) {
-
         }
         return 0;
     }
 
-    public static int str2int(TextView textView) {
+    public static int toInt(TextView textView) {
         if (textView == null) {
-            return str2int("");
+            return 0;
         }
-        return str2int(textView.getText());
+        return toInt(textView.getText());
     }
 
-    public static long str2long(CharSequence value) {
+    public static long toLong(CharSequence value) {
         try {
             if (!TextUtils.isEmpty(value)) {
                 return Long.parseLong(value.toString());
@@ -52,14 +55,14 @@ public class NumberUtils {
         return 0L;
     }
 
-    public static long str2long(TextView textView) {
+    public static long toLong(TextView textView) {
         if (textView == null) {
-            return str2long("");
+            return 0L;
         }
-        return str2long(textView.getText());
+        return toLong(textView.getText());
     }
 
-    public static float str2float(CharSequence value) {
+    public static float toFloat(CharSequence value) {
         try {
             if (!TextUtils.isEmpty(value)) {
                 return Float.parseFloat(value.toString());
@@ -70,14 +73,14 @@ public class NumberUtils {
         return 0f;
     }
 
-    public static float str2float(TextView textView) {
+    public static float toFloat(TextView textView) {
         if (textView == null) {
-            return str2float("");
+            return 0f;
         }
-        return str2float(textView.getText());
+        return toFloat(textView.getText());
     }
 
-    public static double str2double(CharSequence value) {
+    public static double toDouble(CharSequence value) {
         try {
             if (!TextUtils.isEmpty(value)) {
                 return Double.parseDouble(value.toString());
@@ -87,16 +90,16 @@ public class NumberUtils {
         return 0.0;
     }
 
-    public static double str2double(TextView textView) {
+    public static double toDouble(TextView textView) {
         if (textView == null) {
-            return str2double("");
+            return 0.0;
         }
-        return str2double(textView.getText());
+        return toDouble(textView.getText());
     }
 
     /* -------------------------- “数字”转“字符串” -------------------------- */
 
-    public static String obj2str(CharSequence value, int scale) {
+    public static String toString(CharSequence value, int scale) {
         try {
             if (!TextUtils.isEmpty(value)) {
                 BigDecimal decimal = new BigDecimal(value.toString());
@@ -108,35 +111,35 @@ public class NumberUtils {
         return decimal.setScale(scale, BigDecimal.ROUND_HALF_UP).toString();
     }
 
-    public static String obj2str(CharSequence value) {
+    public static String toString(CharSequence value) {
         if (value == null) {
             return "0";
         }
         return value.toString();
     }
 
-    public static String obj2str(TextView value, int scale) {
+    public static String toString(TextView value, int scale) {
         if (value == null) {
-            return obj2str("", scale);
+            return toString("", scale);
         }
-        return obj2str(value.getText(), scale);
+        return toString(value.getText(), scale);
     }
 
-    public static String obj2str(TextView value) {
+    public static String toString(TextView value) {
         if (value == null) {
             return "0";
         }
         return value.getText().toString();
     }
 
-    public static String obj2str(Number value, int scale) {
+    public static String toString(Number value, int scale) {
         if (value == null) {
-            return obj2str("", scale);
+            return toString("", scale);
         }
-        return obj2str(value.toString(), scale);
+        return toString(value.toString(), scale);
     }
 
-    public static String obj2str(Number value) {
+    public static String toString(Number value) {
         if (value == null) {
             return "0";
         }

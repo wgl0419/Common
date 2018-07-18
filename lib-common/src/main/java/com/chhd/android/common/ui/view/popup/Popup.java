@@ -108,11 +108,6 @@ public abstract class Popup<T> {
         return context.getResources().getColor(id);
     }
 
-    int dp2px(Context context, float dp) {
-        float density = context.getResources().getDisplayMetrics().density;
-        return (int) (dp * density + 0.5f);
-    }
-
     /**
      * 透明度百分比转16进制
      *
@@ -363,11 +358,6 @@ public abstract class Popup<T> {
 
         protected int getColor(int id) {
             return context.getResources().getColor(id);
-        }
-
-        protected int dp2px(float dp) {
-            float density = context.getResources().getDisplayMetrics().density;
-            return (int) (dp * density + 0.5f);
         }
 
         public abstract View convert(int position, View convertView, ViewGroup parent);

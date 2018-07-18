@@ -17,6 +17,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.chhd.android.common.R;
+import com.chhd.android.common.util.UiUtils;
 
 import java.util.List;
 
@@ -49,12 +50,12 @@ public class PopupGridView<T> extends Popup<T> {
         } else {
             gridView.setBackgroundColor(bgColor);
         }
-        gridView.setPadding(dp2px(activity, pLeft), dp2px(activity, pTop),
-                dp2px(activity, pRight), dp2px(activity, pBottom));
+        gridView.setPadding(UiUtils.dp2px(activity, pLeft), UiUtils.dp2px(activity, pTop),
+                UiUtils.dp2px(activity, pRight), UiUtils.dp2px(activity, pBottom));
         gridView.setCacheColorHint(Color.TRANSPARENT);
         gridView.setNumColumns(column);
-        gridView.setHorizontalSpacing(dp2px(activity, horSpacing));
-        gridView.setVerticalSpacing(dp2px(activity, verSpacing));
+        gridView.setHorizontalSpacing(UiUtils.dp2px(activity, horSpacing));
+        gridView.setVerticalSpacing(UiUtils.dp2px(activity, verSpacing));
         gridView.setClipToPadding(false);
         if (adapter != null) {
             gridView.setAdapter(adapter);
@@ -162,15 +163,17 @@ public class PopupGridView<T> extends Popup<T> {
             textView.setEllipsize(TextUtils.TruncateAt.END);
             textView.setMaxLines(1);
             textView.setGravity(Gravity.CENTER);
-            textView.setPadding(dp2px(4f), dp2px(8f), dp2px(4f), dp2px(8f));
+            int p4 = UiUtils.dp2px(context, 4f);
+            int p8 = UiUtils.dp2px(context, 8f);
+            textView.setPadding(p4, p8, p4, p8);
             textView.setTextColor(getColor(R.color.color_text_dark));
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
             return textView;
         }
 
         private Drawable buildDefaultDrawable() {
-            int strokeWidth = dp2px(0.5f);
-            int roundRadius = dp2px(2);
+            int strokeWidth = UiUtils.dp2px(context, 0.5f);
+            int roundRadius = UiUtils.dp2px(context, 2);
             int strokeColor = getColor(R.color.color_line);
             int fillColor = Color.WHITE;
 

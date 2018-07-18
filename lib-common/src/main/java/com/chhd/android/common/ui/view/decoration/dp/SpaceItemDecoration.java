@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.chhd.android.common.util.UiUtils;
+
 /**
  * 垂直列表 - 间距装饰器，使用dp单位
  *
@@ -91,31 +93,27 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
         int lastPosition = parent.getAdapter().getItemCount() - 1;
         if (orientation == VERTICAL) {
             if (childAdapterPosition == 0) {
-                outRect.set(dp2px(context, left), dp2px(context, top),
-                        dp2px(context, right), 0);
+                outRect.set(UiUtils.dp2px(context, left), UiUtils.dp2px(context, top),
+                        UiUtils.dp2px(context, right), 0);
             } else if (childAdapterPosition == lastPosition) {
-                outRect.set(dp2px(context, left), dp2px(context, space),
-                        dp2px(context, right), dp2px(context, bottom));
+                outRect.set(UiUtils.dp2px(context, left), UiUtils.dp2px(context, space),
+                        UiUtils.dp2px(context, right), UiUtils.dp2px(context, bottom));
             } else {
-                outRect.set(dp2px(context, left), dp2px(context, space),
-                        dp2px(context, right), 0);
+                outRect.set(UiUtils.dp2px(context, left), UiUtils.dp2px(context, space),
+                        UiUtils.dp2px(context, right), 0);
             }
         } else {
             if (childAdapterPosition == 0) {
-                outRect.set(dp2px(context, left), dp2px(context, top),
-                        0, dp2px(context, bottom));
+                outRect.set(UiUtils.dp2px(context, left), UiUtils.dp2px(context, top),
+                        0, UiUtils.dp2px(context, bottom));
             } else if (childAdapterPosition == lastPosition) {
-                outRect.set(dp2px(context, space), dp2px(context, top),
-                        dp2px(context, right), dp2px(context, bottom));
+                outRect.set(UiUtils.dp2px(context, space), UiUtils.dp2px(context, top),
+                        UiUtils.dp2px(context, right), UiUtils.dp2px(context, bottom));
             } else {
-                outRect.set(dp2px(context, space), dp2px(context, top),
-                        0, dp2px(context, bottom));
+                outRect.set(UiUtils.dp2px(context, space), UiUtils.dp2px(context, top),
+                        0, UiUtils.dp2px(context, bottom));
             }
         }
     }
 
-    private int dp2px(Context context, float dp) {
-        float density = context.getResources().getDisplayMetrics().density;
-        return (int) (dp * density + 0.5f);
-    }
 }

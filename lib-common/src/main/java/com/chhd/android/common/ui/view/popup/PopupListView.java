@@ -18,6 +18,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.chhd.android.common.R;
+import com.chhd.android.common.util.UiUtils;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class PopupListView<T> extends Popup<T> {
             divider = new ColorDrawable(getColor(activity, R.color.color_line));
         }
         listView.setDivider(divider);
-        listView.setDividerHeight(dp2px(activity, dividerHeight));
+        listView.setDividerHeight(UiUtils.dp2px(activity, dividerHeight));
         listView.setClipToPadding(false);
         if (adapter != null) {
             listView.setAdapter(adapter);
@@ -122,7 +123,9 @@ public class PopupListView<T> extends Popup<T> {
             textView.setEllipsize(TextUtils.TruncateAt.END);
             textView.setMaxLines(2);
             textView.setGravity(Gravity.CENTER_VERTICAL);
-            textView.setPadding(dp2px(16f), dp2px(12f), dp2px(16f), dp2px(12f));
+            int p16 = UiUtils.dp2px(context, 16f);
+            int p12 = UiUtils.dp2px(context, 12f);
+            textView.setPadding(p16, p12, p16, p12);
             textView.setTextColor(getColor(R.color.color_text_dark));
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
             return textView;

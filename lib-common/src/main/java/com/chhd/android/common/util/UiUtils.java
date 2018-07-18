@@ -36,7 +36,11 @@ public class UiUtils {
     }
 
     public static int dp2px(float dp) {
-        float density = getResources().getDisplayMetrics().density;
+        return dp2px(getContext(), dp);
+    }
+
+    public static int dp2px(Context context, float dp) {
+        float density = context.getResources().getDisplayMetrics().density;
         return (int) (dp * density + 0.5f);
     }
 }

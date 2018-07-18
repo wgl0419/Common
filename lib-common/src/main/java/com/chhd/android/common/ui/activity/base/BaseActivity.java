@@ -182,7 +182,7 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 ObjectAnimator upAnim = ObjectAnimator.ofFloat(v, "translationZ",
-                        dp2px(this, 4));
+                        UiUtils.dp2px(this, 4));
                 upAnim.setDuration(150);
                 upAnim.setInterpolator(new DecelerateInterpolator());
                 upAnim.start();
@@ -222,10 +222,5 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
             }
         }
         return super.onCreateOptionsMenu(menu);
-    }
-
-    protected int dp2px(Context context, float dp) {
-        float density = context.getResources().getDisplayMetrics().density;
-        return (int) (dp * density + 0.5f);
     }
 }
