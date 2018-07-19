@@ -55,11 +55,11 @@ public class NumberUtils {
         return 0L;
     }
 
-    public static long toLong(TextView textView) {
-        if (textView == null) {
+    public static long toLong(TextView value) {
+        if (value == null) {
             return 0L;
         }
-        return toLong(textView.getText());
+        return toLong(value.getText());
     }
 
     public static float toFloat(CharSequence value) {
@@ -73,11 +73,20 @@ public class NumberUtils {
         return 0f;
     }
 
-    public static float toFloat(TextView textView) {
-        if (textView == null) {
+    public static float toFloat(TextView value) {
+        if (value == null) {
             return 0f;
         }
-        return toFloat(textView.getText());
+        return toFloat(value.getText());
+    }
+
+    public static float toFloat(Float value, int scale) {
+        try {
+            BigDecimal decimal = new BigDecimal(value.toString());
+            return decimal.setScale(scale, BigDecimal.ROUND_HALF_UP).floatValue();
+        } catch (Exception ignored) {
+        }
+        return 0f;
     }
 
     public static double toDouble(CharSequence value) {
@@ -90,11 +99,20 @@ public class NumberUtils {
         return 0.0;
     }
 
-    public static double toDouble(TextView textView) {
-        if (textView == null) {
+    public static double toDouble(TextView value) {
+        if (value == null) {
             return 0.0;
         }
-        return toDouble(textView.getText());
+        return toDouble(value.getText());
+    }
+
+    public static double toDouble(Double value, int scale) {
+        try {
+            BigDecimal decimal = new BigDecimal(value.toString());
+            return decimal.setScale(scale, BigDecimal.ROUND_HALF_UP).doubleValue();
+        } catch (Exception ignored) {
+        }
+        return 0.0;
     }
 
     /* -------------------------- “数字”转“字符串” -------------------------- */
