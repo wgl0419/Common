@@ -5,10 +5,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chhd.android.common.R;
-import com.chhd.android.common.entity.BaseListData;
 import com.chhd.android.common.global.Constant;
-
-import java.util.List;
 
 /**
  * 下拉刷新界面
@@ -17,30 +14,24 @@ import java.util.List;
  */
 
 public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, Entity>
-        extends ListFragment<Adapter, Entity> implements SwipeRefreshLayout.OnRefreshListener {
+        extends ListFragment<Adapter, Entity> {
 
     protected SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
-    protected void reLoad() {
+    public void reLoad() {
         hasLoadSuccess = false;
-        hasLoadComplete = false;
         refresh();
     }
 
-    protected void refresh() {
+    @Override
+    public void refresh() {
         swipeRefreshLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-                onRefresh();
+                setLoadMore(false);
             }
         }, 100);
-    }
-
-    @Override
-    public void onPageLoading() {
-
     }
 
     protected int[] getColorSchemeResources() {
@@ -48,24 +39,10 @@ public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, En
     }
 
     @Override
-    protected final boolean isAutoLoad() {
-        return false;
-    }
-
-    protected boolean isAutoPullToRefresh() {
-        return true;
-    }
-
-    @Override
     protected void onLazyLoad() {
-        if (isAutoPullToRefresh()) {
+        if (isAutoLoad()) {
             refresh();
         }
-    }
-
-    @Override
-    public void onRefresh() {
-        onLoad(false);
     }
 
     @Override
@@ -79,39 +56,48 @@ public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, En
         }
 
         swipeRefreshLayout.setColorSchemeResources(getColorSchemeResources());
-        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setLoadMore(false);
+            }
+        });
+    }
+
+    @Override
+    public void onPageLoading() {
+        if (!swipeRefreshLayout.isRefreshing() && !isLoadMore()) {
+            swipeRefreshLayout.setRefreshing(true);
+        }
+    }
+
+    @Override
+    public void onPageSuccess() {
+        super.onPageSuccess();
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void onPageEmpty() {
+        super.onPageEmpty();
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void onPageError(String message) {
+        super.onPageError(message);
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     public void onPageComplete() {
         super.onPageComplete();
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-    }
-
-    @Override
-    protected void onLoadSuccess(BaseListData<Entity> listData) {
-        super.onLoadSuccess(listData);
-
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-    }
-
-    @Override
-    protected void onLoadSuccess(List<Entity> list) {
-        super.onLoadSuccess(list);
-
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-    }
-
-    @Override
-    protected void onLoadError(String message) {
-        super.onLoadError(message);
-
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }

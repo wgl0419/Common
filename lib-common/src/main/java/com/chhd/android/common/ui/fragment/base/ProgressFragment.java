@@ -92,13 +92,13 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
         btnRetry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onLoad();
+                reLoad();
             }
         });
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onLoad();
+                reLoad();
             }
         });
     }
@@ -113,14 +113,13 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
     /**
      * 加载
      */
-    protected abstract void onLoad();
+    public abstract void onLoad();
 
     /**
      * 重新加载，带加载进度动画
      */
-    protected void reLoad() {
+    public void reLoad() {
         hasLoadSuccess = false;
-        hasLoadComplete = false;
         onLoad();
     }
 
@@ -135,20 +134,20 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
     }
 
 
-    protected void showLoadingView() {
+    public void showLoadingView() {
         showStatusView(R.id.loading);
     }
 
-    protected void showEmptyView() {
+    public void showEmptyView() {
         showStatusView(R.id.empty);
     }
 
-    protected void showErrorView(String message) {
+    public void showErrorView(String message) {
         showStatusView(R.id.error);
         tvError.setText(message);
     }
 
-    protected void showContentView() {
+    public void showContentView() {
         showStatusView(R.id.content);
     }
 
@@ -157,10 +156,6 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
      * 因为可能会在onResume方法中重新加载数据，如果已经时显示成功，则不再显示加载中、加载失败状态
      */
     boolean hasLoadSuccess = false;
-    /**
-     * 是否加载完毕
-     */
-    protected boolean hasLoadComplete = false;
 
     @Override
     public void onPageLoading() {
@@ -189,7 +184,5 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
 
     @Override
     public void onPageComplete() {
-        hasLoadComplete = true;
     }
-
 }

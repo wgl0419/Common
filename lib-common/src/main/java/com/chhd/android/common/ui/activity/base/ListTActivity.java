@@ -24,6 +24,8 @@ import java.util.List;
 public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> extends ProgressTActivity
         implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
+    private boolean isLoadMore = false;
+
     protected RecyclerView recyclerView;
 
     protected BaseListData listData = new BaseListData() {
@@ -47,11 +49,6 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
     protected Adapter adapter;
     protected RecyclerView.LayoutManager layoutManager;
 
-    @Override
-    public void onPageError(String message) {
-        onLoadError(message);
-    }
-
     /**
      * 获取列表适配器
      *
@@ -66,9 +63,12 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        onPrepareLoad();
+    }
 
+    protected void onPrepareLoad() {
         if (isAutoLoad()) {
-            onLoad(false);
+            setLoadMore(false);
         }
     }
 
@@ -105,21 +105,33 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
      * 加载
      */
     @Override
-    protected void onLoad() {
+    public void onLoad() {
     }
 
     @Override
-    protected void reLoad() {
+    public void reLoad() {
         hasLoadSuccess = false;
-        hasLoadComplete = false;
-        onLoad(false);
+        setLoadMore(false);
+    }
+
+    public void refresh() {
+        setLoadMore(false);
     }
 
     /**
      * 上拉加载
      */
-    protected void onLoadMore() {
-        onLoad(true);
+    void onLoadMore() {
+        setLoadMore(true);
+    }
+
+    boolean isLoadMore() {
+        return isLoadMore;
+    }
+
+    void setLoadMore(boolean isLoadMore) {
+        this.isLoadMore = isLoadMore;
+        onLoad(isLoadMore);
     }
 
     /**
@@ -127,7 +139,7 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
      *
      * @param isLoadMore 是否上拉加载
      */
-    protected abstract void onLoad(boolean isLoadMore);
+    public abstract void onLoad(boolean isLoadMore);
 
     /**
      * Item点击事件
@@ -145,6 +157,22 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
 
     }
 
+    @Override
+    public void onPageLoading() {
+        showListLoading();
+    }
+
+    @Override
+    public void onPageEmpty() {
+        showListEmpty();
+    }
+
+    @Override
+    public void onPageError(String message) {
+        onLoadError(message);
+    }
+
+
     /**
      * 加载列表成功
      *
@@ -155,7 +183,10 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
         if (listData.getPageStart() == null || listData.getPageStart() == 0) {
             list.clear();
         }
-        list.addAll(listData.getList());
+
+        if (listData.getList() != null) {
+            list.addAll(listData.getList());
+        }
         adapter.notifyDataSetChanged();
 
         showListEmpty();
@@ -188,6 +219,16 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
         } else {
             onPageSuccess();
         }
+        adapter.loadMoreEnd(true);
+    }
+
+    protected void showListLoading() {
+        View loadingView = View.inflate(this, R.layout.layout_loading, null);
+        RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
+                RecyclerView.LayoutParams.WRAP_CONTENT);
+        loadingView.setLayoutParams(params);
+        loadingView.setVisibility(View.VISIBLE);
+        adapter.setEmptyView(loadingView);
     }
 
     /**
@@ -218,13 +259,8 @@ public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> ex
         btnRetry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View loadingView = View.inflate(instance, R.layout.layout_loading, null);
-                RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
-                        RecyclerView.LayoutParams.WRAP_CONTENT);
-                loadingView.setLayoutParams(params);
-                loadingView.setVisibility(View.VISIBLE);
-                adapter.setEmptyView(loadingView);
-                onLoad(false);
+                showListLoading();
+                setLoadMore(false);
             }
         });
         tvError.setText(message);

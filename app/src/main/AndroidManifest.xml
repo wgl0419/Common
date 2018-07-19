@@ -27,7 +27,9 @@
         <activity android:name=".RvGridActivity" />
         <activity android:name=".ClickBgActivity" />
         <activity android:name=".ClearEditTextActivity" />
-        <activity android:name=".ListActivity"></activity>
+        <activity android:name=".ListDemoActivity" />
+        <activity android:name=".ProgressDemoActivity" />
+        <activity android:name=".FragmentListActivity"></activity>
     </application>
 
 </manifest>

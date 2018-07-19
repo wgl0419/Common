@@ -223,4 +223,5 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
         }
         return super.onCreateOptionsMenu(menu);
     }
+
 }

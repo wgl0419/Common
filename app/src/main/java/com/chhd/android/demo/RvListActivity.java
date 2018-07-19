@@ -1,6 +1,8 @@
 package com.chhd.android.demo;
 
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.chhd.android.common.ui.adapter.FragmentAdapter;
 import com.chhd.android.common.ui.view.decoration.dp.SpaceItemDecoration;
 
 import java.util.ArrayList;
@@ -38,6 +41,7 @@ public class RvListActivity extends AppCompatActivity {
                 false));
         rv2.setAdapter(new ListAdapter(stringList));
         rv2.addItemDecoration(new SpaceItemDecoration(16, SpaceItemDecoration.HORIZONTAL));
+
     }
 
     private static class ListAdapter extends BaseQuickAdapter<String, BaseViewHolder> {

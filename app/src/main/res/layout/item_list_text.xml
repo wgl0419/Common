@@ -5,6 +5,8 @@
     android:background="@android:color/holo_blue_bright"
     android:gravity="center_vertical"
     android:paddingLeft="@dimen/dp_16"
+    android:singleLine="true"
+    android:ellipsize="end"
     android:paddingRight="@dimen/dp_16"
     android:text="雨">
 

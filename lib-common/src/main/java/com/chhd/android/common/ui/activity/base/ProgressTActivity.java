@@ -86,13 +86,13 @@ public abstract class ProgressTActivity extends ToolbarActivity implements IPage
         btnRetry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onLoad();
+                reLoad();
             }
         });
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onLoad();
+                reLoad();
             }
         });
     }
@@ -100,19 +100,18 @@ public abstract class ProgressTActivity extends ToolbarActivity implements IPage
     /**
      * 初始化
      */
-    protected abstract void onInit(Bundle savedInstanceState);
+    protected abstract void onInit(@Nullable Bundle savedInstanceState);
 
     /**
      * 加载
      */
-    protected abstract void onLoad();
+    public abstract void onLoad();
 
     /**
      * 重新加载，带加载进度动画
      */
-    protected void reLoad() {
+    public void reLoad() {
         hasLoadSuccess = false;
-        hasLoadComplete = false;
         onLoad();
     }
 
@@ -148,11 +147,7 @@ public abstract class ProgressTActivity extends ToolbarActivity implements IPage
      * 是否加载成功
      * 因为可能会在onResume方法中重新加载数据，如果已经时显示成功，则不再显示加载中、加载失败状态
      */
-    boolean hasLoadSuccess = false;
-    /**
-     * 是否加载完毕
-     */
-    protected boolean hasLoadComplete = false;
+    public boolean hasLoadSuccess = false;
 
     @Override
     public void onPageLoading() {
@@ -181,7 +176,5 @@ public abstract class ProgressTActivity extends ToolbarActivity implements IPage
 
     @Override
     public void onPageComplete() {
-        hasLoadComplete = true;
     }
-
 }

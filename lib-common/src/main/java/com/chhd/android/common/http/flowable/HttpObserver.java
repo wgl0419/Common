@@ -1,10 +1,11 @@
-package com.chhd.android.common.http;
+package com.chhd.android.common.http.flowable;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.Nullable;
 
+import com.chhd.android.common.http.ApiException;
 import com.chhd.android.common.mvp.IPageView;
 import com.chhd.android.common.util.ToastUtils;
 
@@ -12,15 +13,15 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeoutException;
 
-import io.reactivex.observers.DisposableObserver;
+import io.reactivex.subscribers.ResourceSubscriber;
 
 /**
  * 网络请求回调
  *
- * @author : 葱花滑蛋 (2018/03/12)
+ * @author : 葱花滑蛋 (2018/07/19)
  */
 
-public abstract class HttpObserver<T> extends DisposableObserver<T> {
+public abstract class HttpObserver<T> extends ResourceSubscriber<T> {
 
     private IPageView iPageView;
     private ProgressDialog dialog;

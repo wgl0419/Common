@@ -18,40 +18,31 @@ import java.util.List;
  */
 
 public abstract class PullToRefreshTActivity<Adapter extends BaseQuickAdapter, Entity>
-        extends ListTActivity<Adapter,Entity> implements SwipeRefreshLayout.OnRefreshListener {
+        extends ListTActivity<Adapter, Entity> {
 
     protected SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (isAutoPullToRefresh()) {
+    protected void onPrepareLoad() {
+        if (isAutoLoad()) {
             refresh();
         }
     }
 
     @Override
-    protected void reLoad() {
+    public void reLoad() {
         hasLoadSuccess = false;
-        hasLoadComplete = false;
-
         refresh();
     }
 
-    protected void refresh() {
+    @Override
+    public void refresh() {
         swipeRefreshLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-                onRefresh();
+                setLoadMore(false);
             }
-        },100);
-    }
-
-    @Override
-    public void onPageLoading() {
-
+        }, 100);
     }
 
     protected int[] getColorSchemeResources() {
@@ -59,64 +50,58 @@ public abstract class PullToRefreshTActivity<Adapter extends BaseQuickAdapter, E
     }
 
     @Override
-    protected final boolean isAutoLoad() {
-        return false;
-    }
-
-    protected boolean isAutoPullToRefresh() {
-        return true;
-    }
-
-    @Override
-    public void onRefresh() {
-        onLoad(false);
-    }
-
-    @Override
     protected void onPrepare(Bundle savedInstanceState) {
         super.onPrepare(savedInstanceState);
 
-        try {
-            swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
-        } catch (Exception e) {
-            throw new RuntimeException("Layout must have one SwipeRefreshLayout, and id must set swipe_refresh_layout.");
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        if (swipeRefreshLayout == null) {
+            throw new NullPointerException("Layout must have one SwipeRefreshLayout, " +
+                    "and id must set swipe_refresh_layout.");
         }
 
         swipeRefreshLayout.setColorSchemeResources(getColorSchemeResources());
-        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setLoadMore(false);
+            }
+        });
+    }
+
+    @Override
+    public void onPageLoading() {
+        if (!swipeRefreshLayout.isRefreshing() && !isLoadMore()) {
+            swipeRefreshLayout.setRefreshing(true);
+        }
+    }
+
+    @Override
+    public void onPageSuccess() {
+        super.onPageSuccess();
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void onPageEmpty() {
+        super.onPageEmpty();
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void onPageError(String message) {
+        super.onPageError(message);
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     public void onPageComplete() {
         super.onPageComplete();
-
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-    }
-
-    @Override
-    protected void onLoadSuccess(BaseListData<Entity> listData) {
-        super.onLoadSuccess(listData);
-
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-    }
-
-    @Override
-    protected void onLoadSuccess(List<Entity> list) {
-        super.onLoadSuccess(list);
-
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-    }
-
-    @Override
-    protected void onLoadError(String message) {
-        super.onLoadError(message);
-
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }

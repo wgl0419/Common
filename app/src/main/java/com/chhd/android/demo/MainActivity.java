@@ -14,10 +14,27 @@ public class MainActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        findViewById(R.id.btn_fragment_list).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(instance, FragmentListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        findViewById(R.id.btn_progress).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(instance, ProgressDemoActivity.class);
+                startActivity(intent);
+            }
+        });
+
         findViewById(R.id.btn_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(instance, ListActivity.class);
+                Intent intent = new Intent(instance, ListDemoActivity.class);
                 startActivity(intent);
             }
         });

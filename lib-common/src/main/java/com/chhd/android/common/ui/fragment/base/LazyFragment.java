@@ -12,9 +12,9 @@ import android.view.View;
 
 public abstract class LazyFragment extends ProgressFragment {
 
-    private Boolean isVisibleToUser = null;
-    private boolean hasViewCreate = false;
-    private boolean hasLazyLoad = false;
+    protected Boolean isVisibleToUser = null;
+    protected boolean hasViewCreate = false;
+    protected boolean hasLazyLoad = false;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -55,7 +55,7 @@ public abstract class LazyFragment extends ProgressFragment {
     }
 
     @Override
-    protected void onLoad() {
+    public void onLoad() {
 
     }
 

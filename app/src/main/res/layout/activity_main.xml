@@ -18,6 +18,18 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/btn_fragment_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="fragment_list" />
+
+            <Button
+                android:id="@+id/btn_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="progress" />
+
+            <Button
                 android:id="@+id/btn_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
