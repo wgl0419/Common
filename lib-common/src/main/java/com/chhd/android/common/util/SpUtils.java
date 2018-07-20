@@ -10,7 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 
 /**
- * 软键盘工具类
+ * SpUtils
  *
  * @author : 葱花滑蛋 (2018/03/18)
  */
@@ -27,6 +27,12 @@ public class SpUtils {
 
     private static Context getContext() {
         return CommonUtils.getApplication();
+    }
+
+    /* -------------------------- 保存获取基本类型 -------------------------- */
+
+    public static void init(String name) {
+        sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
     }
 
     /* -------------------------- 保存获取基本类型 -------------------------- */

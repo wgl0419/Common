@@ -20,8 +20,6 @@ public class BaseApplication extends Application {
         super.onCreate();
 
         CommonUtils.init(this);
-
-        Stetho.initializeWithDefaults(this);
     }
 
     public static BaseApplication getApplication() {

@@ -1,7 +1,8 @@
 package com.chhd.android.common.util;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
+
+import com.facebook.stetho.Stetho;
 
 /**
  * 使用Util包下工具类，必须先初始化
@@ -11,7 +12,6 @@ import android.app.Application;
 
 public class CommonUtils {
 
-    @SuppressLint("StaticFieldLeak")
     private static Application instance;
 
     private CommonUtils() {
@@ -19,6 +19,8 @@ public class CommonUtils {
 
     public static void init(Application application) {
         instance = application;
+
+        Stetho.initializeWithDefaults(instance);
     }
 
     static Application getApplication() {

@@ -6,10 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.chhd.android.common.R;
 import com.chhd.android.common.ui.view.Toolbar;
+import com.chhd.android.common.util.UiUtils;
 
 /**
  * Toolbar界面
@@ -33,9 +35,27 @@ public class ToolbarActivity extends BaseActivity {
         toolbar = findViewById(R.id.toolbar);
         container = findViewById(R.id.container);
 
+        initActionBarHeight();
+
         toolbar.setTitle(getToolbarTitle());
 
         setToolbar(toolbar, getToolbarTitle(), showHomeAsUp());
+    }
+
+    /**
+     * 根据是否沉浸式状态初始化菜单栏高度
+     */
+    private void initActionBarHeight() {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
+            return;
+        }
+        int flags = getWindow().getAttributes().flags;
+        boolean b = (flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                == WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (b) {
+            int height = UiUtils.getStatusBarHeight(this);
+            appBarLayout.setPadding(0, height, 0, 0);
+        }
     }
 
     /**

@@ -46,13 +46,13 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
     protected final int MENU_ITEM_DEFAULT_ID = 10;
     protected final String TAG = this.getClass().getSimpleName();
 
-    protected Activity instance;
+    protected Activity activity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        instance = this;
+        activity = this;
 
         activities.add(this);
 
@@ -215,7 +215,7 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
                 for (MenuItemImpl item : actionItems) {
                     Drawable icon = item.getIcon();
                     if (icon != null) {
-                        color = ContextCompat.getColor(instance, R.color.color_text_dark);
+                        color = ContextCompat.getColor(activity, R.color.color_text_dark);
                         icon.mutate().setColorFilter(color, PorterDuff.Mode.SRC_IN);
                     }
                 }

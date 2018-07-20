@@ -43,4 +43,15 @@ public class UiUtils {
         float density = context.getResources().getDisplayMetrics().density;
         return (int) (dp * density + 0.5f);
     }
+
+    public static int getStatusBarHeight() {
+        return getStatusBarHeight(getContext());
+    }
+
+    public static int getStatusBarHeight(Context context) {
+        Resources resources = context.getResources();
+        int resourceId = resources.getIdentifier("status_bar_height",
+                "dimen", "android");
+        return resources.getDimensionPixelSize(resourceId);
+    }
 }
