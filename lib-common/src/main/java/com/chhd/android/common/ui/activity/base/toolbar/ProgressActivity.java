@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.activity.base;
+package com.chhd.android.common.ui.activity.base.toolbar;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,7 +20,7 @@ import java.util.List;
  * @author : 葱花滑蛋 (2018/03/13)
  */
 
-public abstract class ProgressTActivity extends ToolbarActivity implements IPageView {
+public abstract class ProgressActivity extends ToolbarActivity implements IPageView {
 
     protected List<View> viewList = new ArrayList<>();
 

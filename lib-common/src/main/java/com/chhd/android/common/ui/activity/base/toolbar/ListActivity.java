@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.activity.base;
+package com.chhd.android.common.ui.activity.base.toolbar;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,7 +21,7 @@ import java.util.List;
  * @author : 葱花滑蛋 (2018/03/15)
  */
 
-public abstract class ListTActivity<Adapter extends BaseQuickAdapter, Entity> extends ProgressTActivity
+public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> extends ProgressActivity
         implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     private boolean isLoadMore = false;

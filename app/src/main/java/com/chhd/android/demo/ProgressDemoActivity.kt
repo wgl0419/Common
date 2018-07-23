@@ -1,12 +1,10 @@
 package com.chhd.android.demo
 
-import android.os.Handler
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import com.chhd.android.common.ui.activity.base.toolbar.ProgressActivity
 
-import com.chhd.android.common.ui.activity.base.ProgressTActivity
-
-class ProgressDemoActivity : ProgressTActivity() {
+class ProgressDemoActivity : ProgressActivity() {
 
     private var count = 0
 
@@ -30,6 +28,4 @@ class ProgressDemoActivity : ProgressTActivity() {
     override fun getToolbarTitle(): CharSequence {
         return "进度"
     }
-
-
 }

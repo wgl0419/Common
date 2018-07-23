@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.activity.base;
+package com.chhd.android.common.ui.activity.base.toolbar;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.chhd.android.common.R;
+import com.chhd.android.common.ui.activity.base.BaseActivity;
 import com.chhd.android.common.ui.view.Toolbar;
 import com.chhd.android.common.util.UiUtils;
 

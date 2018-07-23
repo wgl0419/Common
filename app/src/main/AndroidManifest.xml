@@ -29,7 +29,8 @@
         <activity android:name=".ClearEditTextActivity" />
         <activity android:name=".ListDemoActivity" />
         <activity android:name=".ProgressDemoActivity" />
-        <activity android:name=".FragmentListActivity"></activity>
+        <activity android:name=".FragmentListActivity" />
+        <activity android:name=".SpUtilsActivity"></activity>
     </application>
 
 </manifest>

@@ -1,17 +1,14 @@
 package com.chhd.android.demo;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
-import com.chhd.android.common.ui.activity.base.ToolbarActivity;
+import com.chhd.android.common.ui.activity.base.toolbar.ToolbarActivity;
 import com.chhd.android.common.ui.view.popup.Popup;
 import com.chhd.android.common.ui.view.popup.PopupGridView;
 import com.chhd.android.common.ui.view.popup.PopupListView;
 import com.chhd.android.common.util.ToastUtils;
-import com.chhd.android.common.util.UiUtils;
 
 import java.util.ArrayList;
 import java.util.List;

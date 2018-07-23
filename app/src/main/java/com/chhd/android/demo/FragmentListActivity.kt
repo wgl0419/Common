@@ -15,7 +15,7 @@ import com.chhd.android.common.http.ResponseTransformer
 import com.chhd.android.common.http.RetrofitProvider
 import com.chhd.android.common.http.RxHelper
 import com.chhd.android.common.mvp.IPageView
-import com.chhd.android.common.ui.activity.base.ToolbarActivity
+import com.chhd.android.common.ui.activity.base.toolbar.ToolbarActivity
 import com.chhd.android.common.ui.adapter.FragmentAdapter
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_list.*

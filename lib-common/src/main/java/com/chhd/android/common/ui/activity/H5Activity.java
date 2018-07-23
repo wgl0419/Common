@@ -13,11 +13,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.chhd.android.common.R;
-import com.chhd.android.common.ui.activity.base.ToolbarActivity;
+import com.chhd.android.common.ui.activity.base.toolbar.ToolbarActivity;
 import com.chhd.android.common.ui.view.HorizontalProgressBar;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * H5Activity

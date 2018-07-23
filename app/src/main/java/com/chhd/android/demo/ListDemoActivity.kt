@@ -11,14 +11,14 @@ import com.chhd.android.common.http.flowable.HttpObserver
 import com.chhd.android.common.http.flowable.ResponseTransformer
 import com.chhd.android.common.http.flowable.RxHelper
 import com.chhd.android.common.mvp.IPageView
-import com.chhd.android.common.ui.activity.base.PullToRefreshTActivity
+import com.chhd.android.common.ui.activity.base.toolbar.PullToRefreshActivity
 import io.reactivex.Flowable
 import kotlinx.android.synthetic.main.activity_list_demo.*
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-class ListDemoActivity : PullToRefreshTActivity<ListDemoActivity.ListAdapter, ListDemoActivity.Entity>() {
+class ListDemoActivity : PullToRefreshActivity<ListDemoActivity.ListAdapter, ListDemoActivity.Entity>() {
 
     override fun getAdapter(): ListAdapter {
         return ListAdapter(list)

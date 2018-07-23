@@ -38,7 +38,7 @@ public class AppUtils {
     }
 
 
-    public static String getAppName(final String packageName) {
+    public static String getAppName(String packageName) {
         try {
             PackageManager pm = getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);

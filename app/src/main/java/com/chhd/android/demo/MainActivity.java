@@ -1,19 +1,11 @@
 package com.chhd.android.demo;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 
-import com.chhd.android.common.ui.activity.base.ToolbarActivity;
-import com.chhd.android.common.util.AppUtils;
-import com.chhd.android.common.util.UiUtils;
+import com.chhd.android.common.ui.activity.base.toolbar.ToolbarActivity;
 
 public class MainActivity extends ToolbarActivity {
 
@@ -21,6 +13,14 @@ public class MainActivity extends ToolbarActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findViewById(R.id.btn_sp_utils).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, SpUtilsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         findViewById(R.id.btn_fragment_list).setOnClickListener(new View.OnClickListener() {
             @Override

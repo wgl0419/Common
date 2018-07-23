@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
@@ -29,10 +28,17 @@ public class SpUtils {
         return CommonUtils.getApplication();
     }
 
+    public static SharedPreferences getSharedPreferences() {
+        if (sharedPreferences == null) {
+            sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        }
+        return sharedPreferences;
+    }
+
     /* -------------------------- 保存获取基本类型 -------------------------- */
 
     public static void init(String name) {
-        sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        sharedPreferences = getContext().getSharedPreferences(name, Context.MODE_PRIVATE);
     }
 
     /* -------------------------- 保存获取基本类型 -------------------------- */
@@ -42,17 +48,11 @@ public class SpUtils {
     }
 
     public static boolean getBoolean(String key, boolean defValue) {
-        if (sharedPreferences == null) {
-            sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
-        }
-        return sharedPreferences.getBoolean(key, defValue);
+        return getSharedPreferences().getBoolean(key, defValue);
     }
 
     public static void put(String key, boolean value) {
-        if (sharedPreferences == null) {
-            sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
-        }
-        sharedPreferences.edit().putBoolean(key, value).commit();
+        getSharedPreferences().edit().putBoolean(key, value).commit();
     }
 
     public static int getInt(String key) {
@@ -60,17 +60,11 @@ public class SpUtils {
     }
 
     public static int getInt(String key, int defValue) {
-        if (sharedPreferences == null) {
-            sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
-        }
-        return sharedPreferences.getInt(key, defValue);
+        return getSharedPreferences().getInt(key, defValue);
     }
 
     public static void put(String key, int value) {
-        if (sharedPreferences == null) {
-            sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
-        }
-        sharedPreferences.edit().putInt(key, value).commit();
+        getSharedPreferences().edit().putInt(key, value).commit();
     }
 
     public static long getLong(String key) {
@@ -78,17 +72,11 @@ public class SpUtils {
     }
 
     public static long getLong(String key, long defValue) {
-        if (sharedPreferences == null) {
-            sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
-        }
-        return sharedPreferences.getLong(key, defValue);
+        return getSharedPreferences().getLong(key, defValue);
     }
 
     public static void put(String key, long value) {
-        if (sharedPreferences == null) {
-            sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
-        }
-        sharedPreferences.edit().putLong(key, value).commit();
+        getSharedPreferences().edit().putLong(key, value).commit();
     }
 
     public static String getString(String key) {
@@ -96,17 +84,11 @@ public class SpUtils {
     }
 
     public static String getString(String key, String defValue) {
-        if (sharedPreferences == null) {
-            sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
-        }
-        return sharedPreferences.getString(key, defValue);
+        return getSharedPreferences().getString(key, defValue);
     }
 
     public static void put(String key, String value) {
-        if (sharedPreferences == null) {
-            sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
-        }
-        sharedPreferences.edit().putString(key, value).commit();
+        getSharedPreferences().edit().putString(key, value).commit();
     }
 
     public static float getFloat(String key) {
@@ -114,35 +96,43 @@ public class SpUtils {
     }
 
     public static float getFloat(String key, float defValue) {
-        if (sharedPreferences == null) {
-            sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
-        }
-        return sharedPreferences.getFloat(key, defValue);
+        return getSharedPreferences().getFloat(key, defValue);
     }
 
     public static void put(String key, float value) {
-        if (sharedPreferences == null) {
-            sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
-        }
-        sharedPreferences.edit().putFloat(key, value).commit();
+        getSharedPreferences().edit().putFloat(key, value).commit();
     }
 
     /* -------------------------- 保存获取对象 -------------------------- */
 
-    public static <T> T get(String key) {
-        if (sharedPreferences == null) {
-            sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
-        }
-        String json = sharedPreferences.getString(key, "");
-        Type type = new TypeToken<T>() {
-        }.getType();
-        return new Gson().fromJson(json, type);
+    public static <T> T get(String key, Class<T> clazz) {
+        return get(key, clazz, null);
     }
 
-    public static void put(String key, Object value) {
-        if (sharedPreferences == null) {
-            sharedPreferences = getContext().getSharedPreferences(NAME, Context.MODE_PRIVATE);
+    public static <T> T get(String key, Class<T> clazz, T defValue) {
+        String json = getSharedPreferences().getString(key, "");
+        T value = new Gson().fromJson(json, clazz);
+        if (value == null) {
+            value = defValue;
         }
-        sharedPreferences.edit().putString(key, new Gson().toJson(value)).commit();
+        return value;
     }
+
+    public static <T> T get(String key, Type type) {
+        return get(key, type, null);
+    }
+
+    public static <T> T get(String key, Type type, T defValue) {
+        String json = getSharedPreferences().getString(key, "");
+        T value = new Gson().fromJson(json, type);
+        if (value == null) {
+            value = defValue;
+        }
+        return value;
+    }
+
+    public static <T> void put(String key, T value) {
+        getSharedPreferences().edit().putString(key, new Gson().toJson(value)).commit();
+    }
+
 }
