@@ -16,7 +16,6 @@ import okhttp3.Response;
  *
  * @author : 葱花滑蛋 (2018/03/12)
  */
-
 public class BasicParamsInterceptor implements Interceptor {
 
     private final String TAG = this.getClass().getSimpleName();

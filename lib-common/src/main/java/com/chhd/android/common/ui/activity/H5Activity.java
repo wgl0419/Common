@@ -13,7 +13,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.chhd.android.common.R;
-import com.chhd.android.common.ui.activity.base.toolbar.ToolbarActivity;
 import com.chhd.android.common.ui.view.HorizontalProgressBar;
 
 import java.util.HashMap;
@@ -23,7 +22,6 @@ import java.util.HashMap;
  *
  * @author : 葱花滑蛋 (2018/03/18)
  */
-
 @SuppressLint("SetJavaScriptEnabled")
 public class H5Activity extends ToolbarActivity {
 

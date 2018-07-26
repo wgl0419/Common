@@ -9,7 +9,6 @@ import com.facebook.stetho.Stetho;
  *
  * @author : 葱花滑蛋 (2018/01/27)
  */
-
 public class CommonUtils {
 
     private static Application instance;

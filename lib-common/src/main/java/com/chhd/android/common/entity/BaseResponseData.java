@@ -5,7 +5,6 @@ package com.chhd.android.common.entity;
  *
  * @author : 葱花滑蛋 (2018/03/13)
  */
-
 public interface BaseResponseData<T> {
 
     /**

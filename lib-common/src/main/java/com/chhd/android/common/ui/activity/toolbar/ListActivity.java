@@ -1,5 +1,7 @@
-package com.chhd.android.common.ui.fragment.base;
+package com.chhd.android.common.ui.activity.toolbar;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,12 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 列表界面
+ * 列表界面，带Toolbar
  *
  * @author : 葱花滑蛋 (2018/03/15)
  */
-
-public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> extends LazyFragment
+public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> extends ProgressActivity
         implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     private boolean isLoadMore = false;
@@ -55,14 +56,26 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
     protected abstract Adapter getAdapter();
 
     protected RecyclerView.LayoutManager getLayoutManager() {
-        return new LinearLayoutManager(getActivity());
+        return new LinearLayoutManager(this);
     }
 
     @Override
-    protected void onPrepare(View view) {
-        super.onPrepare(view);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        onPrepareLoad();
+    }
 
-        recyclerView = view.findViewById(R.id.recycler_view);
+    protected void onPrepareLoad() {
+        if (isAutoLoad()) {
+            setLoadMore(false);
+        }
+    }
+
+    @Override
+    protected void onPrepare(Bundle savedInstanceState) {
+        super.onPrepare(savedInstanceState);
+
+        recyclerView = findViewById(R.id.recycler_view);
         if (recyclerView == null) {
             throw new NullPointerException("Layout must have one RecyclerView, " +
                     "and id must set recycler_view.");
@@ -78,7 +91,7 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
         }, recyclerView);
         adapter.setEnableLoadMore(false);
         adapter.setHeaderFooterEmpty(true, true);
-        adapter.setEmptyView(new View(getActivity()));
+        adapter.setEmptyView(new View(this));
         adapter.setOnItemClickListener(this);
         adapter.setOnItemChildClickListener(this);
         layoutManager = getLayoutManager();
@@ -86,19 +99,17 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
         recyclerView.setAdapter(adapter);
     }
 
+
     /**
      * 加载
      */
     @Override
-    protected void onLazyLoad() {
-        if (isAutoLoad()) {
-            setLoadMore(false);
-        }
+    public void onLoad() {
     }
 
     @Override
     public void reLoad() {
-        hasLoadSuccess = false;
+        isLoadSuccess = false;
         setLoadMore(false);
     }
 
@@ -155,11 +166,11 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
         showListEmpty();
     }
 
-
     @Override
     public void onPageError(String message) {
         onLoadError(message);
     }
+
 
     /**
      * 加载列表成功
@@ -211,7 +222,7 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
     }
 
     protected void showListLoading() {
-        View loadingView = View.inflate(getActivity(), R.layout.layout_loading, null);
+        View loadingView = View.inflate(this, R.layout.layout_loading, null);
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
                 RecyclerView.LayoutParams.WRAP_CONTENT);
         loadingView.setLayoutParams(params);
@@ -223,7 +234,7 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
      * 显示列表空布局
      */
     protected void showListEmpty() {
-        View emptyView = View.inflate(getActivity(), R.layout.layout_empty, null);
+        View emptyView = View.inflate(this, R.layout.layout_empty, null);
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
                 RecyclerView.LayoutParams.WRAP_CONTENT);
         emptyView.setLayoutParams(params);
@@ -237,7 +248,7 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
      * @param message 服务端返回的错误信息
      */
     protected void showListError(String message) {
-        View errorView = View.inflate(getActivity(), R.layout.layout_error, null);
+        View errorView = View.inflate(this, R.layout.layout_error, null);
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
                 RecyclerView.LayoutParams.WRAP_CONTENT);
         errorView.setLayoutParams(params);

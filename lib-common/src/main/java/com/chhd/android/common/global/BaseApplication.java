@@ -10,7 +10,6 @@ import com.facebook.stetho.Stetho;
  *
  * @author : 葱花滑蛋 (2017/11/24)
  */
-
 public class BaseApplication extends Application {
 
     private static BaseApplication application;

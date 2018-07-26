@@ -8,7 +8,6 @@ import android.view.View;
  *
  * @author : 葱花滑蛋 (2017/12/24)
  */
-
 public class SlideHelper {
 
     private SlideHelper() {

@@ -13,7 +13,6 @@ import java.lang.reflect.Type;
  *
  * @author : 葱花滑蛋 (2018/03/18)
  */
-
 @SuppressLint("ApplySharedPref")
 public class SpUtils {
 
@@ -51,7 +50,10 @@ public class SpUtils {
         return getSharedPreferences().getBoolean(key, defValue);
     }
 
-    public static void put(String key, boolean value) {
+    public static void put(String key, Boolean value) {
+        if (value == null) {
+            value = false;
+        }
         getSharedPreferences().edit().putBoolean(key, value).commit();
     }
 
@@ -63,7 +65,10 @@ public class SpUtils {
         return getSharedPreferences().getInt(key, defValue);
     }
 
-    public static void put(String key, int value) {
+    public static void put(String key, Integer value) {
+        if (value == null) {
+            value = 0;
+        }
         getSharedPreferences().edit().putInt(key, value).commit();
     }
 
@@ -75,7 +80,10 @@ public class SpUtils {
         return getSharedPreferences().getLong(key, defValue);
     }
 
-    public static void put(String key, long value) {
+    public static void put(String key, Long value) {
+        if (value == null) {
+            value = 0L;
+        }
         getSharedPreferences().edit().putLong(key, value).commit();
     }
 
@@ -99,7 +107,10 @@ public class SpUtils {
         return getSharedPreferences().getFloat(key, defValue);
     }
 
-    public static void put(String key, float value) {
+    public static void put(String key, Float value) {
+        if (value == null) {
+            value = 0F;
+        }
         getSharedPreferences().edit().putFloat(key, value).commit();
     }
 
@@ -134,5 +145,4 @@ public class SpUtils {
     public static <T> void put(String key, T value) {
         getSharedPreferences().edit().putString(key, new Gson().toJson(value)).commit();
     }
-
 }

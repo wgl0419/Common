@@ -19,7 +19,6 @@ import java.util.List;
  *
  * @author : 葱花滑蛋 (2018/03/12)
  */
-
 public class CompoundRelativeLayout extends RelativeLayout implements ViewTreeObserver.OnGlobalLayoutListener
         , View.OnClickListener {
 

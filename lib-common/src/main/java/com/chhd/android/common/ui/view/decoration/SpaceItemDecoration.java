@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
  * @author : 葱花滑蛋 (2017/11/21)
  * @see com.chhd.android.common.ui.view.decoration.dp.SpaceItemDecoration
  */
-
 @Deprecated
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 

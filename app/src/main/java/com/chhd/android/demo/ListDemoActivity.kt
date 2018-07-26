@@ -11,7 +11,7 @@ import com.chhd.android.common.http.flowable.HttpObserver
 import com.chhd.android.common.http.flowable.ResponseTransformer
 import com.chhd.android.common.http.flowable.RxHelper
 import com.chhd.android.common.mvp.IPageView
-import com.chhd.android.common.ui.activity.base.toolbar.PullToRefreshActivity
+import com.chhd.android.common.ui.activity.toolbar.PullToRefreshActivity
 import io.reactivex.Flowable
 import kotlinx.android.synthetic.main.activity_list_demo.*
 import retrofit2.Retrofit
@@ -59,13 +59,18 @@ class ListDemoActivity : PullToRefreshActivity<ListDemoActivity.ListAdapter, Lis
     }
 
     private fun retrofit(): Retrofit {
-        return RetrofitProvider.newInstance("http://api.jisuapi.com/")
+        val map = HashMap<String, String>()
+        map.put("auth", "1a2f2pT+xGpECOQiS3aIc+rYVRST+wDqYXBVPTIOtZvdfKWxbOXmJlUqGhby1MACj5FQLfmZ28EvXj9+bIEwp9/r/xEHDmDWtUSPq36JE")
+        map.put("app-id", "3")
+        map.put("version", "1.9.9")
+        map.put("client-id", "6cdb35a734d05e3cd4c06a41a1a677d4")
+        return RetrofitProvider.newInstance("http://api.aems.zhimadi.cn/", map)
     }
 
     interface Api {
 
-        @GET("news/get?channel=头条&appkey=a51fa7d0325d05f2")
-        fun getList(@Query("start") start: Int, @Query("num") num: Int): Flowable<ResponseData<ListData<Entity>>>
+        @GET("sell/index?state=&custom_id=&shop_id=&warehouse_id=5&create_user_id=&order_no=&delivery_status=2&begin_date=2018-06-25&end_date=")
+        fun getList(@Query("start") start: Int, @Query("limit") num: Int): Flowable<ResponseData<ListData<Entity>>>
     }
 
     class ListAdapter(data: List<Entity>?) : BaseQuickAdapter<Entity, BaseViewHolder>(R.layout.item_list_text, data) {
@@ -78,14 +83,14 @@ class ListDemoActivity : PullToRefreshActivity<ListDemoActivity.ListAdapter, Lis
 
     class ResponseData<T> : BaseResponseData<T> {
 
-        private val status: Int? = null
+        private val code: Int? = null
 
         private val msg: String? = null
 
         private val result: T? = null
 
         override fun getCode(): Int? {
-            return status
+            return code
         }
 
         override fun getMessage(): String? {
@@ -97,7 +102,7 @@ class ListDemoActivity : PullToRefreshActivity<ListDemoActivity.ListAdapter, Lis
         }
 
         override fun isSuccess(): Boolean? {
-            return status == 0
+            return code == 0
         }
     }
 

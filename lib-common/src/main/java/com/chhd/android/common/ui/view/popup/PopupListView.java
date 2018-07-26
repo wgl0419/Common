@@ -27,7 +27,6 @@ import java.util.List;
  *
  * @author : 葱花滑蛋 (2018/6/27)
  */
-
 public class PopupListView<T> extends Popup<T> {
 
     private Drawable divider;

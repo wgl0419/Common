@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.activity.base;
+package com.chhd.android.common.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
@@ -15,7 +15,6 @@ import android.view.WindowManager;
  *
  * @author : 葱花滑蛋 (2018/01/14)
  */
-
 public class FullScreenActivity extends BaseActivity {
 
     private final int MESSAGE_HIDE_BARS = 0x001;

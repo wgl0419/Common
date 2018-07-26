@@ -10,7 +10,6 @@ import java.math.BigDecimal;
  *
  * @author : 葱花滑蛋 (2018/03/09)
  */
-
 public class NumberUtils {
 
     private static final int MATH_TYPE_ADD = 0;

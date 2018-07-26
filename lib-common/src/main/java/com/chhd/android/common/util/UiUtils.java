@@ -9,7 +9,6 @@ import android.content.res.Resources;
  *
  * @author : 葱花滑蛋 (2017/11/30)
  */
-
 public class UiUtils {
 
     private UiUtils() {

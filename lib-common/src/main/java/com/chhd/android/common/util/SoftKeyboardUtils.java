@@ -11,7 +11,6 @@ import android.view.inputmethod.InputMethodManager;
  *
  * @author : 葱花滑蛋 (2018/01/08)
  */
-
 public class SoftKeyboardUtils {
 
     private SoftKeyboardUtils() {

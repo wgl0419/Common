@@ -5,7 +5,6 @@ package com.chhd.android.common.util.image;
  *
  * @author : 陈伟强 (2018/03/18)
  */
-
 public class ImageLoaderConfig {
 
     /**

@@ -12,7 +12,6 @@ import io.reactivex.schedulers.Schedulers;
  *
  * @author : 葱花滑蛋 (2018/07/19)
  */
-
 public class RxHelper {
 
     /**

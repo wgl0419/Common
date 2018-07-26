@@ -10,7 +10,6 @@ import android.view.View;
  * @author : 葱花滑蛋 (2017/11/16)
  * @see com.chhd.android.common.ui.view.decoration.dp.GridSpaceItemDecoration
  */
-
 @Deprecated
 public class GridSpaceItemDecoration extends RecyclerView.ItemDecoration {
 

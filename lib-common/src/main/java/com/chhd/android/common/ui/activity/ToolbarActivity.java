@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.activity.base.toolbar;
+package com.chhd.android.common.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.chhd.android.common.R;
-import com.chhd.android.common.ui.activity.base.BaseActivity;
 import com.chhd.android.common.ui.view.Toolbar;
 import com.chhd.android.common.util.UiUtils;
 
@@ -19,12 +18,11 @@ import com.chhd.android.common.util.UiUtils;
  *
  * @author : 葱花滑蛋 (2018/03/13)
  */
-
 public class ToolbarActivity extends BaseActivity {
 
     protected AppBarLayout appBarLayout;
     protected Toolbar toolbar;
-    protected FrameLayout container;
+    protected FrameLayout flContainer;
 
     @SuppressLint("ResourceType")
     @Override
@@ -34,7 +32,7 @@ public class ToolbarActivity extends BaseActivity {
 
         appBarLayout = findViewById(R.id.app_bar_layout);
         toolbar = findViewById(R.id.toolbar);
-        container = findViewById(R.id.container);
+        flContainer = findViewById(R.id.fl_container);
 
         initActionBarHeight();
 
@@ -109,11 +107,11 @@ public class ToolbarActivity extends BaseActivity {
             getSupportActionBar().setTitle("");
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-        toolbar.setToolbarContainer(view);
+        toolbar.setToolbarContainer(view, showHomeAsUp);
     }
 
     @Override
     public final void setContentView(int layoutResID) {
-        LayoutInflater.from(this).inflate(layoutResID, container, true);
+        LayoutInflater.from(this).inflate(layoutResID, flContainer, true);
     }
 }

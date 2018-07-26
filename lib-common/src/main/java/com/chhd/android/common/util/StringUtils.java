@@ -9,7 +9,6 @@ import android.widget.TextView;
  *
  * @author : 葱花滑蛋 (2018/03/09)
  */
-
 public class StringUtils {
 
     private StringUtils() {

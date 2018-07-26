@@ -21,7 +21,6 @@ import com.chhd.android.common.util.UiUtils;
  *
  * @author : 葱花滑蛋 (2018/03/12)
  */
-
 public class HorizontalProgressBar extends View {
 
     private final String TAG = "HorizontalProgressBar";

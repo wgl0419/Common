@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
@@ -26,7 +25,6 @@ import java.util.List;
  *
  * @author : 葱花滑蛋 (2018/7/3)
  */
-
 public abstract class Popup<T> {
 
     static int INVALID = -1;
@@ -50,8 +48,8 @@ public abstract class Popup<T> {
     boolean touchable = true;
     int anim = R.style.PopupFadeAnim;
 
-    OnItemClickListener<T> onItemClickListener;
-    OnItemChildClickListener<T> onItemChildClickListener;
+    OnItemClickListener onItemClickListener;
+    OnItemChildClickListener onItemChildClickListener;
 
     Popup(Activity activity) {
         this.activity = activity;
@@ -63,14 +61,14 @@ public abstract class Popup<T> {
         int color = Color.parseColor("#" + alpha2hex(alpha) + "000000");
         linearLayout.setBackgroundColor(color);
         AbsListView absListView = initAbsListView();
-        adapter.setOnItemChildClickListener(new ListAdapter.OnItemChildClickListener<T>() {
+        adapter.setOnItemChildClickListener(new ListAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemChildClick(T t, int position) {
+            public void onItemChildClick(View view, int position) {
                 if (dismiss) {
                     popupWindow.dismiss();
                 }
                 if (onItemChildClickListener != null) {
-                    onItemChildClickListener.onItemChildClick(popupWindow, t, position);
+                    onItemChildClickListener.onItemChildClick(popupWindow, view, position);
                 }
             }
         });
@@ -81,7 +79,7 @@ public abstract class Popup<T> {
                     popupWindow.dismiss();
                 }
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(popupWindow, itemList.get(position), position);
+                    onItemClickListener.onItemClick(popupWindow, view, position);
                 }
             }
         });
@@ -253,22 +251,22 @@ public abstract class Popup<T> {
          * 设置ItemView的点击事件
          *
          * @param onItemClickListener onItemClickListener
-         * @param <T>                 数据源类型
          * @return Builder
          */
-        public <T> B setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
+        public B setOnItemClickListener(OnItemClickListener onItemClickListener) {
             popup.onItemClickListener = onItemClickListener;
             return b;
         }
 
         /**
-         * 设置子View的点击事件，如果设置id自动添加点击事件
+         * 设置子View的点击事件，满足下列条件自动添加
+         *  · 必须设置id
+         *  · clickable = true
          *
          * @param onItemChildClickListener onItemChildClickListener
-         * @param <T>                      数据源类型
          * @return Builder
          */
-        public <T> B setOnItemChildClickListener(OnItemChildClickListener<T> onItemChildClickListener) {
+        public B setOnItemChildClickListener(OnItemChildClickListener onItemChildClickListener) {
             popup.onItemChildClickListener = onItemChildClickListener;
             return b;
         }
@@ -301,14 +299,14 @@ public abstract class Popup<T> {
         }
     }
 
-    public interface OnItemChildClickListener<T> {
+    public interface OnItemChildClickListener {
 
-        void onItemChildClick(PopupWindow popup, T t, int position);
+        void onItemChildClick(PopupWindow popup, View view, int position);
     }
 
-    public interface OnItemClickListener<T> {
+    public interface OnItemClickListener {
 
-        void onItemClick(PopupWindow popup, T t, int position);
+        void onItemClick(PopupWindow popup, View view, int position);
     }
 
     public static abstract class ListAdapter<T> extends BaseAdapter {
@@ -318,9 +316,9 @@ public abstract class Popup<T> {
         protected List<T> itemList;
         protected T check;
 
-        private OnItemChildClickListener<T> onItemChildClickListener;
+        private OnItemChildClickListener onItemChildClickListener;
 
-        public void setOnItemChildClickListener(OnItemChildClickListener<T> onItemChildClickListener) {
+        public void setOnItemChildClickListener(OnItemChildClickListener onItemChildClickListener) {
             this.onItemChildClickListener = onItemChildClickListener;
         }
 
@@ -352,7 +350,11 @@ public abstract class Popup<T> {
         public View getView(int position, View convertView, ViewGroup parent) {
             context = parent.getContext();
             View itemView = convert(position, convertView, parent);
-            traversal(itemView, getItem(position), position);
+            if (itemView instanceof ViewGroup) {
+                ViewGroup viewGroup = (ViewGroup) itemView;
+                viewGroup.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+            }
+            traversal(itemView, position);
             return itemView;
         }
 
@@ -362,7 +364,7 @@ public abstract class Popup<T> {
 
         public abstract View convert(int position, View convertView, ViewGroup parent);
 
-        private void traversal(View parent, T t, int position) {
+        private void traversal(View parent, int position) {
             if (parent == null) {
                 return;
             }
@@ -371,33 +373,40 @@ public abstract class Popup<T> {
                 int childCount = viewGroup.getChildCount();
                 for (int i = childCount - 1; i >= 0; i--) {
                     View child = viewGroup.getChildAt(i);
-                    traversal(child, t, position);
+                    traversal(child, position);
                 }
             }
-            addChildClickListener(parent, t, position);
+            setChildClickListener(parent, position);
         }
 
-        private void addChildClickListener(View view, final T t, final int position) {
+        private void setChildClickListener(View view, int position) {
             if (view.getId() == INVALID) {
                 return;
             }
             if (view instanceof AdapterView) {
                 return;
             }
-            view.setOnClickListener(new View.OnClickListener() {
+            if (!view.isClickable()) {
+                return;
+            }
+            addChildClickListener(view, position);
+        }
+
+        protected void addChildClickListener(View child, final int position) {
+            child.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onItemChildClickListener == null) {
                         return;
                     }
-                    onItemChildClickListener.onItemChildClick(t, position);
+                    onItemChildClickListener.onItemChildClick(v, position);
                 }
             });
         }
 
-        public interface OnItemChildClickListener<T> {
+        public interface OnItemChildClickListener {
 
-            void onItemChildClick(T t, int position);
+            void onItemChildClick(View view, int position);
         }
     }
 }

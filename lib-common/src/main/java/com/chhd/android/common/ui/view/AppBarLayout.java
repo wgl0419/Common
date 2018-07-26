@@ -17,7 +17,6 @@ import com.chhd.android.common.R;
  *
  * @author : 葱花滑蛋 (2018/5/21)
  */
-
 public class AppBarLayout extends android.support.design.widget.AppBarLayout {
 
     public AppBarLayout(Context context) {

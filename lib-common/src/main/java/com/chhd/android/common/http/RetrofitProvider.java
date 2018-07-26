@@ -19,7 +19,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  *
  * @author : 葱花滑蛋 (2018/03/12)
  */
-
 public class RetrofitProvider {
 
     private static final HttpLoggingInterceptor HTTP_LOGGING_INTERCEPTOR = new HttpLoggingInterceptor()

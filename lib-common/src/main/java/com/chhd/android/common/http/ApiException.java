@@ -5,7 +5,6 @@ package com.chhd.android.common.http;
  *
  * @author : 葱花滑蛋 (2018/03/12)
  */
-
 @SuppressWarnings("unchecked")
 public class ApiException extends Throwable {
 

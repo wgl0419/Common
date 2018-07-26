@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.activity.base.toolbar;
+package com.chhd.android.common.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,11 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 列表界面，带Toolbar
+ * 列表界面，不带Toolbar
  *
  * @author : 葱花滑蛋 (2018/03/15)
  */
-
 public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> extends ProgressActivity
         implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
@@ -100,12 +99,12 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
         recyclerView.setAdapter(adapter);
     }
 
-
     /**
      * 加载
      */
     @Override
     public void onLoad() {
+
     }
 
     @Override
@@ -113,7 +112,6 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
         hasLoadSuccess = false;
         setLoadMore(false);
     }
-
     public void refresh() {
         setLoadMore(false);
     }
@@ -183,9 +181,8 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
         if (listData.getPageStart() == null || listData.getPageStart() == 0) {
             list.clear();
         }
-
         if (listData.getList() != null) {
-            list.addAll(listData.getList());
+        list.addAll(listData.getList());
         }
         adapter.notifyDataSetChanged();
 

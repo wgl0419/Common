@@ -15,7 +15,7 @@ import com.chhd.android.common.http.ResponseTransformer
 import com.chhd.android.common.http.RetrofitProvider
 import com.chhd.android.common.http.RxHelper
 import com.chhd.android.common.mvp.IPageView
-import com.chhd.android.common.ui.activity.base.toolbar.ToolbarActivity
+import com.chhd.android.common.ui.activity.ToolbarActivity
 import com.chhd.android.common.ui.adapter.FragmentAdapter
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -34,12 +34,14 @@ class FragmentListActivity : ToolbarActivity() {
         list.add(ListFragment())
         list.add(ListFragment())
         list.add(ListFragment())
+        list.add(ListFragment())
+        list.add(ListFragment())
 
         val viewPager = findViewById<ViewPager>(R.id.view_pager)
         viewPager.adapter = FragmentAdapter(supportFragmentManager, list)
     }
 
-    class ListFragment : com.chhd.android.common.ui.fragment.base.ListFragment<ListAdapter, Entity>() {
+    class ListFragment : com.chhd.android.common.ui.fragment.ListFragment<ListAdapter, Entity>() {
         override fun getAdapter(): ListAdapter {
             return ListAdapter(list)
         }
@@ -140,11 +142,11 @@ class FragmentListActivity : ToolbarActivity() {
         }
 
         override fun isPageNext(): Boolean? {
-            return false
+            return list?.isEmpty() == false
         }
 
         override fun getList(): List<T>? {
-            return null
+            return list
         }
     }
 

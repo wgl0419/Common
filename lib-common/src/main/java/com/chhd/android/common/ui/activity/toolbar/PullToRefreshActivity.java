@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.activity.base.toolbar;
+package com.chhd.android.common.ui.activity.toolbar;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,7 +12,6 @@ import com.chhd.android.common.global.Constant;
  *
  * @author : 葱花滑蛋 (2018/03/13)
  */
-
 public abstract class PullToRefreshActivity<Adapter extends BaseQuickAdapter, Entity>
         extends ListActivity<Adapter, Entity> {
 
@@ -27,7 +26,7 @@ public abstract class PullToRefreshActivity<Adapter extends BaseQuickAdapter, En
 
     @Override
     public void reLoad() {
-        hasLoadSuccess = false;
+        isLoadSuccess = false;
         refresh();
     }
 

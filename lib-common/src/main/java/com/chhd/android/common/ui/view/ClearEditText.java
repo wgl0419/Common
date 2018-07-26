@@ -18,7 +18,6 @@ import com.chhd.android.common.R;
  *
  * @author : 陈伟强 (2018/5/25)
  */
-
 public class ClearEditText extends android.support.v7.widget.AppCompatEditText
         implements TextWatcher {
 
@@ -58,23 +57,28 @@ public class ClearEditText extends android.support.v7.widget.AppCompatEditText
     public void onTextChanged(CharSequence s, int start, int before, int count) {
     }
 
-    private void initClearIcon(CharSequence s) {
-        if (isEnabled() ) {
-            if (TextUtils.isEmpty(s)) {
-                setCompoundDrawables(null, null, null, null);
-            } else {
-                // 如果EditText可用，并且内容不为空，设置删除按钮
-                Drawable drawable = ContextCompat.getDrawable(getContext(), iconId);
-                drawable.setBounds(0, 0, drawable.getMinimumWidth(),
-                        drawable.getMinimumHeight());
-                setCompoundDrawables(null, null, drawable, null);
-            }
-        }
-    }
-
     @Override
     public void afterTextChanged(Editable s) {
         initClearIcon(s);
+    }
+
+    private void initClearIcon(final CharSequence s) {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                if (isEnabled()) {
+                    if (TextUtils.isEmpty(s)) {
+                        setCompoundDrawables(null, null, null, null);
+                    } else {
+                        // 如果EditText可用，并且内容不为空，设置删除按钮
+                        Drawable drawable = ContextCompat.getDrawable(getContext(), iconId);
+                        drawable.setBounds(0, 0, drawable.getMinimumWidth(),
+                                drawable.getMinimumHeight());
+                        setCompoundDrawables(null, null, drawable, null);
+                    }
+                }
+            }
+        });
     }
 
     @SuppressLint("ClickableViewAccessibility")

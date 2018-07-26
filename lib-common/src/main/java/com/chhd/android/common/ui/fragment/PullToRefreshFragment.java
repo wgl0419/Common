@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.fragment.base;
+package com.chhd.android.common.ui.fragment;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
@@ -12,7 +12,6 @@ import com.chhd.android.common.global.Constant;
  *
  * @author : 葱花滑蛋 (2018/03/14)
  */
-
 public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, Entity>
         extends ListFragment<Adapter, Entity> {
 

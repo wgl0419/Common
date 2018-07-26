@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.activity.base;
+package com.chhd.android.common.ui.activity.toolbar;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,17 +10,19 @@ import android.widget.TextView;
 
 import com.chhd.android.common.R;
 import com.chhd.android.common.mvp.IPageView;
+import com.chhd.android.common.ui.activity.ToolbarActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 进度界面，不带Toolbar
+ * 进度界面，带Toolbar
  *
  * @author : 葱花滑蛋 (2018/03/13)
  */
+public abstract class ProgressActivity extends ToolbarActivity implements IPageView {
 
-public abstract class ProgressActivity extends BaseActivity implements IPageView {
+    protected IPageView pageView = this;
 
     protected List<View> viewList = new ArrayList<>();
 
@@ -111,7 +113,7 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
      * 重新加载，带加载进度动画
      */
     public void reLoad() {
-        hasLoadSuccess = false;
+        isLoadSuccess = false;
         onLoad();
     }
 
@@ -125,20 +127,21 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
         }
     }
 
-    public void showLoadingView() {
+
+    protected void showLoadingView() {
         showStatusView(R.id.loading);
     }
 
-    public void showEmptyView() {
+    protected void showEmptyView() {
         showStatusView(R.id.empty);
     }
 
-    public void showErrorView(String message) {
+    protected void showErrorView(String message) {
         showStatusView(R.id.error);
         tvError.setText(message);
     }
 
-    public void showContentView() {
+    protected void showContentView() {
         showStatusView(R.id.content);
     }
 
@@ -146,18 +149,23 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
      * 是否加载成功
      * 因为可能会在onResume方法中重新加载数据，如果已经时显示成功，则不再显示加载中、加载失败状态
      */
-    boolean hasLoadSuccess = false;
+    boolean isLoadSuccess = false;
+
+    /**
+     * 是否加载完毕
+     */
+    boolean isLoadComplete = false;
 
     @Override
     public void onPageLoading() {
-        if (!hasLoadSuccess) {
+        if (!isLoadSuccess) {
             showLoadingView();
         }
     }
 
     @Override
     public void onPageSuccess() {
-        hasLoadSuccess = true;
+        isLoadSuccess = true;
         showContentView();
     }
 
@@ -168,12 +176,17 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
 
     @Override
     public void onPageError(String message) {
-        if (!hasLoadSuccess) {
+        if (!isLoadSuccess) {
             showErrorView(message);
         }
     }
 
     @Override
     public void onPageComplete() {
+        isLoadComplete = true;
+    }
+
+    protected boolean isLoadComplete() {
+        return isLoadComplete;
     }
 }

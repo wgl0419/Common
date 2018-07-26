@@ -2,7 +2,7 @@ package com.chhd.android.demo
 
 import android.os.Bundle
 import android.os.Handler
-import com.chhd.android.common.ui.activity.base.toolbar.ProgressActivity
+import com.chhd.android.common.ui.activity.toolbar.ProgressActivity
 
 class ProgressDemoActivity : ProgressActivity() {
 

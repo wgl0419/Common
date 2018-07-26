@@ -22,7 +22,7 @@ import io.reactivex.observers.DisposableObserver;
 
 public abstract class HttpObserver<T> extends DisposableObserver<T> {
 
-    private IPageView iPageView;
+    private IPageView pageView;
     private ProgressDialog dialog;
 
     private boolean hasNext;
@@ -35,10 +35,10 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
         super.onStart();
 
         Context context = showProgressDialog();
-        iPageView = showPageView();
+        pageView = showPageView();
 
-        if (iPageView != null) {
-            iPageView.onPageLoading();
+        if (pageView != null) {
+            pageView.onPageLoading();
         } else if (context != null) {
             dialog = new ProgressDialog(context);
             dialog.setMessage("请稍等...");
@@ -58,8 +58,8 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
     public final void onNext(T t) {
         hasNext = true;
         this.t = t;
-        if (iPageView != null) {
-            iPageView.onPageSuccess();
+        if (pageView != null) {
+            pageView.onPageSuccess();
         }
         try {
             onSucceed(t);
@@ -91,9 +91,9 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
             errMsg = "出错了";
         }
 
-        if (iPageView != null) {
-            iPageView.onPageError(errMsg);
-            iPageView.onPageComplete();
+        if (pageView != null) {
+            pageView.onPageError(errMsg);
+            pageView.onPageComplete();
         } else {
             if (dialog != null && dialog.isShowing()) {
                 dialog.dismiss();
@@ -108,11 +108,11 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
 
     @Override
     public final void onComplete() {
-        if (iPageView != null) {
+        if (pageView != null) {
             if (t == null) {
-                iPageView.onPageEmpty();
+                pageView.onPageEmpty();
             }
-            iPageView.onPageComplete();
+            pageView.onPageComplete();
         } else if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }

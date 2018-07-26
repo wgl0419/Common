@@ -17,7 +17,6 @@ import io.reactivex.functions.Function;
  *
  * @author : 葱花滑蛋 (2018/07/19)
  */
-
 public class ResponseTransformer {
 
     /**

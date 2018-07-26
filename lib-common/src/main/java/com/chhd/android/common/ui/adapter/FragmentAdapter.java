@@ -14,7 +14,6 @@ import java.util.List;
  *
  * @author : 葱花滑蛋 (2017/11/26)
  */
-
 public class FragmentAdapter extends FragmentStatePagerAdapter {
 
     public static final String KEY_TITLE = "title";

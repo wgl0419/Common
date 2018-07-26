@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.activity.base.ProgressActivity"
+    tools:context=".ui.activity.ProgressActivity"
     >
 
     <include layout="@layout/layout_progress" />

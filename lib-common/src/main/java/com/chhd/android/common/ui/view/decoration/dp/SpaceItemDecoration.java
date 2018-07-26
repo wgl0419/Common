@@ -13,7 +13,6 @@ import com.chhd.android.common.util.UiUtils;
  *
  * @author : 葱花滑蛋 (2018/7/3)
  */
-
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 
     public static final int HORIZONTAL = LinearLayout.HORIZONTAL;

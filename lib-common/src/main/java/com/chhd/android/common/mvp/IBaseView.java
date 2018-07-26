@@ -7,7 +7,6 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
  *
  * @author : 葱花滑蛋 (2018/03/14)
  */
-
 public interface IBaseView {
 
     /**

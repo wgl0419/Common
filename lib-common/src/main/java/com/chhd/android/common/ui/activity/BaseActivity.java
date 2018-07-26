@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.activity.base;
+package com.chhd.android.common.ui.activity;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
@@ -38,7 +38,6 @@ import java.util.List;
  *
  * @author : 葱花滑蛋 (2018/03/09)
  */
-
 public class BaseActivity extends RxAppCompatActivity implements IBaseView, View.OnTouchListener {
 
     public static List<Activity> activities = new ArrayList<>();

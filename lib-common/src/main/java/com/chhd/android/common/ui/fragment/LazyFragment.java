@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.fragment.base;
+package com.chhd.android.common.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,12 +9,11 @@ import android.view.View;
  *
  * @author : 葱花滑蛋 (2018/03/14)
  */
-
 public abstract class LazyFragment extends ProgressFragment {
 
     protected Boolean isVisibleToUser = null;
-    protected boolean hasViewCreate = false;
-    protected boolean hasLazyLoad = false;
+    protected boolean isViewCreate = false;
+    protected boolean isLazyLoad = false;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -26,7 +25,7 @@ public abstract class LazyFragment extends ProgressFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        hasViewCreate = true;
+        isViewCreate = true;
     }
 
     @Override
@@ -37,18 +36,18 @@ public abstract class LazyFragment extends ProgressFragment {
 
     @Override
     public void onDestroy() {
-        hasViewCreate = false;
-        hasLazyLoad = false;
+        isViewCreate = false;
+        isLazyLoad = false;
         super.onDestroy();
     }
 
     private void onPreLazyLoad() {
         if (isVisibleToUser == null) {
-            hasLazyLoad = true;
+            isLazyLoad = true;
             onLazyLoad();
         } else {
-            if (isVisibleToUser && hasViewCreate && !hasLazyLoad) {
-                hasLazyLoad = true;
+            if (isVisibleToUser && isViewCreate && !isLazyLoad) {
+                isLazyLoad = true;
                 onLazyLoad();
             }
         }
@@ -63,4 +62,5 @@ public abstract class LazyFragment extends ProgressFragment {
      * 懒加载，适用于ViewPager,第一次可见时执行此方法
      */
     protected abstract void onLazyLoad();
+
 }

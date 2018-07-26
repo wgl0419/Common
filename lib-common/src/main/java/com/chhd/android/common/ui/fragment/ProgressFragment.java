@@ -1,9 +1,10 @@
-package com.chhd.android.common.ui.activity.base.toolbar;
+package com.chhd.android.common.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -15,12 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 进度界面，带Toolbar
+ * 进度界面
  *
- * @author : 葱花滑蛋 (2018/03/13)
+ * @author : 葱花滑蛋 (2018/03/14)
  */
+public abstract class ProgressFragment extends BaseFragment implements IPageView {
 
-public abstract class ProgressActivity extends ToolbarActivity implements IPageView {
+    protected IPageView pageView = this;
 
     protected List<View> viewList = new ArrayList<>();
 
@@ -35,14 +37,19 @@ public abstract class ProgressActivity extends ToolbarActivity implements IPageV
     protected Button btnRetry;
     protected Button btnRefresh;
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_progress);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_progress, container, false);
+    }
 
-        onPrepare(savedInstanceState);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        onInit(savedInstanceState);
+        onPrepare(view);
+
+        onInit(view);
 
         if (isAutoLoad()) {
             onLoad();
@@ -60,17 +67,17 @@ public abstract class ProgressActivity extends ToolbarActivity implements IPageV
      */
     protected abstract int getContentResId();
 
-    protected void onPrepare(Bundle savedInstanceState) {
-        loadingView = findViewById(R.id.loading);
-        errorView = findViewById(R.id.error);
-        emptyView = findViewById(R.id.empty);
-        contentView = findViewById(R.id.content);
+    protected void onPrepare(View view) {
+        loadingView = view.findViewById(R.id.loading);
+        errorView = view.findViewById(R.id.error);
+        emptyView = view.findViewById(R.id.empty);
+        contentView = view.findViewById(R.id.content);
 
-        tvError = findViewById(R.id.tv_error);
-        tvEmpty = findViewById(R.id.tv_empty);
+        tvError = view.findViewById(R.id.tv_error);
+        tvEmpty = view.findViewById(R.id.tv_empty);
 
-        btnRetry = findViewById(R.id.btn_retry);
-        btnRefresh = findViewById(R.id.btn_refresh);
+        btnRetry = view.findViewById(R.id.btn_retry);
+        btnRefresh = view.findViewById(R.id.btn_refresh);
 
         viewList.add(loadingView);
         viewList.add(errorView);
@@ -80,7 +87,7 @@ public abstract class ProgressActivity extends ToolbarActivity implements IPageV
         showContentView();
 
         if (getContentResId() != 0) {
-            LayoutInflater.from(this).inflate(getContentResId(), contentView, true);
+            LayoutInflater.from(getActivity()).inflate(getContentResId(), contentView, true);
         }
 
         btnRetry.setOnClickListener(new View.OnClickListener() {
@@ -99,8 +106,10 @@ public abstract class ProgressActivity extends ToolbarActivity implements IPageV
 
     /**
      * 初始化
+     *
+     * @param view 根布局
      */
-    protected abstract void onInit(@Nullable Bundle savedInstanceState);
+    protected abstract void onInit(View view);
 
     /**
      * 加载
@@ -126,20 +135,20 @@ public abstract class ProgressActivity extends ToolbarActivity implements IPageV
     }
 
 
-    protected void showLoadingView() {
+    public void showLoadingView() {
         showStatusView(R.id.loading);
     }
 
-    protected void showEmptyView() {
+    public void showEmptyView() {
         showStatusView(R.id.empty);
     }
 
-    protected void showErrorView(String message) {
+    public void showErrorView(String message) {
         showStatusView(R.id.error);
         tvError.setText(message);
     }
 
-    protected void showContentView() {
+    public void showContentView() {
         showStatusView(R.id.content);
     }
 
@@ -147,7 +156,12 @@ public abstract class ProgressActivity extends ToolbarActivity implements IPageV
      * 是否加载成功
      * 因为可能会在onResume方法中重新加载数据，如果已经时显示成功，则不再显示加载中、加载失败状态
      */
-    public boolean hasLoadSuccess = false;
+    boolean hasLoadSuccess = false;
+
+    /**
+     * 是否加载完毕
+     */
+    boolean isLoadComplete = false;
 
     @Override
     public void onPageLoading() {
@@ -176,5 +190,10 @@ public abstract class ProgressActivity extends ToolbarActivity implements IPageV
 
     @Override
     public void onPageComplete() {
+        isLoadComplete = true;
+    }
+
+    protected boolean isLoadComplete() {
+        return isLoadComplete;
     }
 }

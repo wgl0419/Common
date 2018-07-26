@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.fragment.base;
+package com.chhd.android.common.ui.fragment;
 
 import com.chhd.android.common.mvp.IBaseView;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -10,7 +10,6 @@ import com.trello.rxlifecycle2.components.support.RxFragment;
  *
  * @author : 葱花滑蛋 (2018/03/12)
  */
-
 public class BaseFragment extends RxFragment implements IBaseView {
 
     @Override

@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,7 +24,6 @@ import com.chhd.android.common.R;
  *
  * @author : 葱花滑蛋 (2018/03/19)
  */
-
 public class Toolbar extends android.support.v7.widget.Toolbar {
 
     private final String TAG = this.getClass().getSimpleName();
@@ -110,11 +110,16 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
     }
 
     public void setToolbarContainer(View view) {
+        setToolbarContainer(view, false);
+    }
+
+    public void setToolbarContainer(View view, boolean showHomeAsUp) {
         setTitle("");
         if (view.getLayoutParams() == null) {
-            RelativeLayout.LayoutParams layoutParams =
-                    new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                            RelativeLayout.LayoutParams.MATCH_PARENT);
+            int w = showHomeAsUp ?
+                    ViewGroup.LayoutParams.WRAP_CONTENT : ViewGroup.LayoutParams.MATCH_PARENT;
+            ViewGroup.LayoutParams layoutParams =
+                    new ViewGroup.LayoutParams(w, ViewGroup.LayoutParams.MATCH_PARENT);
             view.setLayoutParams(layoutParams);
         }
         toolbarContainer.removeAllViews();

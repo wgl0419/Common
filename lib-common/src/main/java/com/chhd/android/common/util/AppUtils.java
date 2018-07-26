@@ -11,7 +11,6 @@ import java.util.List;
  *
  * @author : 葱花滑蛋 (2018/7/20)
  */
-
 public class AppUtils {
 
     private AppUtils() {
@@ -33,12 +32,12 @@ public class AppUtils {
 
     /* -------------------------- 获取App名字 -------------------------- */
 
-    public static String getAppName() {
-        return getAppName(getPackageName());
+    public static String getName() {
+        return getName(getPackageName());
     }
 
 
-    public static String getAppName(String packageName) {
+    public static String getName(String packageName) {
         try {
             PackageManager pm = getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
@@ -51,12 +50,12 @@ public class AppUtils {
 
     /* -------------------------- 获取App版本名称 -------------------------- */
 
-    public static String getAppVersionName() {
-        return getAppVersionName(getPackageName());
+    public static String getVersionName() {
+        return getVersionName(getPackageName());
     }
 
 
-    public static String getAppVersionName(String packageName) {
+    public static String getVersionName(String packageName) {
         try {
             PackageManager pm = getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
@@ -69,11 +68,11 @@ public class AppUtils {
 
     /* -------------------------- 获取App版本号 -------------------------- */
 
-    public static int getAppVersionCode() {
-        return getAppVersionCode(getPackageName());
+    public static int getVersionCode() {
+        return getVersionCode(getPackageName());
     }
 
-    public static int getAppVersionCode(String packageName) {
+    public static int getVersionCode(String packageName) {
         try {
             PackageManager pm = getPackageManager();
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
@@ -84,7 +83,7 @@ public class AppUtils {
         return -1;
     }
 
-    public static boolean isAppInstalled(String appPackageName) {
+    public static boolean isInstalled(String appPackageName) {
         PackageManager packageManager = getPackageManager();
         List<PackageInfo> packageInfoList = packageManager.getInstalledPackages(0);
         if (packageInfoList != null) {

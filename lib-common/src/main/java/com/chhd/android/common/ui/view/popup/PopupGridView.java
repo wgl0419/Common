@@ -26,7 +26,6 @@ import java.util.List;
  *
  * @author : 葱花滑蛋 (2018/7/3)
  */
-
 public class PopupGridView<T> extends Popup<T> {
 
     private int bgColor = INVALID;

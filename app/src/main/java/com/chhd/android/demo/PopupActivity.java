@@ -1,10 +1,12 @@
 package com.chhd.android.demo;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
-import com.chhd.android.common.ui.activity.base.toolbar.ToolbarActivity;
+import com.chhd.android.common.ui.activity.ToolbarActivity;
 import com.chhd.android.common.ui.view.popup.Popup;
 import com.chhd.android.common.ui.view.popup.PopupGridView;
 import com.chhd.android.common.ui.view.popup.PopupListView;
@@ -54,19 +56,15 @@ public class PopupActivity extends ToolbarActivity {
                 .setItems(userList)
                 .setCheck(user)
                 .setSpacing(8, 16)
-                .setOnItemClickListener(new Popup.OnItemClickListener<User>() {
+                .setOnItemClickListener(new Popup.OnItemClickListener() {
 
                     @Override
-                    public void onItemClick(PopupWindow popup, User o, int position) {
-                        PopupActivity.this.user = o;
-                        ToastUtils.show(o.getName() + "");
+                    public void onItemClick(PopupWindow popup, View view, int position) {
                     }
                 })
-                .setOnItemChildClickListener(new Popup.OnItemChildClickListener<User>() {
+                .setOnItemChildClickListener(new Popup.OnItemChildClickListener() {
                     @Override
-                    public void onItemChildClick(PopupWindow popup, User o, int position) {
-                        PopupActivity.this.user = o;
-                        ToastUtils.show(o.getName() + "");
+                    public void onItemChildClick(PopupWindow popup, View view, int position) {
                     }
                 })
                 .show(v);
@@ -77,27 +75,40 @@ public class PopupActivity extends ToolbarActivity {
     private void show(View v) {
         new PopupListView
                 .Builder(this)
-                .setItems(userList)
-                .setCheck(user)
-                .setOnItemClickListener(new Popup.OnItemClickListener<User>() {
+                .setItems(new DefAdapter(userList))
+                .setOnItemClickListener(new Popup.OnItemClickListener() {
 
                     @Override
-                    public void onItemClick(PopupWindow popup, User o, int position) {
-                        PopupActivity.this.user = o;
-                        ToastUtils.show(o.getName() + "");
+                    public void onItemClick(PopupWindow popup, View view, int position) {
+                        ToastUtils.show("onItemClick: " + view);
                     }
                 })
-                .setOnItemChildClickListener(new Popup.OnItemChildClickListener<User>() {
+                .setOnItemChildClickListener(new Popup.OnItemChildClickListener() {
                     @Override
-                    public void onItemChildClick(PopupWindow popup, User o, int position) {
-                        PopupActivity.this.user = o;
-                        ToastUtils.show(o.getName() + "");
+                    public void onItemChildClick(PopupWindow popup, View view, int position) {
+                        ToastUtils.show("onItemChildClick: " + view);
                     }
                 })
                 .show(v);
     }
 
-    public static class User {
+    private static class DefAdapter extends Popup.ListAdapter {
+
+        public DefAdapter(List itemList) {
+            super(itemList);
+        }
+
+        @Override
+        public View convert(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(context)
+                        .inflate(R.layout.item_list_text, parent, false);
+            }
+            return convertView;
+        }
+    }
+
+    private static class User {
 
         private String id;
 

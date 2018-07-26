@@ -1,22 +1,17 @@
-package com.chhd.android.common.ui.activity.base;
+package com.chhd.android.common.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chhd.android.common.R;
-import com.chhd.android.common.entity.BaseListData;
 import com.chhd.android.common.global.Constant;
-
-import java.util.List;
 
 /**
  * 下拉刷新界面，不带Toolbar
  *
  * @author : 葱花滑蛋 (2018/03/13)
  */
-
 public abstract class PullToRefreshActivity<Adapter extends BaseQuickAdapter, Entity>
         extends ListActivity<Adapter, Entity> {
 
