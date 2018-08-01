@@ -1,5 +1,6 @@
 package com.chhd.android.demo;
 
+import com.blankj.utilcode.util.Utils;
 import com.chhd.android.common.global.BaseApplication;
 
 /**
@@ -11,5 +12,7 @@ public class App extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Utils.init(this);
     }
 }

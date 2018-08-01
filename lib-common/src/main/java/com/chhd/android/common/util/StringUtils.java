@@ -31,7 +31,7 @@ public class StringUtils {
     }
 
     public static boolean isBlank(CharSequence charSequence) {
-        return isEmpty(charSequence.toString().trim());
+        return charSequence == null || isEmpty(charSequence.toString().trim());
     }
 
     public static boolean isBlank(TextView textView) {

@@ -3,9 +3,11 @@ package com.chhd.android.demo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 
+import com.blankj.utilcode.util.DeviceUtils;
+import com.blankj.utilcode.util.Utils;
 import com.chhd.android.common.ui.activity.ToolbarActivity;
 
 
@@ -15,6 +17,14 @@ public class MainActivity extends ToolbarActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findViewById(R.id.btn_compound).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, CompoundActivity.class);
+                startActivity(intent);
+            }
+        });
 
         findViewById(R.id.btn_sp_utils).setOnClickListener(new View.OnClickListener() {
             @Override

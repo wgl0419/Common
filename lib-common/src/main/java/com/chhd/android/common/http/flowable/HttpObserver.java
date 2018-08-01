@@ -28,7 +28,9 @@ public abstract class HttpObserver<T> extends ResourceSubscriber<T> {
     private boolean hasNext;
     private boolean hasError;
 
-    private T t;
+    protected int code = -Integer.MAX_VALUE;
+    protected String message;
+    protected T t;
 
     @Override
     protected final void onStart() {
@@ -74,25 +76,23 @@ public abstract class HttpObserver<T> extends ResourceSubscriber<T> {
 
         hasError = true;
 
-        String errMsg;
         if (e instanceof ApiException) {
             ApiException apiException = (ApiException) e;
-            errMsg = apiException.getErrMsg();
-            onApiException(
-                    apiException.getCode(),
-                    apiException.getErrMsg(),
-                    apiException.<T>getData());
+            code = apiException.getCode();
+            message = apiException.getErrMsg();
+            t = apiException.getData();
+            onApiException(code, message, t);
         } else if (
                 e instanceof TimeoutException ||
                         e instanceof SocketTimeoutException ||
                         e instanceof UnknownHostException) {
-            errMsg = "网络连接失败";
+            message = "网络连接失败";
         } else {
-            errMsg = "出错了";
+            message = "出错了";
         }
 
         if (pageView != null) {
-            pageView.onPageError(errMsg);
+            pageView.onPageError(message);
             pageView.onPageComplete();
         } else {
             if (dialog != null && dialog.isShowing()) {
@@ -100,9 +100,9 @@ public abstract class HttpObserver<T> extends ResourceSubscriber<T> {
             }
         }
         if (showToast()) {
-            ToastUtils.show(errMsg);
+            ToastUtils.show(message);
         }
-        onFailed(e, errMsg);
+        onFailed(e, message);
         onFinish();
     }
 

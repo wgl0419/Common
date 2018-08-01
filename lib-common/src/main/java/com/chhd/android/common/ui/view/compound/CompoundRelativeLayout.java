@@ -14,13 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 应用于有CompoundButton子类的ViewGroup，点击ViewGroup控制CompoundButton开关，
- * 父View加上android:clickable="true"，子ViewCompound加上属性：android:tag="compound"
+ * 应用于有CompoundButton子View的ViewGroup，点击ViewGroup控制CompoundButton开关
  *
  * @author : 葱花滑蛋 (2018/03/12)
  */
 public class CompoundRelativeLayout extends RelativeLayout implements ViewTreeObserver.OnGlobalLayoutListener
         , View.OnClickListener {
+
+    private List<CompoundButton> checkList = new ArrayList<>();
 
     private CompoundButton compoundButton;
     private OnCompoundClickListener onCompoundClickListener;
@@ -53,7 +54,7 @@ public class CompoundRelativeLayout extends RelativeLayout implements ViewTreeOb
     @Override
     public void onGlobalLayout() {
         getViewTreeObserver().removeGlobalOnLayoutListener(this);
-        compoundButton = findViewWithTag("compound");
+        compoundButton = getCompoundButton();
         if (isClickable()) {
             setOnClickListener(this);
         } else {
@@ -70,16 +71,12 @@ public class CompoundRelativeLayout extends RelativeLayout implements ViewTreeOb
     }
 
     public boolean isChecked() {
-        if (compoundButton == null) {
-            compoundButton = findViewWithTag("compound");
-        }
+        compoundButton = getCompoundButton();
         return compoundButton.isChecked();
     }
 
     public void setChecked(boolean isChecked) {
-        if (compoundButton == null) {
-            compoundButton = findViewWithTag("compound");
-        }
+        compoundButton = getCompoundButton();
         compoundButton.setChecked(isChecked);
     }
 
@@ -96,5 +93,35 @@ public class CompoundRelativeLayout extends RelativeLayout implements ViewTreeOb
          * @param isChecked      isChecked
          */
         void onCompoundClick(CompoundButton compoundButton, boolean isChecked);
+    }
+
+    private CompoundButton getCompoundButton() {
+        if (compoundButton == null) {
+            checkList.clear();
+            findCompoundButton(this);
+            if (checkList.isEmpty() || checkList.size() > 1) {
+                throw new RuntimeException("ViewGroup must have one CompoundButton, " +
+                        "and count can not more than one");
+            }
+            compoundButton = checkList.get(0);
+        }
+        return compoundButton;
+    }
+
+    private void findCompoundButton(View parent) {
+        if (parent == null) {
+            return;
+        }
+        if (parent instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) parent;
+            int childCount = viewGroup.getChildCount();
+            for (int i = childCount - 1; i >= 0; i--) {
+                View child = viewGroup.getChildAt(i);
+                findCompoundButton(child);
+            }
+        }
+        if (parent instanceof CompoundButton) {
+            checkList.add((CompoundButton) parent);
+        }
     }
 }

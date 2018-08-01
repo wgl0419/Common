@@ -4,9 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.google.gson.Gson;
-
-import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * SpUtils
@@ -122,27 +120,27 @@ public class SpUtils {
 
     public static <T> T get(String key, Class<T> clazz, T defValue) {
         String json = getSharedPreferences().getString(key, "");
-        T value = new Gson().fromJson(json, clazz);
+        T value = JsonUtils.parse(json, clazz);
         if (value == null) {
             value = defValue;
         }
         return value;
     }
 
-    public static <T> T get(String key, Type type) {
-        return get(key, type, null);
+    public static <T> List<T> getList(String key, final Class<T> clazz) {
+        return getList(key, clazz, null);
     }
 
-    public static <T> T get(String key, Type type, T defValue) {
+    public static <T> List<T> getList(String key, final Class<T> clazz, List<T> defValue) {
         String json = getSharedPreferences().getString(key, "");
-        T value = new Gson().fromJson(json, type);
-        if (value == null) {
-            value = defValue;
+        List<T> list = JsonUtils.parseList(json, clazz);
+        if (list == null) {
+            return defValue;
         }
-        return value;
+        return list;
     }
 
     public static <T> void put(String key, T value) {
-        getSharedPreferences().edit().putString(key, new Gson().toJson(value)).commit();
+        getSharedPreferences().edit().putString(key, JsonUtils.toJson(value)).commit();
     }
 }

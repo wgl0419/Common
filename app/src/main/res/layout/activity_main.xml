@@ -7,7 +7,6 @@
     android:orientation="vertical"
     tools:context="com.chhd.android.demo.MainActivity">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -16,6 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_compound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="compound" />
 
             <Button
                 android:id="@+id/btn_sp_utils"
