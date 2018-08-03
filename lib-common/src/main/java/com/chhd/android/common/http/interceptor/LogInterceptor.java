@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.Headers;
@@ -32,48 +33,48 @@ public class LogInterceptor implements Interceptor {
 
     private final Charset UTF8 = Charset.forName("UTF-8");
     private final String TAG = LogInterceptor.class.getSimpleName();
-    private final int MAX_LEN = 4000;
 
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-        log(chain);
-        return chain.proceed(request);
-    }
-
-    private void log(Chain chain) {
+        Response response = null;
+        Exception ex = null;
+        long startNs = System.nanoTime();
         try {
-            Request request = chain.request();
-            Response response = null;
-            Exception ex = null;
-            try {
-                response = chain.proceed(request);
-            } catch (Exception e) {
-                ex = e;
-            }
-            StringBuilder builder = new StringBuilder();
-            builder.append("\n<-- ").append(request.method()).append("\n");
-            builder.append("url:\t\t").append(request.url()).append("\n");
-            builder.append(buildHeadersLog(request));
-            builder.append(buildParamsLog(request));
-            if (response == null) {
-                builder.append(ex);
-                builder.append("\n<-- END ").append(request.method()).append("\n");
-                ignoreLimitLog(Log.ERROR, builder.toString());
-            } else {
-                builder.append(buildResultLog(response));
-                builder.append("\n<-- END ").append(request.method()).append("\n");
-                ignoreLimitLog(Log.DEBUG, builder.toString());
-            }
+            response = chain.proceed(request);
         } catch (Exception e) {
-            e.printStackTrace();
+            ex = e;
+            throw e;
+        } finally {
+            long tookMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNs);
+            try {
+                StringBuilder builder = new StringBuilder();
+                builder.append("\n<-- ").append(request.method())
+                        .append(" (").append(tookMs).append("ms)").append("\n");
+                builder.append("url:\t\t").append(request.url()).append("\n");
+                builder.append(buildHeadersLog(request));
+                builder.append(buildParamsLog(request));
+                if (response == null) {
+                    builder.append(ex);
+                    builder.append("\n<-- END ").append(request.method()).append("\n");
+                    ignoreLimitLog(Log.ERROR, builder.toString());
+                } else {
+                    builder.append(buildResultLog(response));
+                    builder.append("\n<-- END ").append(request.method()).append("\n");
+                    ignoreLimitLog(Log.DEBUG, builder.toString());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        return response;
     }
 
     private void ignoreLimitLog(int priority, String msg) {
         while (!msg.isEmpty()) {
-            int lastNewLine = msg.lastIndexOf('\n', MAX_LEN);
-            int nextEnd = lastNewLine != -1 ? lastNewLine : Math.min(MAX_LEN, msg.length());
+            int maxLen = 4000;
+            int lastNewLine = msg.lastIndexOf('\n', maxLen);
+            int nextEnd = lastNewLine != -1 ? lastNewLine : Math.min(maxLen, msg.length());
             String next = msg.substring(0, nextEnd);
             Log.println(priority, TAG, next);
             if (lastNewLine != -1) {

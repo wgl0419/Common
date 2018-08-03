@@ -8,6 +8,7 @@ import java.util.Map;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -19,6 +20,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  * @author : 葱花滑蛋 (2018/03/12)
  */
 public class RetrofitProvider {
+
+    private static final HttpLoggingInterceptor HTTP_LOGGING_INTERCEPTOR = new HttpLoggingInterceptor()
+            .setLevel(HttpLoggingInterceptor.Level.BODY);
 
     /**
      * 生成Retrofit对象
@@ -49,12 +53,12 @@ public class RetrofitProvider {
 
     private static OkHttpClient buildOkHttpClient(Map<String, String> headers) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                .addNetworkInterceptor(new StethoInterceptor())
                 .retryOnConnectionFailure(false);
         if (headers != null && !headers.isEmpty()) {
             builder.addInterceptor(buildParamsInterceptor(headers));
         }
         builder.addInterceptor(new LogInterceptor());
+        builder.addNetworkInterceptor(new StethoInterceptor());
         return builder.build();
     }
 

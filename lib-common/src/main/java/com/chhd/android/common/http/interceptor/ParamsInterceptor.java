@@ -1,10 +1,12 @@
 package com.chhd.android.common.http.interceptor;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -34,7 +36,8 @@ public class ParamsInterceptor implements Interceptor {
             }
         }
         Request request = builder.build();
-        return chain.proceed(request);
+        Response response = chain.proceed(request);
+        return response;
     }
 
     public static class Builder {
