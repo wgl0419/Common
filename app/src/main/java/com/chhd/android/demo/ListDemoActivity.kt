@@ -2,6 +2,8 @@ package com.chhd.android.demo
 
 import android.os.Bundle
 import android.widget.TextView
+import com.blankj.utilcode.constant.PermissionConstants
+import com.blankj.utilcode.util.PermissionUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chhd.android.common.entity.BaseListData
@@ -14,9 +16,12 @@ import com.chhd.android.common.mvp.IPageView
 import com.chhd.android.common.ui.activity.toolbar.PullToRefreshActivity
 import io.reactivex.Flowable
 import kotlinx.android.synthetic.main.activity_list_demo.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Retrofit
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
+import java.io.File
 
 class ListDemoActivity : PullToRefreshActivity<ListDemoActivity.ListAdapter, ListDemoActivity.Entity>() {
 
@@ -32,12 +37,22 @@ class ListDemoActivity : PullToRefreshActivity<ListDemoActivity.ListAdapter, Lis
         float_button.setOnClickListener {
             refresh()
         }
+
+        PermissionUtils.permission(PermissionConstants.STORAGE)
+                .request()
+    }
+
+    override fun isAutoLoad(): Boolean {
+        return false
     }
 
     override fun onLoad(isLoadMore: Boolean) {
+        val file = File("/storage/emulated/0/DCIM/20180802_164640878_0b531c7b5d8e04f48de90ec1f4a6c83a.jpg")
+        val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+        val part = MultipartBody.Part.createFormData("file", file.getName(), requestFile)
         retrofit()
                 .create(Api::class.java)
-                .getList(listData.getPageStart(isLoadMore), 10)
+                .getList(listData.getPageStart(isLoadMore), "10", part)
                 .compose(RxHelper.ioMainThread())
                 .compose(ResponseTransformer.transform())
                 .compose(this.bindUntilDestroy())
@@ -69,15 +84,24 @@ class ListDemoActivity : PullToRefreshActivity<ListDemoActivity.ListAdapter, Lis
 
     interface Api {
 
-        @GET("sell/index?state=&custom_id=&shop_id=&warehouse_id=5&create_user_id=&order_no=&delivery_status=2&begin_date=2018-06-25&end_date=")
-        fun getList(@Query("start") start: Int, @Query("limit") num: Int): Flowable<ResponseData<ListData<Entity>>>
+        @Multipart
+        @POST("sell/index")
+        fun getList(@Part("start") start: Int,
+                    @Part("limit") num: String,
+                    @Part part: MultipartBody.Part
+        ): Flowable<ResponseData<ListData<Entity>>>
+    }
+
+    class Body {
+
+        var start = 0
+        var limit = 10
     }
 
     class ListAdapter(data: List<Entity>?) : BaseQuickAdapter<Entity, BaseViewHolder>(R.layout.item_list_text, data) {
 
         override fun convert(helper: BaseViewHolder, item: Entity) {
-            val tv = helper.itemView as TextView
-            tv.text = item.title
+
         }
     }
 
@@ -87,7 +111,7 @@ class ListDemoActivity : PullToRefreshActivity<ListDemoActivity.ListAdapter, Lis
 
         private val msg: String? = null
 
-        private val result: T? = null
+        private val data: T? = null
 
         override fun getCode(): Int? {
             return code
@@ -98,7 +122,7 @@ class ListDemoActivity : PullToRefreshActivity<ListDemoActivity.ListAdapter, Lis
         }
 
         override fun getData(): T? {
-            return result
+            return data
         }
 
         override fun isSuccess(): Boolean? {

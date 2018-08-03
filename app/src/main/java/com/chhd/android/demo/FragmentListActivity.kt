@@ -97,8 +97,7 @@ class FragmentListActivity : ToolbarActivity() {
     class ListAdapter(data: List<Entity>?) : BaseQuickAdapter<Entity, BaseViewHolder>(R.layout.item_list_text, data) {
 
         override fun convert(helper: BaseViewHolder, item: Entity) {
-            val tv = helper.itemView as TextView
-            tv.text = item.title
+
         }
     }
 

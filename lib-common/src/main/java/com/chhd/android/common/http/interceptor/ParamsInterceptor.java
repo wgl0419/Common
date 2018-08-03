@@ -1,7 +1,6 @@
-package com.chhd.android.common.http;
+package com.chhd.android.common.http.interceptor;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -12,17 +11,17 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * 拦截请求参数
+ * 参数拦截器
  *
  * @author : 葱花滑蛋 (2018/03/12)
  */
-public class BasicParamsInterceptor implements Interceptor {
+public class ParamsInterceptor implements Interceptor {
 
     private final String TAG = this.getClass().getSimpleName();
 
     private Map<String, String> headers = new HashMap<>();
 
-    private BasicParamsInterceptor() {
+    private ParamsInterceptor() {
     }
 
     @Override
@@ -30,13 +29,9 @@ public class BasicParamsInterceptor implements Interceptor {
         Request original = chain.request();
         Request.Builder builder = original.newBuilder();
         if (!headers.isEmpty()) {
-            StringBuilder logBuilder = new StringBuilder();
-            logBuilder.append("Request Headers\r\n");
             for (Map.Entry<String, String> entry : headers.entrySet()) {
                 builder.header(entry.getKey(), entry.getValue());
-                logBuilder.append(entry.getKey() + " = " + entry.getValue() + "\r\n");
             }
-            Log.d(TAG, logBuilder.toString());
         }
         Request request = builder.build();
         return chain.proceed(request);
@@ -44,10 +39,10 @@ public class BasicParamsInterceptor implements Interceptor {
 
     public static class Builder {
 
-        private BasicParamsInterceptor interceptor;
+        private ParamsInterceptor interceptor;
 
         public Builder() {
-            interceptor = new BasicParamsInterceptor();
+            interceptor = new ParamsInterceptor();
         }
 
         public Builder addHeaderParam(String key, String value) {
@@ -60,7 +55,7 @@ public class BasicParamsInterceptor implements Interceptor {
             return this;
         }
 
-        public BasicParamsInterceptor build() {
+        public ParamsInterceptor build() {
             return interceptor;
         }
     }

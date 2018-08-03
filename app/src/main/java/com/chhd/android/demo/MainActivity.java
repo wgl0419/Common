@@ -50,7 +50,8 @@ public class MainActivity extends ToolbarActivity {
                 startActivity(intent);
             }
         });
-
+        Intent intent = new Intent(activity, ListDemoActivity.class);
+        startActivity(intent);
         findViewById(R.id.btn_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
