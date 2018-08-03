@@ -23,7 +23,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation project(':lib-common')
+    implementation project(':lib')
 //    implementation 'com.conghuahuadan.android:common:0.4.9.4'
     implementation 'com.blankj:utilcode:1.16.3'
 }
