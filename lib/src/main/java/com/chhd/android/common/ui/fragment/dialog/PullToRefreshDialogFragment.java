@@ -1,28 +1,23 @@
-package com.chhd.android.common.ui.activity;
+package com.chhd.android.common.ui.fragment.dialog;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chhd.android.common.R;
 import com.chhd.android.common.global.Const;
 
 /**
- * 下拉刷新界面，不带Toolbar
+ * PullToRefreshDialogFragment
  *
- * @author : 葱花滑蛋 (2018/03/13)
+ * @author : 葱花滑蛋 (2018/10/16)
  */
-public abstract class PullToRefreshActivity<Adapter extends BaseQuickAdapter, Entity>
-        extends ListActivity<Adapter, Entity> {
+public abstract class PullToRefreshDialogFragment<Adapter extends BaseQuickAdapter, Entity>
+        extends ListDialogFragment<Adapter, Entity> {
 
     protected SwipeRefreshLayout swipeRefreshLayout;
-
-    @Override
-    protected void onPrepareLoad() {
-        if (isAutoLoad()) {
-            refresh();
-        }
-    }
 
     @Override
     public void reLoad() {
@@ -41,16 +36,23 @@ public abstract class PullToRefreshActivity<Adapter extends BaseQuickAdapter, En
         }, 100);
     }
 
+
     protected int[] getColorSchemeResources() {
         return Const.SWIPE_REFRESH_LAYOUT_COLORS;
     }
 
+    @Override
+    protected void onPrepareLoad() {
+        if (this.isAutoLoad()) {
+            this.refresh();
+        }
+    }
 
     @Override
-    protected void onPrepare(Bundle savedInstanceState) {
-        super.onPrepare(savedInstanceState);
+    protected void onPrepare(View view, @Nullable Bundle savedInstanceState) {
+        super.onPrepare(view, savedInstanceState);
 
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         if (swipeRefreshLayout == null) {
             throw new NullPointerException("Layout must have one SwipeRefreshLayout, " +
                     "and id must set swipe_refresh_layout.");

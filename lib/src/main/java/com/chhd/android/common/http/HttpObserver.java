@@ -137,6 +137,7 @@ public abstract class HttpObserver<T> extends DisposableObserver<T> {
      * 请求成功
      *
      * @param t 服务端返回的实体类
+     * @throws Exception NONE
      */
     protected abstract void onSucceed(@Nullable T t) throws Exception;
 

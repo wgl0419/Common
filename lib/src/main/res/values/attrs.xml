@@ -19,7 +19,11 @@
     <attr name="actionBarElevation" format="dimension" />
 
     <declare-styleable name="ClearEditText">
-        <attr name="clearIcon" format="reference" />
+        <attr name="clearIcon" />
+    </declare-styleable>
+
+    <declare-styleable name="ClearTextView">
+        <attr name="clearIcon" />
     </declare-styleable>
 
 </resources>

@@ -112,6 +112,14 @@ public class SpUtils {
         getSharedPreferences().edit().putFloat(key, value).commit();
     }
 
+    public static void remove(String key) {
+        getSharedPreferences().edit().remove(key).commit();
+    }
+
+    public static void clear() {
+        getSharedPreferences().edit().clear().commit();
+    }
+
     /* -------------------------- 保存获取对象 -------------------------- */
 
     public static <T> T get(String key, Class<T> clazz) {

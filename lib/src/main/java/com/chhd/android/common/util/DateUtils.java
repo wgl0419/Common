@@ -5,10 +5,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import io.reactivex.functions.Function;
+
 /**
  * 日期工具类
  *
- * @author : 陈伟强 (2018/7/19)
+ * @author : 葱花滑蛋 (2018/7/19)
  */
 public class DateUtils {
 
@@ -90,10 +92,7 @@ public class DateUtils {
     }
 
     public static String getYesterday(String pattern) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, -1);
-        SimpleDateFormat format = new SimpleDateFormat(pattern, Locale.getDefault());
-        return format.format(calendar.getTime());
+        return getLastDays(1, pattern);
     }
 
     /**
@@ -161,6 +160,39 @@ public class DateUtils {
         calendar.setTime(new Date());
         calendar.add(Calendar.MONTH, -1);
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        SimpleDateFormat format = new SimpleDateFormat(pattern, Locale.getDefault());
+        return format.format(calendar.getTime());
+    }
+
+    /**
+     * 获取前7天日期
+     *
+     * @return 默认”yyyy-MM-dd“
+     */
+    public static String getLast7Days() {
+        return getLast7Days(PATTERN_DATE);
+    }
+
+    public static String getLast7Days(String pattern) {
+        return getLastDays(7, pattern);
+    }
+
+    /**
+     * 获取前30天日期
+     *
+     * @return 默认”yyyy-MM-dd“
+     */
+    public static String getLast30Days() {
+        return getLast30Days(PATTERN_DATE);
+    }
+
+    public static String getLast30Days(String pattern) {
+        return getLastDays(30, pattern);
+    }
+
+    private static String getLastDays(int days, String pattern) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -days);
         SimpleDateFormat format = new SimpleDateFormat(pattern, Locale.getDefault());
         return format.format(calendar.getTime());
     }

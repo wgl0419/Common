@@ -1,6 +1,9 @@
 package com.chhd.android.demo
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.TextView
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
@@ -42,31 +45,19 @@ class ListDemoActivity : PullToRefreshActivity<ListDemoActivity.ListAdapter, Lis
                 .request()
     }
 
-    override fun isAutoLoad(): Boolean {
-        return false
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+        super.onItemClick(adapter, view, position)
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onLoad(isLoadMore: Boolean) {
-        val file = File("/storage/emulated/0/DCIM/20180802_164640878_0b531c7b5d8e04f48de90ec1f4a6c83a.jpg")
-        val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-        val part = MultipartBody.Part.createFormData("file", file.getName(), requestFile)
-        retrofit()
-                .create(Api::class.java)
-                .getList(listData.getPageStart(isLoadMore), "10", part)
-                .compose(RxHelper.ioMainThread())
-                .compose(ResponseTransformer.transform())
-                .compose(this.bindUntilDestroy())
-                .subscribe(object : HttpObserver<ListData<Entity>>() {
-                    @Throws(Exception::class)
-                    override fun onSucceed(objectListData: ListData<Entity>?) {
-                        objectListData!!.setStart(listData.getPageStart(isLoadMore))
-                        onLoadSuccess(objectListData)
-                    }
-
-                    override fun showPageView(): IPageView {
-                        return this@ListDemoActivity
-                    }
-                })
+        val list = ArrayList<Entity>()
+        for (i in 0..3) {
+            list.add(Entity())
+        }
+//        onLoadSuccess(list)
+        adapter.setNewData(list)
     }
 
     override fun getToolbarTitle(): CharSequence {
@@ -87,8 +78,7 @@ class ListDemoActivity : PullToRefreshActivity<ListDemoActivity.ListAdapter, Lis
         @Multipart
         @POST("sell/index")
         fun getList(@Part("start") start: Int,
-                    @Part("limit") num: String,
-                    @Part part: MultipartBody.Part
+                    @Part("limit") num: String
         ): Flowable<ResponseData<ListData<Entity>>>
     }
 
@@ -101,7 +91,7 @@ class ListDemoActivity : PullToRefreshActivity<ListDemoActivity.ListAdapter, Lis
     class ListAdapter(data: List<Entity>?) : BaseQuickAdapter<Entity, BaseViewHolder>(R.layout.item_list_text, data) {
 
         override fun convert(helper: BaseViewHolder, item: Entity) {
-
+            helper.setText(R.id.tv_name, "" + helper.layoutPosition)
         }
     }
 

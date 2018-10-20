@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.fragment;
+package com.chhd.android.common.ui.fragment.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,17 +10,17 @@ import com.chhd.android.common.mvp.IBaseView;
 import com.chhd.android.common.util.CommonUtils;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.FragmentEvent;
-import com.trello.rxlifecycle2.components.support.RxFragment;
+import com.trello.rxlifecycle2.components.support.RxAppCompatDialogFragment;
+
 
 /**
- * BaseFragment
+ * BaseDialogFragment
  *
- * @author : 葱花滑蛋 (2018/03/12)
+ * @author : 葱花滑蛋 (2018/10/16)
  */
-public class BaseFragment extends RxFragment implements IBaseView {
+public class BaseDialogFragment extends RxAppCompatDialogFragment implements IBaseView {
 
     @Nullable
-    @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         CommonUtils.init(getActivity().getApplication());

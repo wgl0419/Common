@@ -32,10 +32,22 @@
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <Switch
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
             </FrameLayout>
         </LinearLayout>
     </com.chhd.android.common.ui.view.compound.CompoundLinearLayout>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:text="rb1"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
 </LinearLayout>

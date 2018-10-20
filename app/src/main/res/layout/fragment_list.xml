@@ -5,6 +5,11 @@
 
     <include layout="@layout/layout_pull_to_refresh" />
 
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/float_button"
         android:layout_width="wrap_content"

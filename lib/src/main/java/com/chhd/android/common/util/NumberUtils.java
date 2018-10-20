@@ -24,7 +24,7 @@ public class NumberUtils {
 
     public static int toInt(CharSequence value) {
         try {
-            if (!TextUtils.isEmpty(value)) {
+            if (StringUtils.isNotBlank(value)) {
                 if (value.toString().contains(".")) {
                     return (int) Double.parseDouble(value.toString());
                 } else {
@@ -36,11 +36,18 @@ public class NumberUtils {
         return 0;
     }
 
-    public static int toInt(TextView textView) {
-        if (textView == null) {
+    public static int toInt(TextView value) {
+        if (StringUtils.isBlank(value)) {
             return 0;
         }
-        return toInt(textView.getText());
+        return toInt(value.getText());
+    }
+
+    public static int toInt(Number value) {
+        if (value == null) {
+            return 0;
+        }
+        return value.intValue();
     }
 
     public static long toLong(CharSequence value) {
@@ -55,15 +62,22 @@ public class NumberUtils {
     }
 
     public static long toLong(TextView value) {
-        if (value == null) {
+        if (StringUtils.isBlank(value)) {
             return 0L;
         }
         return toLong(value.getText());
     }
 
+    public static long toLong(Number value) {
+        if (value == null) {
+            return 0;
+        }
+        return value.longValue();
+    }
+
     public static float toFloat(CharSequence value) {
         try {
-            if (!TextUtils.isEmpty(value)) {
+            if (StringUtils.isNotBlank(value)) {
                 return Float.parseFloat(value.toString());
             }
         } catch (Exception ignored) {
@@ -73,10 +87,17 @@ public class NumberUtils {
     }
 
     public static float toFloat(TextView value) {
-        if (value == null) {
+        if (StringUtils.isBlank(value)) {
             return 0f;
         }
         return toFloat(value.getText());
+    }
+
+    public static float toFloat(Number value) {
+        if (value == null) {
+            return 0;
+        }
+        return value.floatValue();
     }
 
     public static float toFloat(Float value, int scale) {
@@ -90,19 +111,26 @@ public class NumberUtils {
 
     public static double toDouble(CharSequence value) {
         try {
-            if (!TextUtils.isEmpty(value)) {
+            if (StringUtils.isNotBlank(value)) {
                 return Double.parseDouble(value.toString());
             }
         } catch (Exception ignored) {
         }
-        return 0.0;
+        return 0;
     }
 
     public static double toDouble(TextView value) {
-        if (value == null) {
-            return 0.0;
+        if (StringUtils.isBlank(value)) {
+            return 0;
         }
         return toDouble(value.getText());
+    }
+
+    public static double toDouble(Number value) {
+        if (value == null) {
+            return 0;
+        }
+        return value.doubleValue();
     }
 
     public static double toDouble(Double value, int scale) {
@@ -111,39 +139,50 @@ public class NumberUtils {
             return decimal.setScale(scale, BigDecimal.ROUND_HALF_UP).doubleValue();
         } catch (Exception ignored) {
         }
-        return 0.0;
+        return 0;
     }
 
     /* -------------------------- “数字”转“字符串” -------------------------- */
 
     public static String toString(CharSequence value, int scale) {
+        BigDecimal decimal;
         try {
             if (!TextUtils.isEmpty(value)) {
-                BigDecimal decimal = new BigDecimal(value.toString());
-                return decimal.setScale(scale, BigDecimal.ROUND_HALF_UP).toString();
+                decimal = new BigDecimal(value.toString());
+            } else {
+                decimal = new BigDecimal("0");
             }
         } catch (Exception ignored) {
+            decimal = new BigDecimal("0");
         }
-        BigDecimal decimal = new BigDecimal("0");
-        return decimal.setScale(scale, BigDecimal.ROUND_HALF_UP).toString();
+        if (scale >= 0) {
+            return decimal.setScale(scale, BigDecimal.ROUND_HALF_UP).toString();
+        } else {
+            if (decimal.doubleValue() == 0.0) {
+                return "0";
+            }
+            scale = Math.abs(scale);
+            return decimal.setScale(scale, BigDecimal.ROUND_HALF_UP)
+                    .stripTrailingZeros().toPlainString();
+        }
     }
 
     public static String toString(CharSequence value) {
-        if (value == null) {
+        if (StringUtils.isBlank(value)) {
             return "0";
         }
         return value.toString();
     }
 
     public static String toString(TextView value, int scale) {
-        if (value == null) {
-            return toString("", scale);
+        if (StringUtils.isBlank(value)) {
+            return toString("0", scale);
         }
         return toString(value.getText(), scale);
     }
 
     public static String toString(TextView value) {
-        if (value == null) {
+        if (StringUtils.isBlank(value)) {
             return "0";
         }
         return value.getText().toString();

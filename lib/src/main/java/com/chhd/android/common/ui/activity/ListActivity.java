@@ -21,7 +21,8 @@ import java.util.List;
  * @author : 葱花滑蛋 (2018/03/15)
  */
 public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> extends ProgressActivity
-        implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
+        implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener,
+        BaseQuickAdapter.OnItemLongClickListener, BaseQuickAdapter.OnItemChildLongClickListener  {
 
     private boolean isLoadMore = false;
 
@@ -83,17 +84,12 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
 
         adapter = getAdapter();
         adapter.openLoadAnimation();
-        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                onLoadMore();
-            }
-        }, recyclerView);
-        adapter.setEnableLoadMore(false);
         adapter.setHeaderFooterEmpty(true, true);
         adapter.setEmptyView(new View(this));
         adapter.setOnItemClickListener(this);
         adapter.setOnItemChildClickListener(this);
+        adapter.setOnItemClickListener(this);
+        adapter.setOnItemChildLongClickListener(this);
         layoutManager = getLayoutManager();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -109,9 +105,11 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
 
     @Override
     public void reLoad() {
-        hasLoadSuccess = false;
+        isLoadSuccess = false;
+        isLoadComplete = false;
         setLoadMore(false);
     }
+
     public void refresh() {
         setLoadMore(false);
     }
@@ -139,20 +137,26 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
      */
     public abstract void onLoad(boolean isLoadMore);
 
-    /**
-     * Item点击事件
-     */
+
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
     }
 
-    /**
-     * Item的子View点击事件
-     */
+
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 
+    }
+
+    @Override
+    public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+        return false;
+    }
+
+    @Override
+    public boolean onItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
+        return false;
     }
 
     @Override
@@ -177,12 +181,18 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
      * @param listData listData
      */
     protected void onLoadSuccess(BaseListData<Entity> listData) {
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                onLoadMore();
+            }
+        }, recyclerView);
         this.listData = listData;
         if (listData.getPageStart() == null || listData.getPageStart() == 0) {
             list.clear();
         }
         if (listData.getList() != null) {
-        list.addAll(listData.getList());
+            list.addAll(listData.getList());
         }
         adapter.notifyDataSetChanged();
 
@@ -198,6 +208,7 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
         } else {
             adapter.loadMoreEnd();
         }
+        isLoadComplete = true;
     }
 
     /**
@@ -217,6 +228,7 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
             onPageSuccess();
         }
         adapter.loadMoreEnd(true);
+        isLoadComplete = true;
     }
 
     protected void showListLoading() {
@@ -275,11 +287,17 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
         } else {
             adapter.loadMoreFail();
         }
+        isLoadComplete = true;
     }
 
     @Override
     public void onDestroy() {
         list.clear();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResumeLoad() {
+        setLoadMore(false);
     }
 }

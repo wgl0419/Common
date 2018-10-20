@@ -37,6 +37,8 @@ public abstract class ProgressActivity extends ToolbarActivity implements IPageV
     protected Button btnRetry;
     protected Button btnRefresh;
 
+    boolean isStopped = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +103,8 @@ public abstract class ProgressActivity extends ToolbarActivity implements IPageV
 
     /**
      * 初始化
+     *
+     * @param savedInstanceState NONE
      */
     protected abstract void onInit(@Nullable Bundle savedInstanceState);
 
@@ -114,6 +118,7 @@ public abstract class ProgressActivity extends ToolbarActivity implements IPageV
      */
     public void reLoad() {
         isLoadSuccess = false;
+        isLoadComplete = false;
         onLoad();
     }
 
@@ -188,5 +193,31 @@ public abstract class ProgressActivity extends ToolbarActivity implements IPageV
 
     protected boolean isLoadComplete() {
         return isLoadComplete;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (isAutoLoad() && isStopped && isLoadComplete() && isOpenResumeLoad()) {
+            onResumeLoad();
+        }
+    }
+
+    /**
+     * 可见并第一次加载完毕回调此方法
+     */
+    protected void onResumeLoad() {
+        onLoad();
+    }
+
+    protected boolean isOpenResumeLoad() {
+        return getResources().getBoolean(R.bool.resume_load);
+    }
+
+    @Override
+    protected void onStop() {
+        isStopped = true;
+        super.onStop();
     }
 }

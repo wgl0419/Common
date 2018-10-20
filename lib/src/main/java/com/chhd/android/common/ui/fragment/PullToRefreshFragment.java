@@ -1,11 +1,13 @@
 package com.chhd.android.common.ui.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chhd.android.common.R;
-import com.chhd.android.common.global.Constant;
+import com.chhd.android.common.global.Const;
 
 /**
  * 下拉刷新界面
@@ -19,7 +21,8 @@ public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, En
 
     @Override
     public void reLoad() {
-        hasLoadSuccess = false;
+        isLoadSuccess = false;
+        isLoadComplete = false;
         refresh();
     }
 
@@ -34,7 +37,7 @@ public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, En
     }
 
     protected int[] getColorSchemeResources() {
-        return Constant.SWIPE_REFRESH_LAYOUT_COLORS;
+        return Const.SWIPE_REFRESH_LAYOUT_COLORS;
     }
 
     @Override
@@ -45,8 +48,8 @@ public abstract class PullToRefreshFragment<Adapter extends BaseQuickAdapter, En
     }
 
     @Override
-    protected void onPrepare(View view) {
-        super.onPrepare(view);
+    protected void onPrepare(View view, @Nullable Bundle savedInstanceState) {
+        super.onPrepare(view, savedInstanceState);
 
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         if (swipeRefreshLayout == null) {

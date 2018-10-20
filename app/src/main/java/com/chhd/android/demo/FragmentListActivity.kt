@@ -17,11 +17,13 @@ import com.chhd.android.common.http.RxHelper
 import com.chhd.android.common.mvp.IPageView
 import com.chhd.android.common.ui.activity.ToolbarActivity
 import com.chhd.android.common.ui.adapter.FragmentAdapter
-import io.reactivex.Observable
+import io.reactivex.*
+import io.reactivex.internal.operators.flowable.FlowableOnBackpressureBuffer
 import kotlinx.android.synthetic.main.fragment_list.*
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.util.concurrent.TimeUnit
 
 class FragmentListActivity : ToolbarActivity() {
 
@@ -41,7 +43,7 @@ class FragmentListActivity : ToolbarActivity() {
         viewPager.adapter = FragmentAdapter(supportFragmentManager, list)
     }
 
-    class ListFragment : com.chhd.android.common.ui.fragment.ListFragment<ListAdapter, Entity>() {
+    class ListFragment : com.chhd.android.common.ui.fragment.PullToRefreshFragment<ListAdapter, Entity>() {
         override fun getAdapter(): ListAdapter {
             return ListAdapter(list)
         }
@@ -50,10 +52,14 @@ class FragmentListActivity : ToolbarActivity() {
             return R.layout.fragment_list
         }
 
+        override fun isAutoLoad(): Boolean {
+            return false
+        }
+
         override fun onLoad(isLoadMore: Boolean) {
             retrofit()
                     .create(Api::class.java)
-                    .getList(listData.getPageStart(isLoadMore), 10)
+                    .getList(listData.getPageStart(isLoadMore), 50)
                     .compose(RxHelper.ioMainThread())
                     .compose(ResponseTransformer.transform())
                     .compose(this.bindUntilDestroy())
@@ -68,9 +74,30 @@ class FragmentListActivity : ToolbarActivity() {
                             return this@ListFragment
                         }
                     })
+
+//            Observable
+//                    .timer(2000, TimeUnit.MILLISECONDS)
+//                    .flatMap { it ->
+//                        val list = ArrayList<Entity>()
+//                        for (i in 0..50) {
+//                            list.add(Entity())
+//                        }
+//                        Observable.just(list)
+//                    }
+//                    .compose(RxHelper.ioMainThread())
+//                    .compose(this.bindUntilDestroy())
+//                    .subscribe(object : HttpObserver<List<Entity>>() {
+//                        override fun onSucceed(t: List<Entity>?) {
+//                            onLoadSuccess(t)
+//                        }
+//
+//                        override fun showPageView(): IPageView {
+//                            return this@ListFragment
+//                        }
+//                    })
         }
 
-        override fun onInit(view: View?) {
+        override fun onInit(view: View?, savedInstanceState: Bundle?) {
             float_button.setOnClickListener {
                 refresh()
             }
@@ -97,7 +124,7 @@ class FragmentListActivity : ToolbarActivity() {
     class ListAdapter(data: List<Entity>?) : BaseQuickAdapter<Entity, BaseViewHolder>(R.layout.item_list_text, data) {
 
         override fun convert(helper: BaseViewHolder, item: Entity) {
-
+            helper.setText(R.id.tv_name, "" + helper.layoutPosition)
         }
     }
 

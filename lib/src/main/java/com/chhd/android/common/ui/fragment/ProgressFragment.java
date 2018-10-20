@@ -37,6 +37,8 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
     protected Button btnRetry;
     protected Button btnRefresh;
 
+    boolean isStopped = false;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,9 +49,9 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        onPrepare(view);
+        onPrepare(view, savedInstanceState);
 
-        onInit(view);
+        onInit(view, savedInstanceState);
 
         if (isAutoLoad()) {
             onLoad();
@@ -67,7 +69,7 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
      */
     protected abstract int getContentResId();
 
-    protected void onPrepare(View view) {
+    protected void onPrepare(View view, @Nullable Bundle savedInstanceState) {
         loadingView = view.findViewById(R.id.loading);
         errorView = view.findViewById(R.id.error);
         emptyView = view.findViewById(R.id.empty);
@@ -109,7 +111,7 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
      *
      * @param view 根布局
      */
-    protected abstract void onInit(View view);
+    protected abstract void onInit(View view, @Nullable Bundle savedInstanceState);
 
     /**
      * 加载
@@ -120,7 +122,8 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
      * 重新加载，带加载进度动画
      */
     public void reLoad() {
-        hasLoadSuccess = false;
+        isLoadSuccess = false;
+        isLoadComplete = false;
         onLoad();
     }
 
@@ -156,7 +159,7 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
      * 是否加载成功
      * 因为可能会在onResume方法中重新加载数据，如果已经时显示成功，则不再显示加载中、加载失败状态
      */
-    boolean hasLoadSuccess = false;
+    boolean isLoadSuccess = false;
 
     /**
      * 是否加载完毕
@@ -165,14 +168,14 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
 
     @Override
     public void onPageLoading() {
-        if (!hasLoadSuccess) {
+        if (!isLoadSuccess) {
             showLoadingView();
         }
     }
 
     @Override
     public void onPageSuccess() {
-        hasLoadSuccess = true;
+        isLoadSuccess = true;
         showContentView();
     }
 
@@ -183,7 +186,7 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
 
     @Override
     public void onPageError(String message) {
-        if (!hasLoadSuccess) {
+        if (!isLoadSuccess) {
             showErrorView(message);
         }
     }
@@ -195,5 +198,47 @@ public abstract class ProgressFragment extends BaseFragment implements IPageView
 
     protected boolean isLoadComplete() {
         return isLoadComplete;
+    }
+
+    @Override
+    public void onStop() {
+        isStopped = true;
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (isAutoLoad() && isStopped && isLoadComplete() && isOpenResumeLoad()) {
+            onResumeLoad();
+        }
+    }
+
+    /**
+     * 可见并第一次加载完毕回调此方法
+     */
+    protected void onResumeLoad() {
+        onLoad();
+    }
+
+    protected boolean isOpenResumeLoad() {
+        return getActivity().getResources().getBoolean(R.bool.resume_load);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (isAutoLoad() && isLoadComplete() && isOpenVisibleLoad() && !hidden) {
+            onVisibleLoad();
+        }
+    }
+
+    protected void onVisibleLoad() {
+        onLoad();
+    }
+
+    protected boolean isOpenVisibleLoad() {
+        return getActivity().getResources().getBoolean(R.bool.visible_load);
     }
 }

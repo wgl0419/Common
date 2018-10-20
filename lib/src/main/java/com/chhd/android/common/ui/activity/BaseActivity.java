@@ -25,6 +25,7 @@ import android.widget.EditText;
 
 import com.chhd.android.common.R;
 import com.chhd.android.common.mvp.IBaseView;
+import com.chhd.android.common.util.CommonUtils;
 import com.chhd.android.common.util.UiUtils;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -50,6 +51,8 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView, View
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CommonUtils.init(getApplication());
 
         activity = this;
 

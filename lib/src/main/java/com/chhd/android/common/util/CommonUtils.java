@@ -17,9 +17,10 @@ public class CommonUtils {
     }
 
     public static void init(Application application) {
-        instance = application;
-
-        Stetho.initializeWithDefaults(instance);
+        if (instance == null) {
+            instance = application;
+            Stetho.initializeWithDefaults(instance);
+        }
     }
 
     static Application getApplication() {

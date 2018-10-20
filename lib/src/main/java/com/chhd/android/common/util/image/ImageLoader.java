@@ -137,6 +137,8 @@ public class ImageLoader {
             requestBuilder.apply(RequestOptions.placeholderOf(placeholderId));
         } else if (config.getPlaceholderId() != 0) {
             requestBuilder.apply(RequestOptions.placeholderOf(config.getPlaceholderId()));
+        } else if (imageView.getDrawable() != null) {
+            requestBuilder.apply(RequestOptions.placeholderOf(imageView.getDrawable()));
         }
         if (errorId != 0) {
             requestBuilder.apply(RequestOptions.errorOf(errorId));

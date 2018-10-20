@@ -67,7 +67,7 @@ public class CompoundLinearLayout extends LinearLayout implements ViewTreeObserv
 
     @Override
     public void onClick(View view) {
-        compoundButton.setChecked(!compoundButton.isChecked());
+        compoundButton.toggle();
         if (onCompoundClickListener != null) {
             onCompoundClickListener.onCompoundClick(compoundButton, compoundButton.isChecked());
         }

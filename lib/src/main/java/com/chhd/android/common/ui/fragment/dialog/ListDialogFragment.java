@@ -1,4 +1,4 @@
-package com.chhd.android.common.ui.activity.toolbar;
+package com.chhd.android.common.ui.fragment.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,22 +11,22 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chhd.android.common.R;
 import com.chhd.android.common.entity.BaseListData;
-import com.chhd.android.common.ui.view.decoration.dp.SpaceItemDecoration;
+import com.chhd.android.common.mvp.IPageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 列表界面，带Toolbar
+ * ListDialogFragment
  *
- * @author : 葱花滑蛋 (2018/03/15)
+ * @author : 葱花滑蛋 (2018/10/16)
  */
-public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> extends ProgressActivity
-        implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener,
+public abstract class ListDialogFragment<Adapter extends BaseQuickAdapter, Entity> extends ProgressDialogFragment
+        implements IPageView,
+        BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener,
         BaseQuickAdapter.OnItemLongClickListener, BaseQuickAdapter.OnItemChildLongClickListener {
 
     private boolean isLoadMore = false;
-
     protected RecyclerView recyclerView;
 
     protected BaseListData listData = new BaseListData() {
@@ -58,26 +58,14 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
     protected abstract Adapter getAdapter();
 
     protected RecyclerView.LayoutManager getLayoutManager() {
-        return new LinearLayoutManager(this);
+        return new LinearLayoutManager(getActivity());
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        onPrepareLoad();
-    }
+    protected void onPrepare(View view, @Nullable Bundle savedInstanceState) {
+        super.onPrepare(view, savedInstanceState);
 
-    protected void onPrepareLoad() {
-        if (isAutoLoad()) {
-            setLoadMore(false);
-        }
-    }
-
-    @Override
-    protected void onPrepare(Bundle savedInstanceState) {
-        super.onPrepare(savedInstanceState);
-
-        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view);
         if (recyclerView == null) {
             throw new NullPointerException("Layout must have one RecyclerView, " +
                     "and id must set recycler_view.");
@@ -86,7 +74,7 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
         adapter = getAdapter();
         adapter.openLoadAnimation();
         adapter.setHeaderFooterEmpty(true, true);
-        adapter.setEmptyView(new View(this));
+        adapter.setEmptyView(new View(getActivity()));
         adapter.setOnItemClickListener(this);
         adapter.setOnItemChildClickListener(this);
         adapter.setOnItemLongClickListener(this);
@@ -96,6 +84,17 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        onPrepareLoad();
+    }
+
+    protected void onPrepareLoad() {
+        if (isAutoLoad()) {
+            setLoadMore(false);
+        }
+    }
 
     /**
      * 加载
@@ -175,7 +174,6 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
         onLoadError(message);
     }
 
-
     /**
      * 加载列表成功
      *
@@ -192,7 +190,6 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
         if (listData.getPageStart() == null || listData.getPageStart() == 0) {
             list.clear();
         }
-
         if (listData.getList() != null) {
             list.addAll(listData.getList());
         }
@@ -229,12 +226,13 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
         } else {
             onPageSuccess();
         }
+
         adapter.loadMoreEnd(true);
         isLoadComplete = true;
     }
 
     protected void showListLoading() {
-        View loadingView = View.inflate(this, R.layout.layout_loading, null);
+        View loadingView = View.inflate(getActivity(), R.layout.layout_loading, null);
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
                 RecyclerView.LayoutParams.WRAP_CONTENT);
         loadingView.setLayoutParams(params);
@@ -246,7 +244,7 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
      * 显示列表空布局
      */
     protected void showListEmpty() {
-        View emptyView = View.inflate(this, R.layout.layout_empty, null);
+        View emptyView = View.inflate(getActivity(), R.layout.layout_empty, null);
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
                 RecyclerView.LayoutParams.WRAP_CONTENT);
         emptyView.setLayoutParams(params);
@@ -260,7 +258,7 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
      * @param message 服务端返回的错误信息
      */
     protected void showListError(String message) {
-        View errorView = View.inflate(this, R.layout.layout_error, null);
+        View errorView = View.inflate(getActivity(), R.layout.layout_error, null);
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
                 RecyclerView.LayoutParams.WRAP_CONTENT);
         errorView.setLayoutParams(params);
@@ -297,10 +295,4 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
         list.clear();
         super.onDestroy();
     }
-
-    @Override
-    protected void onResumeLoad() {
-        setLoadMore(false);
-    }
-
 }

@@ -7,9 +7,9 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * Gson工具类
+ * Json工具类
  *
- * @author : 陈伟强 (2018/7/27)
+ * @author : 葱花滑蛋 (2018/7/27)
  */
 public class JsonUtils {
 

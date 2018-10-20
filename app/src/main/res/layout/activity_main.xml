@@ -17,6 +17,12 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/btn_fragment_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="fragment_tab" />
+
+            <Button
                 android:id="@+id/btn_compound"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

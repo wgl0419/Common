@@ -13,25 +13,27 @@ import android.view.MotionEvent;
 
 import com.chhd.android.common.R;
 
+
 /**
- * 带清除按钮的输入框
+ * 带清除按钮的文本框
  *
- * @author : 葱花滑蛋 (2018/5/25)
+ * @author : 葱花滑蛋 (2018/9/11)
  */
-public class ClearEditText extends android.support.v7.widget.AppCompatEditText
+public class ClearTextView extends android.support.v7.widget.AppCompatTextView
         implements TextWatcher {
+
 
     private final String TAG = this.getClass().getSimpleName();
 
-    public ClearEditText(Context context) {
+    public ClearTextView(Context context) {
         this(context, null);
     }
 
-    public ClearEditText(Context context, AttributeSet attrs) {
-        this(context, attrs, android.support.v7.appcompat.R.attr.editTextStyle);
+    public ClearTextView(Context context, AttributeSet attrs) {
+        this(context, attrs, android.R.attr.textViewStyle);
     }
 
-    public ClearEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ClearTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
@@ -41,7 +43,7 @@ public class ClearEditText extends android.support.v7.widget.AppCompatEditText
     private void init(Context context, AttributeSet attrs) {
         addTextChangedListener(this);
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ClearEditText);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ClearTextView);
         iconId = typedArray.getResourceId(R.styleable.ClearEditText_clearIcon,
                 R.drawable.ic_clear_gray_16dp);
         typedArray.recycle();

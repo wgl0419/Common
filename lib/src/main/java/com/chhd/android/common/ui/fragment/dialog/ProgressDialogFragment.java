@@ -1,9 +1,10 @@
-package com.chhd.android.common.ui.activity;
+package com.chhd.android.common.ui.fragment.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -15,14 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 进度界面，不带Toolbar
+ * ProgressDialogFragment
  *
- * @author : 葱花滑蛋 (2018/03/13)
+ * @author : 葱花滑蛋 (2018/10/16)
  */
-public abstract class ProgressActivity extends BaseActivity implements IPageView {
+public abstract class ProgressDialogFragment extends BaseDialogFragment implements IPageView {
 
     protected IPageView pageView = this;
-
     protected List<View> viewList = new ArrayList<>();
 
     protected View loadingView;
@@ -38,14 +38,19 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
 
     boolean isStopped = false;
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_progress);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_progress, container, false);
+    }
 
-        onPrepare(savedInstanceState);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        onInit(savedInstanceState);
+        onPrepare(view, savedInstanceState);
+
+        onInit(view, savedInstanceState);
 
         if (isAutoLoad()) {
             onLoad();
@@ -63,17 +68,17 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
      */
     protected abstract int getContentResId();
 
-    protected void onPrepare(Bundle savedInstanceState) {
-        loadingView = findViewById(R.id.loading);
-        errorView = findViewById(R.id.error);
-        emptyView = findViewById(R.id.empty);
-        contentView = findViewById(R.id.content);
+    protected void onPrepare(View view, @Nullable Bundle savedInstanceState) {
+        loadingView = view.findViewById(R.id.loading);
+        errorView = view.findViewById(R.id.error);
+        emptyView = view.findViewById(R.id.empty);
+        contentView = view.findViewById(R.id.content);
 
-        tvError = findViewById(R.id.tv_error);
-        tvEmpty = findViewById(R.id.tv_empty);
+        tvError = view.findViewById(R.id.tv_error);
+        tvEmpty = view.findViewById(R.id.tv_empty);
 
-        btnRetry = findViewById(R.id.btn_retry);
-        btnRefresh = findViewById(R.id.btn_refresh);
+        btnRetry = view.findViewById(R.id.btn_retry);
+        btnRefresh = view.findViewById(R.id.btn_refresh);
 
         viewList.add(loadingView);
         viewList.add(errorView);
@@ -83,7 +88,7 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
         showContentView();
 
         if (getContentResId() != 0) {
-            LayoutInflater.from(this).inflate(getContentResId(), contentView, true);
+            LayoutInflater.from(getActivity()).inflate(getContentResId(), contentView, true);
         }
 
         btnRetry.setOnClickListener(new View.OnClickListener() {
@@ -103,9 +108,9 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
     /**
      * 初始化
      *
-     * @param savedInstanceState NONE
+     * @param view 根布局
      */
-    protected abstract void onInit(@Nullable Bundle savedInstanceState);
+    protected abstract void onInit(View view, @Nullable Bundle savedInstanceState);
 
     /**
      * 加载
@@ -130,6 +135,7 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
             }
         }
     }
+
 
     public void showLoadingView() {
         showStatusView(R.id.loading);
@@ -194,10 +200,15 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
     }
 
     @Override
+    public void onStop() {
+        isStopped = true;
+        super.onStop();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
-
-        if (isAutoLoad() && isAutoLoad() && isStopped && isLoadComplete() && isOpenResumeLoad()) {
+        if (isAutoLoad() && isStopped && isLoadComplete() && isOpenResumeLoad()) {
             onResumeLoad();
         }
     }
@@ -210,12 +221,6 @@ public abstract class ProgressActivity extends BaseActivity implements IPageView
     }
 
     protected boolean isOpenResumeLoad() {
-        return getResources().getBoolean(R.bool.resume_load);
-    }
-
-    @Override
-    protected void onStop() {
-        isStopped = true;
-        super.onStop();
+        return getActivity().getResources().getBoolean(R.bool.resume_load);
     }
 }

@@ -1,5 +1,7 @@
 package com.chhd.android.common.ui.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,7 +21,8 @@ import java.util.List;
  * @author : 葱花滑蛋 (2018/03/15)
  */
 public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> extends LazyFragment
-        implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
+        implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener,
+        BaseQuickAdapter.OnItemLongClickListener, BaseQuickAdapter.OnItemChildLongClickListener {
 
     private boolean isLoadMore = false;
 
@@ -58,8 +61,8 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
     }
 
     @Override
-    protected void onPrepare(View view) {
-        super.onPrepare(view);
+    protected void onPrepare(View view, @Nullable Bundle savedInstanceState) {
+        super.onPrepare(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.recycler_view);
         if (recyclerView == null) {
@@ -69,17 +72,12 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
 
         adapter = getAdapter();
         adapter.openLoadAnimation();
-        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                onLoadMore();
-            }
-        }, recyclerView);
-        adapter.setEnableLoadMore(false);
         adapter.setHeaderFooterEmpty(true, true);
         adapter.setEmptyView(new View(getActivity()));
         adapter.setOnItemClickListener(this);
         adapter.setOnItemChildClickListener(this);
+        adapter.setOnItemLongClickListener(this);
+        adapter.setOnItemChildLongClickListener(this);
         layoutManager = getLayoutManager();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -97,7 +95,8 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
 
     @Override
     public void reLoad() {
-        hasLoadSuccess = false;
+        isLoadSuccess = false;
+        isLoadComplete = false;
         setLoadMore(false);
     }
 
@@ -128,20 +127,26 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
      */
     public abstract void onLoad(boolean isLoadMore);
 
-    /**
-     * Item点击事件
-     */
+
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
     }
 
-    /**
-     * Item的子View点击事件
-     */
+
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 
+    }
+
+    @Override
+    public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+        return false;
+    }
+
+    @Override
+    public boolean onItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
+        return false;
     }
 
     @Override
@@ -166,6 +171,12 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
      * @param listData listData
      */
     protected void onLoadSuccess(BaseListData<Entity> listData) {
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                onLoadMore();
+            }
+        }, recyclerView);
         this.listData = listData;
         if (listData.getPageStart() == null || listData.getPageStart() == 0) {
             list.clear();
@@ -188,6 +199,7 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
         } else {
             adapter.loadMoreEnd();
         }
+        isLoadComplete = true;
     }
 
     /**
@@ -207,6 +219,7 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
             onPageSuccess();
         }
         adapter.loadMoreEnd(true);
+        isLoadComplete = true;
     }
 
     protected void showListLoading() {
@@ -265,6 +278,7 @@ public abstract class ListFragment<Adapter extends BaseQuickAdapter, Entity> ext
         } else {
             adapter.loadMoreFail();
         }
+        isLoadComplete = true;
     }
 
     @Override

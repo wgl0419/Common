@@ -32,7 +32,8 @@
         <activity android:name=".ProgressDemoActivity" />
         <activity android:name=".FragmentListActivity" />
         <activity android:name=".SpUtilsActivity" />
-        <activity android:name=".CompoundActivity"></activity>
+        <activity android:name=".CompoundActivity" />
+        <activity android:name=".FragmentTabActivity"></activity>
     </application>
 
 </manifest>

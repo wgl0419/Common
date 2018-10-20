@@ -5,7 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chhd.android.common.R;
-import com.chhd.android.common.global.Constant;
+import com.chhd.android.common.global.Const;
 
 /**
  * 下拉刷新界面，带Toolbar
@@ -27,6 +27,7 @@ public abstract class PullToRefreshActivity<Adapter extends BaseQuickAdapter, En
     @Override
     public void reLoad() {
         isLoadSuccess = false;
+        isLoadComplete = false;
         refresh();
     }
 
@@ -41,7 +42,7 @@ public abstract class PullToRefreshActivity<Adapter extends BaseQuickAdapter, En
     }
 
     protected int[] getColorSchemeResources() {
-        return Constant.SWIPE_REFRESH_LAYOUT_COLORS;
+        return Const.SWIPE_REFRESH_LAYOUT_COLORS;
     }
 
     @Override
