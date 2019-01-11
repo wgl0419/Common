@@ -2,9 +2,8 @@ package com.chhd.android.demo
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import com.blankj.utilcode.util.LogUtils
 import com.chhd.android.common.util.SpUtils
-import java.util.*
 
 class SpUtilsActivity : AppCompatActivity() {
 
@@ -12,12 +11,12 @@ class SpUtilsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sp_utils)
 
-        val temp = ArrayList<User>()
-        temp.add(User("1", "小雨"))
-        temp.add(User("2", "小花"))
-        SpUtils.put("strList", temp)
-        val list = SpUtils.getList("strList", User::class.java)
-        Log.i("debug-app", "" + list);
+        val map = HashMap<String, String>()
+        map["a"] = "1"
+        map["b"] = "2"
+        SpUtils.put("map", map)
+        val newMap = SpUtils.get("map", Map::class.java) as Map<String, String>?
+        LogUtils.i(map, newMap)
     }
 
 

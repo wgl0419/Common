@@ -69,6 +69,9 @@ public abstract class ProgressDialogFragment extends BaseDialogFragment implemen
     protected abstract int getContentResId();
 
     protected void onPrepare(View view, @Nullable Bundle savedInstanceState) {
+        isLoadSuccess = false;
+        isLoadComplete = false;
+
         loadingView = view.findViewById(R.id.loading);
         errorView = view.findViewById(R.id.error);
         emptyView = view.findViewById(R.id.empty);
@@ -94,13 +97,17 @@ public abstract class ProgressDialogFragment extends BaseDialogFragment implemen
         btnRetry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reLoad();
+                isLoadSuccess = false;
+                isLoadComplete = false;
+                onLoad();
             }
         });
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reLoad();
+                isLoadSuccess = false;
+                isLoadComplete = false;
+                onLoad();
             }
         });
     }
@@ -108,7 +115,8 @@ public abstract class ProgressDialogFragment extends BaseDialogFragment implemen
     /**
      * 初始化
      *
-     * @param view 根布局
+     * @param view               根布局
+     * @param savedInstanceState savedInstanceState
      */
     protected abstract void onInit(View view, @Nullable Bundle savedInstanceState);
 

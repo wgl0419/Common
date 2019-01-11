@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chhd.android.common.R;
 import com.chhd.android.common.entity.BaseListData;
-import com.chhd.android.common.ui.view.decoration.dp.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,35 +28,20 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
 
     protected RecyclerView recyclerView;
 
-    protected BaseListData listData = new BaseListData() {
-        @Override
-        public Integer getPageStart() {
-            return 0;
-        }
-
-        @Override
-        public Boolean isPageNext() {
-            return false;
-        }
-
-        @Override
-        public List getList() {
-            return null;
-        }
-    };
+    protected BaseListData listData;
     protected List<Entity> list = new ArrayList<>();
 
     protected Adapter adapter;
     protected RecyclerView.LayoutManager layoutManager;
 
     /**
-     * 获取列表适配器
+     * 生成列表适配器
      *
      * @return Adapter
      */
-    protected abstract Adapter getAdapter();
+    protected abstract Adapter onCreateAdapter();
 
-    protected RecyclerView.LayoutManager getLayoutManager() {
+    protected RecyclerView.LayoutManager onCreateLayoutManager() {
         return new LinearLayoutManager(this);
     }
 
@@ -77,13 +61,31 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
     protected void onPrepare(Bundle savedInstanceState) {
         super.onPrepare(savedInstanceState);
 
+        list = new ArrayList<>();
+        listData = new BaseListData() {
+            @Override
+            public Integer getPageStart() {
+                return 0;
+            }
+
+            @Override
+            public Boolean isPageNext() {
+                return false;
+            }
+
+            @Override
+            public List getList() {
+                return new ArrayList();
+            }
+        };
+
         recyclerView = findViewById(R.id.recycler_view);
         if (recyclerView == null) {
             throw new NullPointerException("Layout must have one RecyclerView, " +
                     "and id must set recycler_view.");
         }
 
-        adapter = getAdapter();
+        adapter = onCreateAdapter();
         adapter.openLoadAnimation();
         adapter.setHeaderFooterEmpty(true, true);
         adapter.setEmptyView(new View(this));
@@ -91,7 +93,7 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
         adapter.setOnItemChildClickListener(this);
         adapter.setOnItemLongClickListener(this);
         adapter.setOnItemChildLongClickListener(this);
-        layoutManager = getLayoutManager();
+        layoutManager = onCreateLayoutManager();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
@@ -179,24 +181,19 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
     /**
      * 加载列表成功
      *
-     * @param listData listData
+     * @param data listData
      */
-    protected void onLoadSuccess(BaseListData<Entity> listData) {
-        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                onLoadMore();
+    protected void onLoadSuccess(BaseListData<Entity> data) {
+        if (data != null) {
+            this.listData = data;
+            if (data.getPageStart() == null || data.getPageStart() == 0) {
+                list.clear();
             }
-        }, recyclerView);
-        this.listData = listData;
-        if (listData.getPageStart() == null || listData.getPageStart() == 0) {
-            list.clear();
+            if (data.getList() != null) {
+                list.addAll(data.getList());
+            }
+            adapter.notifyDataSetChanged();
         }
-
-        if (listData.getList() != null) {
-            list.addAll(listData.getList());
-        }
-        adapter.notifyDataSetChanged();
 
         showListEmpty();
         if (list.isEmpty()) {
@@ -204,12 +201,19 @@ public abstract class ListActivity<Adapter extends BaseQuickAdapter, Entity> ext
             onPageSuccess();
         }
 
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                onLoadMore();
+            }
+        }, recyclerView);
         adapter.setEnableLoadMore(true);
         if (listData.isPageNext() != null && listData.isPageNext()) {
             adapter.loadMoreComplete();
         } else {
             adapter.loadMoreEnd();
         }
+
         isLoadComplete = true;
     }
 

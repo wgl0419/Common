@@ -5,12 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingTop="@dimen/dp_56"
     tools:context=".ClearEditTextActivity">
 
     <com.chhd.android.common.ui.view.ClearEditText
         android:id="@+id/et1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_48" />
+        android:layout_height="@dimen/dp_48"
+        android:drawableStart="@drawable/ic_arrow_drop_down_gray_16dp" />
+
+    <com.chhd.android.common.ui.view.ClearTextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:drawableEnd="@drawable/ic_arrow_drop_down_gray_16dp" />
 
     <Button
         android:id="@+id/btn_text"

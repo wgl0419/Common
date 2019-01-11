@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -36,10 +37,34 @@ public class ClearEditText extends android.support.v7.widget.AppCompatEditText
         init(context, attrs);
     }
 
+    private Drawable defStartIcon;
+    private Drawable defEndIcon;
+    private Drawable defTopIcon;
+    private Drawable defBottomIcon;
+
     private int iconId;
 
     private void init(Context context, AttributeSet attrs) {
         addTextChangedListener(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            defStartIcon = getCompoundDrawablesRelative()[0];
+            defEndIcon = getCompoundDrawablesRelative()[2];
+            defTopIcon = getCompoundDrawablesRelative()[1];
+            defBottomIcon = getCompoundDrawablesRelative()[3];
+        }
+        if (defStartIcon == null) {
+            defStartIcon = getCompoundDrawables()[0];
+        }
+        if (defEndIcon == null) {
+            defEndIcon = getCompoundDrawables()[2];
+        }
+        if (defTopIcon == null) {
+            defTopIcon = getCompoundDrawables()[1];
+        }
+        if (defBottomIcon == null) {
+            defBottomIcon = getCompoundDrawables()[3];
+        }
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ClearEditText);
         iconId = typedArray.getResourceId(R.styleable.ClearEditText_clearIcon,
@@ -68,13 +93,13 @@ public class ClearEditText extends android.support.v7.widget.AppCompatEditText
             public void run() {
                 if (isEnabled()) {
                     if (TextUtils.isEmpty(s)) {
-                        setCompoundDrawables(null, null, null, null);
+                        setCompoundDrawables(defStartIcon, defTopIcon, defEndIcon, defBottomIcon);
                     } else {
                         // 如果EditText可用，并且内容不为空，设置删除按钮
                         Drawable drawable = ContextCompat.getDrawable(getContext(), iconId);
                         drawable.setBounds(0, 0, drawable.getMinimumWidth(),
                                 drawable.getMinimumHeight());
-                        setCompoundDrawables(null, null, drawable, null);
+                        setCompoundDrawables(defStartIcon, defTopIcon, drawable, defBottomIcon);
                     }
                 }
             }

@@ -2,9 +2,9 @@
 <resources>
 
     <!-- 针对Fragment生命周期setUserVisibleHint、onHiddenChanged是否重新调用OnLoad方法-->
-    <bool name="visible_load">false</bool>
+    <bool name="visible_load">true</bool>
 
     <!-- 针对Activity、Fragment生命周期OnResume是否重新调用OnLoad方法 -->
-    <bool name="resume_load">false</bool>
+    <bool name="resume_load">true</bool>
 
 </resources>

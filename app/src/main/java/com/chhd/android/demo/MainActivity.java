@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.chhd.android.common.ui.activity.ToolbarActivity;
+import com.chhd.android.common.util.NumberUtils;
+
+import java.math.BigDecimal;
 
 
 public class MainActivity extends ToolbarActivity {
@@ -103,7 +107,6 @@ public class MainActivity extends ToolbarActivity {
                 startActivity(intent);
             }
         });
-
 
     }
 }

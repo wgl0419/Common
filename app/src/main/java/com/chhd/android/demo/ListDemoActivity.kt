@@ -28,7 +28,7 @@ import java.io.File
 
 class ListDemoActivity : PullToRefreshActivity<ListDemoActivity.ListAdapter, ListDemoActivity.Entity>() {
 
-    override fun getAdapter(): ListAdapter {
+    override fun onCreateAdapter(): ListAdapter {
         return ListAdapter(list)
     }
 
@@ -43,6 +43,7 @@ class ListDemoActivity : PullToRefreshActivity<ListDemoActivity.ListAdapter, Lis
 
         PermissionUtils.permission(PermissionConstants.STORAGE)
                 .request()
+
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
@@ -52,12 +53,12 @@ class ListDemoActivity : PullToRefreshActivity<ListDemoActivity.ListAdapter, Lis
     }
 
     override fun onLoad(isLoadMore: Boolean) {
-        val list = ArrayList<Entity>()
-        for (i in 0..3) {
-            list.add(Entity())
-        }
+//        val list = ArrayList<Entity>()
+//        for (i in 0..3) {
+//            list.add(Entity())
+//        }
 //        onLoadSuccess(list)
-        adapter.setNewData(list)
+//        adapter.setNewData(list)
     }
 
     override fun getToolbarTitle(): CharSequence {

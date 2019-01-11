@@ -69,7 +69,7 @@ public class FragmentTabActivity extends AppCompatActivity {
     public static class ListFragment extends PullToRefreshFragment<ListAdapter, Object> {
 
         @Override
-        protected ListAdapter getAdapter() {
+        protected ListAdapter onCreateAdapter() {
             return new ListAdapter(list);
         }
 

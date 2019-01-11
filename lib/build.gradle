@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -54,7 +58,7 @@ publish {
     userOrg = 'conghuahuadan'
     groupId = 'com.conghuahuadan.android'
     artifactId = 'common'
-    publishVersion = '0.5.10.3'
+    publishVersion = '0.5.17'
     desc = 'common'
-    website = 'https://github.com/conghuahuadan/Lib-Common'
+    website = 'https://github.com/conghuahuadan/Common'
 }

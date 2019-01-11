@@ -42,7 +42,7 @@ public abstract class ListDialogFragment<Adapter extends BaseQuickAdapter, Entit
 
         @Override
         public List getList() {
-            return null;
+            return new ArrayList();
         }
     };
     protected List<Entity> list = new ArrayList<>();
@@ -51,13 +51,13 @@ public abstract class ListDialogFragment<Adapter extends BaseQuickAdapter, Entit
     protected RecyclerView.LayoutManager layoutManager;
 
     /**
-     * 获取列表适配器
+     * 生成列表适配器
      *
      * @return Adapter
      */
-    protected abstract Adapter getAdapter();
+    protected abstract Adapter onCreateAdapter();
 
-    protected RecyclerView.LayoutManager getLayoutManager() {
+    protected RecyclerView.LayoutManager onCreateLayoutManager() {
         return new LinearLayoutManager(getActivity());
     }
 
@@ -65,13 +65,31 @@ public abstract class ListDialogFragment<Adapter extends BaseQuickAdapter, Entit
     protected void onPrepare(View view, @Nullable Bundle savedInstanceState) {
         super.onPrepare(view, savedInstanceState);
 
+        list = new ArrayList<>();
+        listData = new BaseListData() {
+            @Override
+            public Integer getPageStart() {
+                return 0;
+            }
+
+            @Override
+            public Boolean isPageNext() {
+                return false;
+            }
+
+            @Override
+            public List getList() {
+                return new ArrayList();
+            }
+        };
+
         recyclerView = view.findViewById(R.id.recycler_view);
         if (recyclerView == null) {
             throw new NullPointerException("Layout must have one RecyclerView, " +
                     "and id must set recycler_view.");
         }
 
-        adapter = getAdapter();
+        adapter = onCreateAdapter();
         adapter.openLoadAnimation();
         adapter.setHeaderFooterEmpty(true, true);
         adapter.setEmptyView(new View(getActivity()));
@@ -79,7 +97,7 @@ public abstract class ListDialogFragment<Adapter extends BaseQuickAdapter, Entit
         adapter.setOnItemChildClickListener(this);
         adapter.setOnItemLongClickListener(this);
         adapter.setOnItemChildLongClickListener(this);
-        layoutManager = getLayoutManager();
+        layoutManager = onCreateLayoutManager();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
@@ -177,23 +195,19 @@ public abstract class ListDialogFragment<Adapter extends BaseQuickAdapter, Entit
     /**
      * 加载列表成功
      *
-     * @param listData listData
+     * @param data listData
      */
-    protected void onLoadSuccess(BaseListData<Entity> listData) {
-        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                onLoadMore();
+    protected void onLoadSuccess(BaseListData<Entity> data) {
+        if (data != null) {
+            this.listData = data;
+            if (data.getPageStart() == null || data.getPageStart() == 0) {
+                list.clear();
             }
-        }, recyclerView);
-        this.listData = listData;
-        if (listData.getPageStart() == null || listData.getPageStart() == 0) {
-            list.clear();
+            if (data.getList() != null) {
+                list.addAll(data.getList());
+            }
+            adapter.notifyDataSetChanged();
         }
-        if (listData.getList() != null) {
-            list.addAll(listData.getList());
-        }
-        adapter.notifyDataSetChanged();
 
         showListEmpty();
         if (list.isEmpty()) {
@@ -201,12 +215,19 @@ public abstract class ListDialogFragment<Adapter extends BaseQuickAdapter, Entit
             onPageSuccess();
         }
 
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                onLoadMore();
+            }
+        }, recyclerView);
         adapter.setEnableLoadMore(true);
         if (listData.isPageNext() != null && listData.isPageNext()) {
             adapter.loadMoreComplete();
         } else {
             adapter.loadMoreEnd();
         }
+
         isLoadComplete = true;
     }
 
@@ -232,6 +253,9 @@ public abstract class ListDialogFragment<Adapter extends BaseQuickAdapter, Entit
     }
 
     protected void showListLoading() {
+        if (getActivity() == null) {
+            return;
+        }
         View loadingView = View.inflate(getActivity(), R.layout.layout_loading, null);
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
                 RecyclerView.LayoutParams.WRAP_CONTENT);
@@ -244,6 +268,9 @@ public abstract class ListDialogFragment<Adapter extends BaseQuickAdapter, Entit
      * 显示列表空布局
      */
     protected void showListEmpty() {
+        if (getActivity() == null) {
+            return;
+        }
         View emptyView = View.inflate(getActivity(), R.layout.layout_empty, null);
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
                 RecyclerView.LayoutParams.WRAP_CONTENT);
@@ -258,6 +285,9 @@ public abstract class ListDialogFragment<Adapter extends BaseQuickAdapter, Entit
      * @param message 服务端返回的错误信息
      */
     protected void showListError(String message) {
+        if (getActivity() == null) {
+            return;
+        }
         View errorView = View.inflate(getActivity(), R.layout.layout_error, null);
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
                 RecyclerView.LayoutParams.WRAP_CONTENT);
@@ -295,4 +325,5 @@ public abstract class ListDialogFragment<Adapter extends BaseQuickAdapter, Entit
         list.clear();
         super.onDestroy();
     }
+
 }

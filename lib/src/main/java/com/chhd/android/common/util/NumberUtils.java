@@ -213,7 +213,7 @@ public class NumberUtils {
     }
 
     public static BigDecimal mul(Number... args) {
-        return math(MATH_TYPE_DIV, args);
+        return math(MATH_TYPE_MUL, args);
     }
 
     public static BigDecimal div(Number... args) {
@@ -239,7 +239,8 @@ public class NumberUtils {
                 } else if (type == MATH_TYPE_MUL) {
                     bigDecimal = bigDecimal.multiply(new BigDecimal(arg.toString()));
                 } else if (type == MATH_TYPE_DIV) {
-                    bigDecimal = bigDecimal.divide(new BigDecimal(arg.toString()), BigDecimal.ROUND_HALF_UP);
+                    // float类型最多保留8位，double类型最多保留16，暂且填16
+                    bigDecimal = bigDecimal.divide(new BigDecimal(arg.toString()), 16, BigDecimal.ROUND_HALF_UP);
                 }
             }
         }

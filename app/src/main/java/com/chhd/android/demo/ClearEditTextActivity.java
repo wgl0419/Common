@@ -16,7 +16,6 @@ public class ClearEditTextActivity extends AppCompatActivity {
         final EditText et1 = findViewById(R.id.et1);
         final Button btnText = findViewById(R.id.btn_text);
 
-        et1.setEnabled(false);
         et1.setText("987654");
 
         btnText.setOnClickListener(new View.OnClickListener() {

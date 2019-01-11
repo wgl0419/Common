@@ -44,7 +44,7 @@ class FragmentListActivity : ToolbarActivity() {
     }
 
     class ListFragment : com.chhd.android.common.ui.fragment.PullToRefreshFragment<ListAdapter, Entity>() {
-        override fun getAdapter(): ListAdapter {
+        override fun onCreateAdapter(): ListAdapter {
             return ListAdapter(list)
         }
 

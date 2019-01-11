@@ -65,6 +65,9 @@ public abstract class ProgressActivity extends ToolbarActivity implements IPageV
     protected abstract int getContentResId();
 
     protected void onPrepare(Bundle savedInstanceState) {
+        isLoadSuccess = false;
+        isLoadComplete = false;
+
         loadingView = findViewById(R.id.loading);
         errorView = findViewById(R.id.error);
         emptyView = findViewById(R.id.empty);
@@ -90,13 +93,17 @@ public abstract class ProgressActivity extends ToolbarActivity implements IPageV
         btnRetry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reLoad();
+                isLoadSuccess = false;
+                isLoadComplete = false;
+                onLoad();
             }
         });
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reLoad();
+                isLoadSuccess = false;
+                isLoadComplete = false;
+                onLoad();
             }
         });
     }
