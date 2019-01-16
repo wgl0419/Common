@@ -164,7 +164,6 @@ public class DateUtils {
             Date date = format.parse(endDate);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
-            calendar.setTime(new Date());
             calendar.add(Calendar.MONTH, -1);
             format = new SimpleDateFormat(toPattern, Locale.getDefault());
             return format.format(calendar.getTime());

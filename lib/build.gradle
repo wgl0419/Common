@@ -58,7 +58,7 @@ publish {
     userOrg = 'conghuahuadan'
     groupId = 'com.conghuahuadan.android'
     artifactId = 'common'
-    publishVersion = '0.5.17'
+    publishVersion = '0.6.1'
     desc = 'common'
     website = 'https://github.com/conghuahuadan/Common'
 }

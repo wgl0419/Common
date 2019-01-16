@@ -1,5 +1,6 @@
 package com.chhd.android.common.http;
 
+import com.chhd.android.common.BuildConfig;
 import com.chhd.android.common.http.interceptor.LogInterceptor;
 import com.chhd.android.common.http.interceptor.ParamsInterceptor;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
@@ -53,8 +54,10 @@ public class RetrofitProvider {
         if (headers != null && !headers.isEmpty()) {
             builder.addInterceptor(buildParamsInterceptor(headers));
         }
-        builder.addInterceptor(new LogInterceptor());
-        builder.addNetworkInterceptor(new StethoInterceptor());
+        if (BuildConfig.DEBUG) {
+            builder.addInterceptor(new LogInterceptor());
+            builder.addNetworkInterceptor(new StethoInterceptor());
+        }
         return builder.build();
     }
 

@@ -2,7 +2,10 @@ package com.chhd.android.common.util;
 
 import android.app.Application;
 
+import com.chhd.android.common.BuildConfig;
+import com.chhd.android.common.http.interceptor.LogInterceptor;
 import com.facebook.stetho.Stetho;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 /**
  * 使用Util包下工具类，必须先初始化
@@ -19,7 +22,10 @@ public class CommonUtils {
     public static void init(Application application) {
         if (instance == null) {
             instance = application;
-            Stetho.initializeWithDefaults(instance);
+            // chrome://inspect/#devices
+            if (BuildConfig.DEBUG) {
+                Stetho.initializeWithDefaults(instance);
+            }
         }
     }
 
